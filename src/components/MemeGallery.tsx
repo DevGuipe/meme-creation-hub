@@ -447,10 +447,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
               ...updatedMeme,
               layers_payload: typeof updatedMeme.layers_payload === 'string' 
                 ? JSON.parse(updatedMeme.layers_payload) 
-                : updatedMeme.layers_payload,
-              image_urls: typeof updatedMeme.image_urls === 'string'
-                ? JSON.parse(updatedMeme.image_urls)
-                : updatedMeme.image_urls
+                : updatedMeme.layers_payload
             } as unknown as Meme;
           } catch (parseError) {
             logger.error('Failed to parse meme data', parseError);
