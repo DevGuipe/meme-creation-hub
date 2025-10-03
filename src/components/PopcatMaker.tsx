@@ -5,7 +5,7 @@ import { Plus, FolderOpen } from 'lucide-react';
 import { TelegramAuth } from './TelegramAuth';
 import { MemeEditor } from './MemeEditor';
 import { MemeGallery } from './MemeGallery';
-import { PopcatStatsComponent } from './PopcatStats';
+import { PopcatStats } from './PopcatStats';
 import { logger } from '@/lib/logger';
 import type { TelegramUser } from '@/types';
 
@@ -55,7 +55,7 @@ export const PopcatMaker = () => {
         {/* POPCAT Stats */}
         <div className="mb-8">
           {/* FIXED: Pass number directly without string conversion */}
-          {user?.id && <PopcatStatsComponent userId={user.id} />}
+          {user?.id && <PopcatStats userId={user.id} />}
         </div>
 
         {/* Main Actions */}

@@ -46,7 +46,7 @@ const SOURCE_LABELS = {
   'weekly_winner': '👑 Weekly Winner'
 };
 
-export const PopcatStatsComponent = ({ userId }: PopcatStatsProps) => {
+export const PopcatStats = ({ userId }: PopcatStatsProps) => {
   const [stats, setStats] = useState<PopcatStatsType | null>(null);
   const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -423,4 +423,3 @@ export const PopcatStatsComponent = ({ userId }: PopcatStatsProps) => {
   );
 };
 
-export default PopcatStatsComponent;
