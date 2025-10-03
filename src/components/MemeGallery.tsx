@@ -128,10 +128,15 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
           logger.warn('Error parsing layers_payload for meme', { memeId: meme.id, error });
         }
 
-        // Safely parse image_urls
+        // Safely parse image_urls - support both old (image_urls object) and new (image_url string) formats
         let image_urls: Record<string, string> = {};
         try {
-          if (typeof meme.image_urls === 'string') {
+          // New format: single image_url field (string)
+          if (meme.image_url && typeof meme.image_url === 'string') {
+            image_urls = { preview: meme.image_url, original: meme.image_url };
+          }
+          // Old format: image_urls object
+          else if (typeof meme.image_urls === 'string') {
             image_urls = JSON.parse(meme.image_urls);
           } else if (typeof meme.image_urls === 'object' && meme.image_urls !== null) {
             image_urls = meme.image_urls as Record<string, string>;
