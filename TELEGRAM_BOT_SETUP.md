@@ -14,8 +14,8 @@ O erro "authentication required" ocorre quando o Telegram WebApp não consegue o
 1. Selecione "Bot Settings"
 2. Selecione "Menu Button"
 3. Escolha "Configure menu button"
-4. Envie a URL do seu app: `https://4282478c-9b63-44e3-8f3a-8eb9cc444cee.lovableproject.com`
-5. Envie o texto do botão (ex: "Abrir App" ou "Open App")
+4. Envie a URL do seu app em produção: `https://chadmaker.click`
+5. Envie o texto do botão (ex: "🗿 Abrir CHAD Maker" ou "Open App")
 
 ### Passo 3: Teste a Configuração
 1. Abra uma conversa com seu bot
@@ -31,14 +31,14 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
 keyboard = [[
     InlineKeyboardButton(
-        "🚀 Abrir App", 
-        web_app=WebAppInfo(url="https://4282478c-9b63-44e3-8f3a-8eb9cc444cee.lovableproject.com")
+        "🗿 Abrir CHAD Maker", 
+        web_app=WebAppInfo(url="https://chadmaker.click")
     )
 ]]
 reply_markup = InlineKeyboardMarkup(keyboard)
 
 await update.message.reply_text(
-    "Clique no botão abaixo para abrir o app:",
+    "Clique no botão abaixo para abrir o CHAD Maker:",
     reply_markup=reply_markup
 )
 ```
