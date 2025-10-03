@@ -230,10 +230,18 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="p-8 text-center bg-card border-border brutal-shadow">
-          <div className="animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-muted-foreground font-ui">Connecting to Telegram...</p>
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, hsl(25 95% 53%), hsl(32 100% 60%))' }}>
+        <Card className="max-w-md w-full p-10 text-center bg-card/95 backdrop-blur-sm border-2 border-primary shadow-2xl">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <div className="absolute inset-2 animate-pulse rounded-full bg-gradient-to-br from-primary to-accent opacity-20" />
+          </div>
+          <h2 className="text-2xl font-bold font-popcat text-foreground mb-3">
+            🐱 Conectando ao Telegram
+          </h2>
+          <p className="text-muted-foreground font-ui text-base">
+            Aguarde enquanto verificamos sua autenticação...
+          </p>
         </Card>
       </div>
     );
@@ -241,20 +249,44 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="p-8 text-center bg-card border-border brutal-shadow">
-          <User className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h2 className="text-xl font-bold font-ui mb-2">Authentication Required</h2>
-          <p className="text-muted-foreground font-ui mb-4">
-            This app requires Telegram WebApp authentication.
-          </p>
-          <p className="text-sm text-destructive font-ui mb-4">{error}</p>
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, hsl(25 95% 53%), hsl(32 100% 60%))' }}>
+        <Card className="max-w-md w-full p-10 text-center bg-card/95 backdrop-blur-sm border-2 border-primary shadow-2xl">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-destructive/20 to-destructive/10 animate-pulse" />
+            <User className="w-12 h-12 text-destructive absolute inset-0 m-auto" strokeWidth={2.5} />
+          </div>
+          
+          <h2 className="text-2xl font-bold font-popcat text-foreground mb-3">
+            🔐 Autenticação Necessária
+          </h2>
+          
+          <div className="bg-muted/50 rounded-lg p-4 mb-4">
+            <p className="text-foreground font-ui text-base mb-2">
+              Este aplicativo funciona exclusivamente através do Telegram
+            </p>
+            <p className="text-sm text-muted-foreground font-ui">
+              Por favor, abra o app através do bot do Telegram para ter acesso completo
+            </p>
+          </div>
+          
+          {error && (
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 mb-4">
+              <p className="text-sm text-destructive font-ui">
+                ⚠️ {error}
+              </p>
+            </div>
+          )}
+          
           <Button 
             onClick={() => window.location.reload()} 
-            className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90 font-ui"
+            className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-popcat text-lg py-6 shadow-lg hover:shadow-xl transition-all"
           >
-            Retry
+            🔄 Tentar Novamente
           </Button>
+          
+          <p className="text-xs text-muted-foreground font-ui mt-4">
+            Precisa de ajuda? Entre em contato com o suporte
+          </p>
         </Card>
       </div>
     );
