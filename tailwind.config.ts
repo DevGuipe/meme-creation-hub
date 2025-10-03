@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        popcat: {
+          orange: "hsl(25 95% 53%)",
+          cream: "hsl(32 100% 85%)",
+          brown: "hsl(28 60% 25%)",
+        },
+      },
+      fontFamily: {
+        'popcat': ['Fredoka', 'Comic Neue', 'sans-serif'],
+        'ui': ['Comic Neue', 'Inter', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

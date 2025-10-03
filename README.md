@@ -1,73 +1,51 @@
-# Welcome to your Lovable project
+# 🗿 Meme Maker Forge
 
-## Project info
+## About the Project
 
-**URL**: https://lovable.dev/projects/4282478c-9b63-44e3-8f3a-8eb9cc444cee
+**Meme Maker Forge** is a complete meme generator with gamification system. Built with React, TypeScript, Supabase and native Telegram Bot integration.
 
-## How can I edit this code?
+## Technologies Used
 
-There are several ways of editing your application.
+- **Frontend:** React + TypeScript + Vite
+- **UI:** shadcn-ui + Tailwind CSS  
+- **Backend:** Supabase (Database + Edge Functions)
+- **Bot:** Telegram Bot API
+- **Deploy:** VPS Ubuntu 22.04 + Nginx
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4282478c-9b63-44e3-8f3a-8eb9cc444cee) and start prompting.
+- ✅ Complete meme editor with templates
+- ✅ Authentication system via Telegram WebApp
+- ✅ Complete database on Supabase with RLS
+- ✅ Functional Telegram bot with commands and reactions
+- ✅ Gamification system (POPS Points)
+- ✅ Personal meme gallery
+- ✅ Rankings and leaderboards
+- ✅ Responsive and mobile-first design
 
-Changes made via Lovable will be committed automatically to this repo.
+## How to Run Locally
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd meme-maker-forge
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run in development
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deploy
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+See the `INSTALLATION.md` file for complete deployment instructions on VPS Ubuntu 22.04.
 
-**Use GitHub Codespaces**
+## Bot Commands
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- `/start` - Register user and open WebApp  
+- `/meme <ID>` - Publish saved meme (groups only)
 
-## What technologies are used for this project?
+---
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/4282478c-9b63-44e3-8f3a-8eb9cc444cee) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+*🗿 Ready to forge some memes! 💪*
