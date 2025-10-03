@@ -32,11 +32,26 @@ export const repairMemePreview = async (memeId: string, shortId: string, imageDa
 
 /**
  * Check if a meme has a placeholder preview
+ * Supports both new format (image_url) and old format (image_urls.preview)
  */
-export const hasPlaceholderPreview = (meme: { image_urls?: Record<string, string> }): boolean => {
-  return meme.image_urls?.preview === '/placeholder.svg' || 
-         !meme.image_urls?.preview || 
-         meme.image_urls.preview.includes('placeholder');
+export const hasPlaceholderPreview = (meme: { 
+  image_url?: string | null; 
+  image_urls?: Record<string, string> 
+}): boolean => {
+  // Check new format first (single image_url field)
+  const newFormatUrl = meme.image_url;
+  if (newFormatUrl && newFormatUrl !== '/placeholder.svg' && !newFormatUrl.includes('placeholder')) {
+    return false; // Has valid image in new format
+  }
+  
+  // Check old format (image_urls.preview)
+  const oldFormatUrl = meme.image_urls?.preview;
+  if (oldFormatUrl && oldFormatUrl !== '/placeholder.svg' && !oldFormatUrl.includes('placeholder')) {
+    return false; // Has valid image in old format
+  }
+  
+  // No valid image found in either format
+  return true;
 };
 
 export const finalizeMemePreview = async (
