@@ -20,7 +20,23 @@ serve(async (req) => {
       });
     }
 
-    const action = new URL(req.url).searchParams.get('action') || 'getWebhookInfo';
+    const url = new URL(req.url);
+    let action = url.searchParams.get('action');
+
+    // Also support JSON body: { action: "getWebhookInfo" | "setWebhook" | "deleteWebhook" | "getMe" }
+    if (!action && req.method !== 'OPTIONS') {
+      try {
+        const contentType = req.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const json = await req.json();
+          action = json?.action as string | null;
+        }
+      } catch (_e) {
+        // ignore body parsing errors
+      }
+    }
+
+    action = action || 'getWebhookInfo';
 
     if (action === 'getWebhookInfo') {
       // Check current webhook status
