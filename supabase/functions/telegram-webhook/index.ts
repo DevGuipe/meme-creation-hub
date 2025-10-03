@@ -113,6 +113,100 @@ serve(async (req) => {
         return new Response('Invalid user ID', { status: 400 });
       }
 
+      // Handle "How to Use" callback
+      if (data === 'help') {
+        const helpText = `🐱 *POPCAT MEMER - HOW TO POP* 🐱
+
+📱 *CREATE EPIC MEMES:*
+Tap the "Open POPCAT Memer" button to launch the app and start creating!
+
+🎨 *CUSTOMIZE YOUR MEME:*
+• Choose from legendary templates (Chad, Virgin vs Chad, Yes Chad, etc.)
+• Pick backgrounds that POP
+• Add text that slaps
+• Drag & drop elements like a boss
+
+💾 *SAVE & SHARE:*
+• Save your meme to earn +3 POPS 🎉
+• Share to groups for +1 POPS per reaction! 💪
+
+📊 *EARN POPS POINTS:*
+• Create memes → +3 POPS
+• Get reactions → +1 POPS each
+• Climb the leaderboard like a GIGACHAD! 🏆
+
+🗿 *PUBLISH IN GROUPS:*
+Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
+
+*Ready to POP? Let's gooooo! 🚀*`;
+
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            callback_query_id: callbackQuery.id,
+          })
+        });
+
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: callbackQuery.message.chat.id,
+            text: helpText,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        return new Response('Help sent', { status: 200, headers: corsHeaders });
+      }
+
+      // Handle "Leaderboard" callback
+      if (data === 'leaderboard') {
+        // Fetch top 5 users from leaderboard
+        const { data: topUsers, error: leaderboardError } = await supabase
+          .rpc('get_user_rankings')
+          .limit(5);
+
+        let leaderboardText = '🏆 *POPCAT LEADERBOARD - TOP POPPERS* 🏆\n\n';
+        
+        if (leaderboardError || !topUsers || topUsers.length === 0) {
+          leaderboardText += '🐱 No one is popping yet! Be the first GIGACHAD!\n\nCreate memes, get reactions, and dominate the leaderboard! 💪';
+        } else {
+          topUsers.forEach((user: any, index: number) => {
+            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+            const username = user.username ? `@${user.username}` : user.first_name || 'Anonymous Chad';
+            const score = user.total_score || 0;
+            const weeklyGain = user.weekly_gain || 0;
+            const gainEmoji = weeklyGain > 0 ? '📈' : weeklyGain < 0 ? '📉' : '➖';
+            
+            leaderboardText += `${medal} *${username}* - ${score} POPS ${gainEmoji}\n`;
+          });
+          
+          leaderboardText += '\n🐱 Keep popping to reach the top! 🚀';
+        }
+
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            callback_query_id: callbackQuery.id,
+          })
+        });
+
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: callbackQuery.message.chat.id,
+            text: leaderboardText,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        return new Response('Leaderboard sent', { status: 200, headers: corsHeaders });
+      }
+
       // Parse reaction data: "react_type_memeId" format
       const reactionMatch = data.match(/^react_(thumbs_up|laugh|flex|popcat|moai)_(.+)$/);
       if (reactionMatch) {
@@ -271,19 +365,32 @@ serve(async (req) => {
       const webAppUrlWithParams = `${webAppUrl}?tgUserId=${userId}&tgUsername=${encodeURIComponent(sanitizedUsername || '')}&tgFirstName=${encodeURIComponent(sanitizedFirstName)}`;
       console.log('🔗 WebApp URL with params:', webAppUrlWithParams);
 
-      // Send welcome message with WebApp button
+      // Send welcome message with WebApp button and action buttons
       const welcomeMessage = {
         chat_id: chatId,
-        text: "🐱 Meow meow! Welcome to POPCAT Memer! Ready to create some epic POPCAT memes? 🚀\n\nTap the button below to join the POP revolution:",
+        text: "🐱 *MEOW MEOW! WELCOME TO POPCAT MEMER!* 🐱\n\nReady to create some LEGENDARY memes and farm POPS points like a GIGACHAD? 🚀\n\n✨ Tap below to join the POP revolution and start your journey to meme greatness! 💪",
+        parse_mode: 'Markdown',
         reply_markup: {
-          inline_keyboard: [[
-            {
-              text: "🐱 Open POPCAT Memer",
-              web_app: {
-                url: webAppUrlWithParams
+          inline_keyboard: [
+            [
+              {
+                text: "🐱 Open POPCAT Memer",
+                web_app: {
+                  url: webAppUrlWithParams
+                }
               }
-            }
-          ]]
+            ],
+            [
+              {
+                text: "📖 How to Use",
+                callback_data: "help"
+              },
+              {
+                text: "🏆 Leaderboard",
+                callback_data: "leaderboard"
+              }
+            ]
+          ]
         }
       };
 
