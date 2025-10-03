@@ -22,6 +22,7 @@ declare global {
         initDataUnsafe?: {
           user?: TelegramUser;
         };
+        initData?: string;
         ready?: () => void;
       };
     };
@@ -61,8 +62,16 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
       logger.info('Detectado Telegram WebApp');
       window.Telegram.WebApp.ready?.();
       
+      // Debug: Log all available Telegram data
+      logger.debug('Telegram WebApp data:', {
+        hasInitData: !!window.Telegram.WebApp.initData,
+        hasInitDataUnsafe: !!window.Telegram.WebApp.initDataUnsafe,
+        initDataUnsafe: window.Telegram.WebApp.initDataUnsafe,
+        initData: window.Telegram.WebApp.initData
+      });
+      
       const user = window.Telegram.WebApp.initDataUnsafe?.user;
-      logger.debug('Telegram user data', { hasUser: !!user });
+      logger.debug('Telegram user data', { hasUser: !!user, user });
       
       if (user) {
         logger.info('Usuário encontrado no initDataUnsafe');
@@ -77,8 +86,26 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
         };
         registerUser(userFromUrl);
       } else {
-        logger.error('Nenhum dado de usuário encontrado');
-        setError(ERROR_MESSAGES.AUTH.NO_TELEGRAM_DATA);
+        // Try to parse initData string as last resort
+        const initData = window.Telegram.WebApp.initData;
+        if (initData) {
+          logger.info('Tentando fazer parse do initData string');
+          try {
+            const params = new URLSearchParams(initData);
+            const userStr = params.get('user');
+            if (userStr) {
+              const parsedUser = JSON.parse(userStr);
+              logger.info('Usuário obtido do initData string', { parsedUser });
+              registerUser(parsedUser);
+              return;
+            }
+          } catch (parseError) {
+            logger.error('Erro ao fazer parse do initData', parseError);
+          }
+        }
+        
+        logger.error('Nenhum dado de usuário encontrado em nenhum método');
+        setError('Não foi possível obter dados do Telegram. Por favor, abra o app através do bot usando o botão "Abrir App".');
         setIsLoading(false);
       }
     } else {
