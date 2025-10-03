@@ -375,11 +375,11 @@ serve(async (req) => {
         return new Response('Meme not found', { status: 200, headers: corsHeaders });
       }
 
-      // Resolve meme image URL: prefer pre-rendered preview, else call generator
+      // Resolve meme image URL: prefer pre-rendered image (new format), else call generator
       let imageUrl: string | null = null;
 
       try {
-        const preview = (meme as any).image_urls?.preview;
+        const preview = (meme as any).image_url;
         if (typeof preview === 'string') {
           if (/^https?:\/\//.test(preview)) {
             imageUrl = preview;

@@ -51,10 +51,10 @@ serve(async (req) => {
 
     console.info("🔎 Finalizing meme preview", { memeId, id_short });
 
-    // 1) Fetch meme
+    // 1) Fetch meme (using new image_url format)
     const { data: meme, error: memeErr } = await supabase
       .from("memes")
-      .select("id, id_short, image_urls, layers_payload")
+      .select("id, id_short, image_url, layers_payload")
       .eq("id", memeId)
       .maybeSingle();
 
@@ -69,8 +69,8 @@ serve(async (req) => {
     const shortId = id_short || meme.id_short;
     const filePath = `${shortId}.png`;
 
-    // 2) If DB already has a non-placeholder URL and it loads, approve
-    const currentPreview = (meme.image_urls as any)?.preview as string | undefined;
+    // 2) If DB already has a non-placeholder URL and it loads, approve (using new image_url format)
+    const currentPreview = meme.image_url as string | undefined;
     if (currentPreview && 
         !currentPreview.includes("placeholder") && 
         !currentPreview.includes("/placeholder.svg") &&
@@ -101,10 +101,10 @@ serve(async (req) => {
         signal: AbortSignal.timeout(5000) 
       });
       if (probe.ok) {
-        // Update DB and return
+        // Update DB and return (using new image_url format)
         const { error: updErr } = await supabase
           .from("memes")
-          .update({ image_urls: { preview: publicUrl } })
+          .update({ image_url: publicUrl })
           .eq("id", memeId);
         if (updErr) {
           console.error("❌ Failed to write existing storage URL", updErr);
@@ -172,11 +172,11 @@ serve(async (req) => {
       console.info("📦 Storage upload completed", { finalUrl });
     }
 
-    // 6) Write to DB
+    // 6) Write to DB (using new image_url format)
     console.info("💾 Updating database", { memeId, finalUrl });
     const { error: dbErr } = await supabase
       .from("memes")
-      .update({ image_urls: { preview: finalUrl } })
+      .update({ image_url: finalUrl })
       .eq("id", memeId);
 
     if (dbErr) {
