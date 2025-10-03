@@ -289,135 +289,158 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
 
   return (
     <div className="space-y-4">
-      {/* Main Stats */}
-      <Card className="p-4 bg-card border-border">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary font-popcat">{stats.totalScore}</div>
-            <div className="text-sm text-muted-foreground font-ui">Total POPS</div>
-            <div className="text-xs text-accent font-ui">#{stats.rank} Global</div>
+      {/* Main Stats with Modern Design */}
+      <Card className="glass-effect border-2 border-white/40 hover-lift overflow-hidden">
+        <div className="bg-gradient-to-r from-primary/10 via-accent/10 to-purple-500/10 p-6">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-center p-4 rounded-xl bg-white/50 hover-scale">
+              <div className="text-3xl font-bold font-popcat gradient-text mb-1">{stats.totalScore}</div>
+              <div className="text-xs text-muted-foreground font-ui uppercase tracking-wide">Total POPS</div>
+              <Badge variant="outline" className="mt-2 border-primary text-primary bg-primary/5">
+                #{stats.rank} Global
+              </Badge>
+            </div>
+            <div className="text-center p-4 rounded-xl bg-white/50 hover-scale">
+              <div className="text-3xl font-bold font-popcat gradient-text-sunset mb-1">{stats.weeklyScore}</div>
+              <div className="text-xs text-muted-foreground font-ui uppercase tracking-wide">This Week</div>
+              <Badge variant="purple" className="mt-2">
+                #{stats.weeklyRank} Weekly
+              </Badge>
+            </div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-secondary font-popcat">{stats.weeklyScore}</div>
-            <div className="text-sm text-muted-foreground font-ui">This Week</div>
-            <div className="text-xs text-accent font-ui">#{stats.weeklyRank} Weekly</div>
+          
+          <div className="mt-6 text-center">
+            <Badge 
+              variant="default" 
+              className="px-4 py-2 text-sm font-popcat shadow-lg hover:shadow-xl"
+            >
+              {currentBadge.icon} {currentBadge.name}
+            </Badge>
+            {nextBadge && (
+              <div className="mt-3 p-3 rounded-lg bg-white/40">
+                <p className="text-xs text-foreground font-ui font-semibold">
+                  🎯 {nextBadge.threshold - stats.totalScore} POPS to unlock <span className="font-popcat">{nextBadge.name}</span>
+                </p>
+                <div className="w-full bg-muted/30 rounded-full h-2 mt-2">
+                  <div 
+                    className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${(stats.totalScore / nextBadge.threshold) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        
-        <div className="mt-4 text-center">
-          <Badge 
-            variant="outline" 
-            className="text-accent border-accent bg-accent/10 px-3 py-1 font-ui"
-          >
-            {currentBadge.icon} {currentBadge.name}
-          </Badge>
-          {nextBadge && (
-            <p className="text-xs text-muted-foreground mt-2 font-ui">
-              {nextBadge.threshold - stats.totalScore} POPS to {nextBadge.name}
-            </p>
+      </Card>
+
+      {/* Recent Activity with Enhanced Visuals */}
+      <Card className="glass-effect border-2 border-white/40 hover-lift overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-500/5 to-pink-500/5 p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="p-2 rounded-lg bg-gradient-to-br from-accent to-purple-500">
+              <TrendingUp className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="font-popcat text-lg gradient-text">Recent Activity</h3>
+          </div>
+          
+          {stats.recentEvents && stats.recentEvents.length > 0 ? (
+            <div className="space-y-2">
+              {stats.recentEvents.map((event, index) => {
+                if (!event || typeof event.source !== 'string' || typeof event.amount !== 'number') {
+                  logger.warn('Invalid event data detected', { event, index });
+                  return null;
+                }
+                
+                return (
+                  <div 
+                    key={`${event.created_at}-${index}`} 
+                    className="flex items-center justify-between p-4 rounded-xl bg-white/60 hover:bg-white/80 transition-all hover-scale border border-white/50"
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="w-2 h-2 bg-gradient-to-br from-primary to-accent rounded-full flex-shrink-0 animate-pulse"></div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold font-ui text-foreground truncate">{formatSource(event.source)}</p>
+                        <p className="text-xs text-muted-foreground font-ui">
+                          {formatTimeAgo(event.created_at)}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge 
+                      variant={event.amount > 0 ? "default" : "outline"}
+                      className="font-ui font-bold flex-shrink-0 ml-2"
+                    >
+                      {event.amount > 0 ? '+' : ''}{event.amount}
+                    </Badge>
+                  </div>
+                );
+              }).filter(Boolean)}
+              <div className="pt-3 text-center">
+                <p className="text-xs text-muted-foreground font-ui italic">
+                  🎯 Keep earning POPS to climb the rankings!
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-10 px-4">
+              <div className="mb-4 text-6xl opacity-50 animate-bounce-gentle">🐱</div>
+              <p className="text-base font-semibold text-foreground font-ui mb-2">
+                No activity yet
+              </p>
+              <p className="text-sm text-muted-foreground font-ui">
+                Start creating epic POPCAT memes to earn POPS! 🎨
+              </p>
+            </div>
           )}
         </div>
       </Card>
 
-      {/* Recent Activity */}
-      <Card className="p-4 bg-card border-border">
-        <div className="flex items-center gap-2 mb-3">
-          <TrendingUp className="w-4 h-4 text-accent" />
-          <h3 className="font-bold font-popcat">Recent POPCAT Activity</h3>
-        </div>
-        
-        {stats.recentEvents && stats.recentEvents.length > 0 ? (
-          <div className="space-y-3">
-            {stats.recentEvents.map((event, index) => {
-              // Validação adicional dos dados do evento
-              if (!event || typeof event.source !== 'string' || typeof event.amount !== 'number') {
-                logger.warn('Invalid event data detected', { event, index });
-                return null;
-              }
-              
-              return (
-                <div key={`${event.created_at}-${index}`} className="flex items-center justify-between py-3 border-b border-border last:border-b-0 hover:bg-muted/20 rounded-md transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-accent rounded-full flex-shrink-0"></div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium font-ui truncate">{formatSource(event.source)}</p>
-                      <p className="text-xs text-muted-foreground font-ui">
-                        {formatTimeAgo(event.created_at)}
-                      </p>
+      {/* Global Leaderboard with Modern Design */}
+      <Card className="glass-effect border-2 border-white/40 hover-lift overflow-hidden">
+        <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-2xl animate-bounce-gentle filter drop-shadow-md">👑</span>
+            <h3 className="font-popcat text-lg gradient-text">Global Leaderboard</h3>
+          </div>
+          
+          {leaderboard.length > 0 ? (
+            <div className="space-y-2">
+              {leaderboard.slice(0, 5).map((user, index) => (
+                <div 
+                  key={user.user_id} 
+                  className="flex items-center justify-between p-4 rounded-xl bg-white/60 hover:bg-white/80 transition-all hover-scale border border-white/50"
+                >
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-popcat shadow-lg ${
+                      index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-white' :
+                      index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-500 text-white' :
+                      index === 2 ? 'bg-gradient-to-br from-orange-400 to-orange-600 text-white' :
+                      'bg-gradient-to-br from-muted to-muted-foreground/20 text-foreground'
+                    }`}>
+                      {index === 0 ? '👑' : index + 1}
+                    </div>
+                    <span className="text-sm font-ui font-semibold text-foreground truncate">
+                      {user.first_name || `User${user.telegram_id.toString().slice(-4)}`}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-base font-bold font-popcat gradient-text">
+                      {user.total_score}
+                    </div>
+                    <div className="text-xs text-muted-foreground font-ui">
+                      +{user.weekly_score} week
                     </div>
                   </div>
-                  <Badge 
-                    variant="outline" 
-                    className={`font-ui font-bold flex-shrink-0 ${
-                      event.amount > 0 
-                        ? 'text-accent border-accent bg-accent/10' 
-                        : 'text-muted-foreground border-muted-foreground'
-                    }`}
-                  >
-                    {event.amount > 0 ? '+' : ''}{event.amount} POPS
-                  </Badge>
                 </div>
-              );
-            }).filter(Boolean)}
-            <div className="pt-2 text-center">
-              <p className="text-xs text-muted-foreground font-ui">
-                🎯 Keep earning POPS to climb the rankings!
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-6">
+              <p className="text-sm text-muted-foreground font-ui">
+                No ranking data available yet.
               </p>
             </div>
-          </div>
-        ) : (
-          <div className="text-center py-8">
-            <div className="mb-3">🐱</div>
-            <p className="text-sm text-muted-foreground font-ui mb-2">
-              No recent activity yet
-            </p>
-            <p className="text-xs text-muted-foreground font-ui">
-              Start creating epic POPCAT memes to earn POPS! 🎨
-            </p>
-          </div>
-        )}
-      </Card>
-
-      {/* Global Leaderboard */}
-      <Card className="p-4 bg-card border-border">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-lg">👑</span>
-          <h3 className="font-bold font-popcat">Global POPCAT Leaderboard</h3>
+          )}
         </div>
-        
-        {leaderboard.length > 0 ? (
-          <div className="space-y-2">
-            {leaderboard.slice(0, 5).map((user, index) => (
-              <div key={user.user_id} className="flex items-center justify-between py-2 border-b border-border last:border-b-0">
-                <div className="flex items-center gap-3">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                    index === 0 ? 'bg-yellow-500 text-black' :
-                    index === 1 ? 'bg-gray-400 text-white' :
-                    index === 2 ? 'bg-orange-600 text-white' :
-                    'bg-muted text-muted-foreground'
-                  }`}>
-                    {index + 1}
-                  </div>
-                  <span className="text-sm font-ui font-medium">
-                    {user.first_name || `User${user.telegram_id.toString().slice(-4)}`}
-                  </span>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm font-bold text-accent font-ui">
-                    {user.total_score} POPS
-                  </div>
-                  <div className="text-xs text-muted-foreground font-ui">
-                    +{user.weekly_score} this week
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm text-muted-foreground font-ui">
-            No ranking data available yet.
-          </p>
-        )}
       </Card>
     </div>
   );

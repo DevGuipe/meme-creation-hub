@@ -29,23 +29,24 @@ export const PopcatMaker = () => {
   }
 
   const HomeScreen = () => (
-    <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted p-4">
-      <div className="max-w-sm mx-auto pt-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-4xl animate-bounce">🐱</span>
-            <h1 className="text-3xl font-popcat text-foreground tracking-wider bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              POPCAT MEMER
+    <div className="min-h-screen bg-gradient-to-br from-background via-purple-50/30 to-orange-50/30 p-4 animate-fade-in">
+      <div className="max-w-md mx-auto pt-8 space-y-6">
+        {/* Enhanced Header with Floating Animation */}
+        <div className="text-center mb-10 animate-slide-up">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="text-5xl animate-bounce-gentle filter drop-shadow-lg">🐱</span>
+            <h1 className="text-4xl md:text-5xl font-popcat gradient-text tracking-wider relative">
+              POPCAT
+              <span className="block text-2xl md:text-3xl mt-1">MEMER</span>
             </h1>
-            <span className="text-4xl animate-pulse">🚀</span>
+            <span className="text-5xl animate-pulse filter drop-shadow-lg">🚀</span>
           </div>
           {user && (
-            <div className="mb-4">
-              <p className="text-lg font-bold font-ui text-foreground">
+            <div className="glass-effect rounded-2xl p-4 border-2 border-primary/20 hover-lift">
+              <p className="text-xl font-bold font-popcat gradient-text-sunset">
                 Meow meow, {user.first_name || user.username || 'Popcat'}! 🐾
               </p>
-              <p className="text-sm text-muted-foreground font-ui">
+              <p className="text-sm text-muted-foreground font-ui mt-2">
                 Ready to create some epic memes? Let's POP! 💥
               </p>
             </div>
@@ -53,78 +54,85 @@ export const PopcatMaker = () => {
         </div>
 
         {/* POPCAT Stats */}
-        <div className="mb-8">
-          {/* FIXED: Pass number directly without string conversion */}
+        <div className="animate-scale-in">
           {user?.id && <PopcatStats userId={user.id} />}
         </div>
 
-        {/* Main Actions */}
-        <div className="space-y-4 mb-8">
-          <Card className="p-6 popcat-shadow bg-card popcat-border hover:scale-105 transition-all duration-300">
-            <Button 
-              onClick={() => setView('editor')}
-              variant="popcat"
-              className="w-full h-16 text-lg font-popcat"
-              size="lg"
-            >
-              <Plus className="w-6 h-6 mr-2" />
-              Create Epic Meme! 🎨
-            </Button>
+        {/* Main Actions with Enhanced Design */}
+        <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <Card className="p-0 overflow-hidden border-3 border-primary hover-lift brutal-shadow bg-gradient-to-br from-white to-orange-50/50">
+            <div className="p-6 bg-gradient-to-r from-primary/5 to-accent/5">
+              <Button 
+                onClick={() => setView('editor')}
+                variant="popcat"
+                className="w-full h-16 text-xl font-popcat gap-3"
+                size="lg"
+              >
+                <Plus className="w-7 h-7" />
+                Create Epic Meme! 🎨
+              </Button>
+            </div>
           </Card>
 
-          <Card className="p-6 popcat-shadow bg-card popcat-border hover:scale-105 transition-all duration-300">
-            <Button 
-              onClick={() => setView('gallery')}
-              variant="outline"
-              className="w-full h-16 text-lg font-popcat"
-              size="lg"
-            >
-              <FolderOpen className="w-6 h-6 mr-2" />
-              My Meme Collection 📁
-            </Button>
+          <Card className="p-0 overflow-hidden border-3 border-purple-400 hover-lift brutal-shadow bg-gradient-to-br from-white to-purple-50/50">
+            <div className="p-6 bg-gradient-to-r from-purple-100/30 to-pink-100/30">
+              <Button 
+                onClick={() => setView('gallery')}
+                variant="outline"
+                className="w-full h-16 text-xl font-popcat gap-3 border-purple-400 text-purple-700 hover:bg-purple-500 hover:text-white"
+                size="lg"
+              >
+                <FolderOpen className="w-7 h-7" />
+                My Collection 📁
+              </Button>
+            </div>
           </Card>
         </div>
 
-        {/* Tips */}
-        <Card className="p-4 bg-card/50 popcat-shadow popcat-border">
-          <h3 className="font-bold text-foreground mb-2 font-popcat flex items-center gap-2">
-            🐱 POPCAT Pro Tips
-            <span className="text-primary">💡</span>
-          </h3>
-          <ul className="text-sm text-muted-foreground space-y-2 font-ui">
-            <li className="flex items-center gap-2">
-              <span className="text-primary">🎭</span>
-              Upload your face for ultimate POPCAT vibes!
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">💥</span>
-              Keep text short and punchy for maximum POP!
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">🏆</span>
-              Share your memes and climb the leaderboard!
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">🚀</span>
-              Join the POPCAT community revolution!
-            </li>
-          </ul>
+        {/* Tips with Modern Glass Effect */}
+        <Card className="glass-effect border-2 border-white/40 hover-lift animate-scale-in" style={{ animationDelay: '0.2s' }}>
+          <div className="p-6">
+            <h3 className="font-popcat text-lg mb-4 flex items-center gap-2 gradient-text">
+              🐱 POPCAT Pro Tips
+              <span className="text-2xl animate-bounce-gentle">💡</span>
+            </h3>
+            <ul className="space-y-3 font-ui text-sm">
+              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
+                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0s' }}>🎭</span>
+                <span className="text-foreground leading-relaxed">Upload your face for ultimate POPCAT vibes!</span>
+              </li>
+              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
+                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.2s' }}>💥</span>
+                <span className="text-foreground leading-relaxed">Keep text short and punchy for maximum POP!</span>
+              </li>
+              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
+                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.4s' }}>🏆</span>
+                <span className="text-foreground leading-relaxed">Share your memes and climb the leaderboard!</span>
+              </li>
+              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
+                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>🚀</span>
+                <span className="text-foreground leading-relaxed">Join the POPCAT community revolution!</span>
+              </li>
+            </ul>
+          </div>
         </Card>
 
-        {/* Community CTA */}
-        <Card className="p-4 bg-gradient-to-r from-primary/20 to-accent/20 popcat-shadow popcat-border mt-4">
-          <div className="text-center">
-            <h3 className="font-bold text-foreground mb-2 font-popcat">
-              🌟 Join the POPCAT Revolution! 🌟
-            </h3>
-            <p className="text-sm text-muted-foreground font-ui mb-3">
-              Be part of the most epic meme community on Solana! 
-            </p>
-            <div className="flex justify-center gap-2 text-2xl">
-              <span>🐱</span>
-              <span>💎</span>
-              <span>🚀</span>
-              <span>🌙</span>
+        {/* Community CTA with Neon Effect */}
+        <Card className="p-0 overflow-hidden border-3 border-purple-400 popcat-neon hover-scale animate-scale-in" style={{ animationDelay: '0.3s' }}>
+          <div className="p-6 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">
+            <div className="text-center">
+              <h3 className="font-popcat text-xl mb-3 text-white drop-shadow-lg">
+                🌟 Join the POPCAT Revolution! 🌟
+              </h3>
+              <p className="text-sm text-white/90 font-ui mb-4 leading-relaxed">
+                Be part of the most epic meme community on Solana! 
+              </p>
+              <div className="flex justify-center gap-3 text-3xl">
+                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0s' }}>🐱</span>
+                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.2s' }}>💎</span>
+                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.4s' }}>🚀</span>
+                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.6s' }}>🌙</span>
+              </div>
             </div>
           </div>
         </Card>

@@ -257,18 +257,24 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, hsl(25 95% 53%), hsl(32 100% 60%))' }}>
-        <Card className="max-w-md w-full p-10 text-center bg-card/95 backdrop-blur-sm border-2 border-primary shadow-2xl">
-          <div className="relative w-20 h-20 mx-auto mb-6">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 animate-fade-in">
+        <Card className="max-w-md w-full p-12 text-center glass-effect border-2 border-white/40 shadow-2xl animate-scale-in">
+          <div className="relative w-24 h-24 mx-auto mb-8">
             <div className="absolute inset-0 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            <div className="absolute inset-2 animate-pulse rounded-full bg-gradient-to-br from-primary to-accent opacity-20" />
+            <div className="absolute inset-2 animate-pulse rounded-full bg-gradient-to-br from-primary to-accent opacity-30" />
+            <div className="absolute inset-4 rounded-full bg-gradient-to-br from-orange-400 to-pink-400 opacity-20 animate-ping" />
           </div>
-          <h2 className="text-2xl font-bold font-popcat text-foreground mb-3">
-            🐱 Conectando ao Telegram
+          <h2 className="text-3xl font-popcat gradient-text mb-4">
+            🐱 Connecting
           </h2>
-          <p className="text-muted-foreground font-ui text-base">
-            Aguarde enquanto verificamos sua autenticação...
+          <p className="text-muted-foreground font-ui text-base leading-relaxed">
+            Authenticating with Telegram...
           </p>
+          <div className="mt-6 flex justify-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0s' }}></div>
+            <div className="w-2 h-2 rounded-full bg-accent animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 rounded-full bg-purple-500 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+          </div>
         </Card>
       </div>
     );
@@ -276,29 +282,30 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, hsl(25 95% 53%), hsl(32 100% 60%))' }}>
-        <Card className="max-w-md w-full p-10 text-center bg-card/95 backdrop-blur-sm border-2 border-primary shadow-2xl">
-          <div className="relative w-20 h-20 mx-auto mb-6">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 animate-fade-in">
+        <Card className="max-w-md w-full p-10 text-center glass-effect border-2 border-white/40 shadow-2xl animate-scale-in">
+          <div className="relative w-24 h-24 mx-auto mb-8">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-destructive/20 to-destructive/10 animate-pulse" />
-            <User className="w-12 h-12 text-destructive absolute inset-0 m-auto" strokeWidth={2.5} />
+            <div className="absolute inset-4 rounded-full bg-destructive/20 popcat-glow" />
+            <User className="w-14 h-14 text-destructive absolute inset-0 m-auto drop-shadow-lg" strokeWidth={2.5} />
           </div>
           
-          <h2 className="text-2xl font-bold font-popcat text-foreground mb-3">
-            🔐 Autenticação Necessária
+          <h2 className="text-3xl font-popcat gradient-text mb-4">
+            🔐 Authentication Required
           </h2>
           
-          <div className="bg-muted/50 rounded-lg p-4 mb-4">
-            <p className="text-foreground font-ui text-base mb-2">
-              Este aplicativo funciona exclusivamente através do Telegram
+          <div className="bg-white/80 backdrop-blur rounded-2xl p-5 mb-5 border-2 border-white/60">
+            <p className="text-foreground font-ui text-base mb-3 font-semibold">
+              This app works exclusively through Telegram
             </p>
-            <p className="text-sm text-muted-foreground font-ui">
-              Por favor, abra o app através do bot do Telegram para ter acesso completo
+            <p className="text-sm text-muted-foreground font-ui leading-relaxed">
+              Please open the app through the Telegram bot for full access
             </p>
           </div>
           
           {error && (
-            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 mb-4">
-              <p className="text-sm text-destructive font-ui">
+            <div className="bg-destructive/10 border-2 border-destructive/30 rounded-2xl p-4 mb-5 backdrop-blur">
+              <p className="text-sm text-destructive font-ui font-semibold">
                 ⚠️ {error}
               </p>
             </div>
@@ -306,13 +313,15 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
           
           <Button 
             onClick={() => window.location.reload()} 
-            className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-popcat text-lg py-6 shadow-lg hover:shadow-xl transition-all"
+            className="w-full mt-4 h-14 text-lg shadow-xl hover:shadow-2xl"
+            variant="popcat"
+            size="lg"
           >
-            🔄 Tentar Novamente
+            🔄 Try Again
           </Button>
           
-          <p className="text-xs text-muted-foreground font-ui mt-4">
-            Precisa de ajuda? Entre em contato com o suporte
+          <p className="text-xs text-muted-foreground font-ui mt-6 italic">
+            Need help? Contact support
           </p>
         </Card>
       </div>

@@ -8,54 +8,64 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* POPCAT Brand Colors - Light mode */
-    --background: 32 50% 98%; /* Cream white */
-    --foreground: 28 25% 8%; /* Dark brown */
+    /* POPCAT Brand Colors - Light mode - Modern & Vibrant */
+    --background: 220 20% 98%; /* Cool white */
+    --foreground: 220 30% 10%; /* Deep blue-black */
 
-    --card: 32 50% 95%; /* Light cream */
-    --card-foreground: 28 25% 8%; /* Dark brown */
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 220 30% 10%;
 
-    --popover: 32 50% 95%;
-    --popover-foreground: 28 25% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 10%;
 
     --primary: 25 95% 53%; /* POPCAT Orange */
-    --primary-foreground: 32 50% 98%; /* Cream white */
+    --primary-foreground: 0 0% 100%; /* Pure white */
 
-    --secondary: 32 30% 90%; /* Light cream */
-    --secondary-foreground: 28 25% 15%; /* Brown */
+    --secondary: 250 100% 95%; /* Light purple */
+    --secondary-foreground: 250 70% 20%; /* Dark purple */
 
-    --muted: 32 30% 90%; /* Light cream */
-    --muted-foreground: 28 15% 40%; /* Medium brown */
+    --muted: 220 20% 96%; /* Subtle gray */
+    --muted-foreground: 220 15% 45%; /* Medium gray */
 
-    --accent: 32 100% 60%; /* Bright orange */
-    --accent-foreground: 28 25% 8%; /* Dark brown */
+    --accent: 280 90% 60%; /* Vibrant purple */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 32 50% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 32 30% 85%; /* Light orange */
-    --input: 32 30% 85%; /* Light orange */
+    --border: 220 20% 90%; /* Light border */
+    --input: 220 20% 94%; /* Input background */
     --ring: 25 95% 53%; /* POPCAT Orange */
 
-    --radius: 1rem; /* Rounded for friendly look */
+    --radius: 1.25rem; /* More rounded */
 
-    /* POPCAT custom tokens */
-    --popcat-orange: 25 95% 53%; /* Main orange #FF8C42 */
-    --popcat-light-orange: 32 100% 60%; /* Light orange #FFB366 */
-    --popcat-cream: 32 100% 85%; /* Cream #FFF0D9 */
-    --popcat-brown: 28 60% 25%; /* Brown #8B5A3C */
-    --popcat-dark-brown: 28 25% 8%; /* Dark brown #1A120B */
-    --popcat-pink: 350 100% 85%; /* Pink nose #FFD1DC */
-    --popcat-white: 32 50% 98%; /* Off-white #FFFCF7 */
+    /* POPCAT custom tokens - Enhanced */
+    --popcat-orange: 25 95% 53%; /* Main orange */
+    --popcat-orange-light: 30 100% 65%; /* Lighter orange */
+    --popcat-orange-dark: 20 90% 45%; /* Darker orange */
+    --popcat-purple: 280 90% 60%; /* Vibrant purple */
+    --popcat-purple-light: 280 100% 85%; /* Light purple */
+    --popcat-blue: 220 90% 55%; /* Vibrant blue */
+    --popcat-pink: 340 95% 70%; /* Hot pink */
+    --popcat-yellow: 45 100% 60%; /* Golden yellow */
+    --popcat-green: 150 70% 50%; /* Success green */
 
-    /* Gradients */
-    --gradient-popcat: linear-gradient(135deg, hsl(var(--popcat-orange)), hsl(var(--popcat-light-orange)));
-    --gradient-cream: linear-gradient(135deg, hsl(var(--popcat-cream)), hsl(var(--popcat-white)));
-    --gradient-fun: linear-gradient(45deg, hsl(var(--popcat-orange)), hsl(var(--popcat-pink)), hsl(var(--popcat-light-orange)));
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(30 100% 65%));
+    --gradient-vibrant: linear-gradient(135deg, hsl(25 95% 53%), hsl(280 90% 60%), hsl(220 90% 55%));
+    --gradient-sunset: linear-gradient(135deg, hsl(340 95% 70%), hsl(25 95% 53%), hsl(45 100% 60%));
+    --gradient-purple: linear-gradient(135deg, hsl(280 100% 85%), hsl(280 90% 60%));
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
 
-    /* Shadows */
-    --shadow-popcat: 0 6px 20px -4px hsl(var(--popcat-orange) / 0.4);
-    --shadow-fun: 0 4px 16px -2px hsl(var(--popcat-light-orange) / 0.3);
+    /* Enhanced Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(220 30% 10% / 0.1);
+    --shadow-md: 0 4px 16px -4px hsl(220 30% 10% / 0.15);
+    --shadow-lg: 0 8px 32px -8px hsl(220 30% 10% / 0.2);
+    --shadow-xl: 0 12px 48px -12px hsl(220 30% 10% / 0.25);
+    --shadow-popcat: 0 8px 32px -8px hsl(25 95% 53% / 0.4);
+    --shadow-purple: 0 8px 32px -8px hsl(280 90% 60% / 0.4);
+    --shadow-glow: 0 0 32px hsl(25 95% 53% / 0.3);
+    --shadow-neon: 0 0 20px hsl(280 90% 60% / 0.6), 0 0 40px hsl(280 90% 60% / 0.3);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 29%;
@@ -68,42 +78,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* POPCAT Brand Colors - Dark mode */
-    --background: 28 20% 12%; /* Dark brown */
-    --foreground: 32 100% 95%; /* Light cream */
+    /* POPCAT Brand Colors - Dark mode - Enhanced */
+    --background: 220 25% 8%; /* Deep dark blue */
+    --foreground: 220 10% 98%; /* Almost white */
 
-    --card: 28 25% 15%; /* Medium dark brown */
-    --card-foreground: 32 100% 95%;
+    --card: 220 20% 12%; /* Dark card */
+    --card-foreground: 220 10% 98%;
 
-    --popover: 28 25% 15%; /* Medium dark brown */
-    --popover-foreground: 32 100% 95%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 220 10% 98%;
 
     --primary: 25 95% 53%; /* POPCAT Orange */
-    --primary-foreground: 28 20% 12%; /* Dark brown */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 28 25% 18%; /* Slightly lighter brown */
-    --secondary-foreground: 32 100% 95%;
+    --secondary: 250 40% 20%; /* Dark purple */
+    --secondary-foreground: 250 100% 95%;
 
-    --muted: 28 20% 18%; /* Dark brown */
-    --muted-foreground: 32 30% 70%; /* Light orange */
+    --muted: 220 20% 18%; /* Subtle dark */
+    --muted-foreground: 220 15% 65%; /* Light gray */
 
-    --accent: 32 100% 60%; /* Bright orange */
-    --accent-foreground: 28 20% 12%;
+    --accent: 280 90% 60%; /* Vibrant purple */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 31%;
-    --destructive-foreground: 32 100% 95%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 28 25% 25%; /* Brown border */
-    --input: 28 25% 25%;
-    --ring: 25 95% 53%; /* POPCAT Orange */
+    --border: 220 20% 25%; /* Dark border */
+    --input: 220 20% 20%;
+    --ring: 25 95% 53%;
 
-    --sidebar-background: 28 25% 15%; /* Medium dark brown */
-    --sidebar-foreground: 32 30% 70%; /* Light orange */
-    --sidebar-primary: 25 95% 53%; /* POPCAT Orange */
-    --sidebar-primary-foreground: 28 20% 12%;
-    --sidebar-accent: 28 25% 18%; /* Slightly lighter brown */
-    --sidebar-accent-foreground: 32 100% 95%;
-    --sidebar-border: 28 25% 25%; /* Brown border */
+    --sidebar-background: 220 20% 12%;
+    --sidebar-foreground: 220 10% 98%;
+    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 18%;
+    --sidebar-accent-foreground: 220 10% 98%;
+    --sidebar-border: 220 20% 25%;
     --sidebar-ring: 25 95% 53%;
   }
 }
@@ -114,15 +124,15 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    /* FIXED: Let users control dark/light mode via system preference */
-    background: var(--gradient-popcat);
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--gradient-vibrant);
+    min-height: 100vh;
   }
 
   /* Mobile-first responsive design */
   html {
     @apply text-base;
-    /* Prevent horizontal scroll on mobile */
     overflow-x: hidden;
   }
 
@@ -132,49 +142,234 @@ All colors MUST be HSL.
     min-width: 44px;
   }
 
-  /* Import Google Fonts for POPCAT theme */
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
-
-  /* Typography for POPCAT */
+  /* Enhanced Typography System */
   .font-popcat {
-    font-family: 'Fredoka', 'Comic Neue', 'Arial', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-family: 'Russo One', 'Fredoka', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .font-display {
+    font-family: 'Russo One', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
   }
 
   .font-ui {
-    font-family: 'Comic Neue', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
     font-weight: 500;
   }
 
-  /* POPCAT design elements */
+  .font-body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+  /* Modern POPCAT Design Elements */
   .popcat-shadow {
     box-shadow: var(--shadow-popcat);
   }
 
+  .popcat-shadow-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
   .popcat-glow {
-    box-shadow: var(--shadow-fun);
+    box-shadow: var(--shadow-glow);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .popcat-neon {
+    box-shadow: var(--shadow-neon);
   }
 
   .popcat-border {
-    border: 3px solid hsl(var(--primary));
-    border-radius: 1rem;
+    border: 2px solid hsl(var(--primary));
+    border-radius: var(--radius);
   }
 
-  /* Custom scrollbar for dark theme */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .brutal-shadow {
+    box-shadow: 
+      4px 4px 0px hsl(220 30% 10% / 0.2),
+      8px 8px 0px hsl(220 30% 10% / 0.1);
+  }
+
+  /* Enhanced scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-muted;
+    background: hsl(var(--muted));
+    border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded-full;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    border-radius: 10px;
+    border: 2px solid hsl(var(--muted));
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-accent;
+    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+  }
+}
+
+@layer components {
+  /* Modern Button Variants */
+  .btn-gradient {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-popcat);
+  }
+
+  .btn-gradient:active {
+    transform: translateY(0);
+  }
+
+  /* Card Variants */
+  .card-glass {
+    @apply glass-effect;
+    transition: all 0.3s ease;
+  }
+
+  .card-glass:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-brutal {
+    @apply brutal-shadow bg-card;
+    border: 3px solid hsl(var(--foreground));
+    transition: all 0.2s ease;
+  }
+
+  .card-brutal:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+      6px 6px 0px hsl(220 30% 10% / 0.2),
+      10px 10px 0px hsl(220 30% 10% / 0.1);
+  }
+}
+
+@layer utilities {
+  /* Animation Utilities */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(25 95% 53% / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(25 95% 53% / 0.6);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: var(--gradient-vibrant);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-sunset {
+    background: var(--gradient-sunset);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hover-scale {
+    transition: transform 0.3s ease;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
   }
 }
