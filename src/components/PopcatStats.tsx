@@ -222,7 +222,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
       const formatted = SOURCE_LABELS[source as keyof typeof SOURCE_LABELS];
       if (formatted) return formatted;
       
-      // Fallback para sources não mapeados - formatar de forma legível
+      // Fallback for unmapped sources - format in readable way
       const fallback = `🎯 ${source.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}`;
       logger.info('Using fallback source formatting', { source, fallback });
       return fallback;
@@ -237,7 +237,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
       const date = new Date(dateString);
       const now = new Date();
       
-      // Validar se a data é válida
+      // Validate date
       if (isNaN(date.getTime())) {
         logger.warn('Invalid date string received', { dateString });
         return 'Unknown time';
@@ -245,7 +245,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
       
       const diffMs = now.getTime() - date.getTime();
       
-      // Se a diferença for negativa (data no futuro), tratar como "Just now"
+      // If negative (future date), treat as "Just now"
       if (diffMs < 0) {
         logger.warn('Future date detected', { dateString, diffMs });
         return 'Just now';
@@ -376,7 +376,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
               }).filter(Boolean)}
               <div className="pt-3 text-center">
                 <p className="text-xs text-muted-foreground font-ui italic">
-                  🎯 Keep earning POPS to climb the rankings!
+                  🎯 Keep stacking POPS to dominate the rankings!
                 </p>
               </div>
             </div>
@@ -384,10 +384,10 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
             <div className="text-center py-10 px-4">
               <div className="mb-4 text-6xl opacity-50 animate-bounce-gentle">🐱</div>
               <p className="text-base font-semibold text-foreground font-ui mb-2">
-                No activity yet
+                No Activity Yet
               </p>
               <p className="text-sm text-muted-foreground font-ui">
-                Start creating epic POPCAT memes to earn POPS! 🎨
+                Start creating legendary POPCAT memes to earn POPS! 🎨
               </p>
             </div>
           )}
@@ -436,7 +436,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
           ) : (
             <div className="text-center py-6">
               <p className="text-sm text-muted-foreground font-ui">
-                No ranking data available yet.
+                No ranking data available - be the first to POP!
               </p>
             </div>
           )}

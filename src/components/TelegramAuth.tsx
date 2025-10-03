@@ -34,8 +34,8 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    logger.debug('TelegramAuth: Iniciando autenticação');
-    logger.debug('window.Telegram existe?', { hasTelegram: !!window.Telegram });
+    logger.debug('TelegramAuth: Starting authentication');
+    logger.debug('window.Telegram exists?', { hasTelegram: !!window.Telegram });
     
     // Try to get user from URL params first (fallback method)
     const urlParams = new URLSearchParams(window.location.search);
@@ -59,7 +59,7 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
     
     // Check if running inside Telegram WebApp
     if (window.Telegram?.WebApp) {
-      logger.info('Detectado Telegram WebApp');
+      logger.info('Detected Telegram WebApp');
       window.Telegram.WebApp.ready?.();
       
       // Debug: Log all available Telegram data
@@ -74,11 +74,11 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
       logger.debug('Telegram user data', { hasUser: !!user, user });
       
       if (user) {
-        logger.info('Usuário encontrado no initDataUnsafe');
+        logger.info('User found in initDataUnsafe');
         registerUser(user);
       } else if (parsedUserId) {
         // Fallback: use URL params if initDataUnsafe is empty
-        logger.info('initDataUnsafe vazio, usando dados da URL');
+        logger.info('initDataUnsafe empty, using URL data');
         const userFromUrl = {
           id: parsedUserId,
           username: tgUsername || undefined,
@@ -89,31 +89,31 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
         // Try to parse initData string as last resort
         const initData = window.Telegram.WebApp.initData;
         if (initData) {
-          logger.info('Tentando fazer parse do initData string');
+          logger.info('Trying to parse initData string');
           try {
             const params = new URLSearchParams(initData);
             const userStr = params.get('user');
             if (userStr) {
               const parsedUser = JSON.parse(userStr);
-              logger.info('Usuário obtido do initData string', { parsedUser });
+              logger.info('User obtained from initData string', { parsedUser });
               registerUser(parsedUser);
               return;
             }
           } catch (parseError) {
-            logger.error('Erro ao fazer parse do initData', parseError);
+            logger.error('Error parsing initData', parseError);
           }
         }
         
-        logger.error('Nenhum dado de usuário encontrado em nenhum método');
-        setError('Não foi possível obter dados do Telegram. Por favor, abra o app através do bot usando o botão "Abrir App".');
+        logger.error('No user data found in any method');
+        setError('Could not get Telegram data. Please open the app through the bot using the "Open App" button.');
         setIsLoading(false);
       }
     } else {
-      logger.info('Não está rodando dentro do Telegram WebApp');
+      logger.info('Not running inside Telegram WebApp');
       
       // Check if we have URL params (opened from bot in browser)
       if (parsedUserId) {
-        logger.info('Usando dados da URL (modo browser)');
+        logger.info('Using URL data (browser mode)');
         const userFromUrl = {
           id: parsedUserId,
           username: tgUsername || undefined,
@@ -122,7 +122,7 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
         registerUser(userFromUrl);
       } else {
         // For development - simulate Telegram user with non-conflicting ID
-        logger.info('Modo desenvolvimento - usando usuário mock');
+        logger.info('Development mode - using mock user');
         // FIXED: Use constant already imported at top instead of dynamic import
         const mockUser = {
           id: TELEGRAM_ID_RANGE.DEV_MOCK_ID,
@@ -136,21 +136,21 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
 
   const registerUser = async (telegramUser: TelegramUser) => {
     try {
-      logger.debug('Iniciando registerUser');
+      logger.debug('Starting registerUser');
       setIsLoading(true);
       
       // Validate telegram user data
-      logger.debug('Validando dados do usuário');
+      logger.debug('Validating user data');
       const validatedUser = telegramUserSchema.parse(telegramUser);
       
       if (!validateTelegramId(validatedUser.id)) {
-        logger.error('Telegram ID inválido', { id: validatedUser.id });
+        logger.error('Invalid Telegram ID', { id: validatedUser.id });
         throw new Error(ERROR_MESSAGES.AUTH.INVALID_TELEGRAM_ID);
       }
-      logger.debug('Telegram ID válido');
+      logger.debug('Valid Telegram ID');
       
-      // Verifica se usuário já existe via função segura (evita UPDATE via RLS) - COM RETRY
-      logger.debug('Verificando se usuário existe com retry logic');
+      // Check if user exists via secure function (avoids UPDATE via RLS) - WITH RETRY
+      logger.debug('Checking if user exists with retry logic');
       
       const userExists = await withRetry(
         async () => {
@@ -183,7 +183,7 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
       );
 
       if (!userExists) {
-        logger.info('Usuário não existe, criando via RPC segura com retry logic');
+        logger.info('User does not exist, creating via secure RPC with retry logic');
         
         const newUserId = await withRetry(
           async () => {
@@ -223,18 +223,18 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
           }
         );
 
-        logger.info('Usuário criado com sucesso via RPC com retry', { newUserId });
+        logger.info('User created successfully via RPC with retry', { newUserId });
       } else {
-        logger.debug('Usuário já existe');
+        logger.debug('User already exists');
       }
 
       // FIXED: Removed unnecessary anonymous auth - system uses telegram_id, not Supabase auth
       // Edge functions use SERVICE_ROLE_KEY, so anonymous auth is not needed
       
-      logger.info('Autenticação bem-sucedida');
+      logger.info('Authentication successful');
       onAuthenticated(validatedUser);
     } catch (err: unknown) {
-      logger.error('Erro na autenticação', err);
+      logger.error('Authentication error', err);
       
       // Enhanced error handling with specific messages
       let userFriendlyMessage = 'Failed to authenticate with Telegram. Please try again.';
@@ -321,7 +321,7 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
           </Button>
           
           <p className="text-xs text-muted-foreground font-ui mt-6 italic">
-            Need help? Contact support
+            Need help? Contact @PopcatSupport on Telegram
           </p>
         </Card>
       </div>

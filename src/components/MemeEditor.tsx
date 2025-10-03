@@ -78,45 +78,45 @@ const raceWithTimeout = async <T,>(promise: Promise<T>, ms: number, label: strin
 };
 
 const TEMPLATES = [
-  { key: 'popcat_vs_normie', name: 'POPCAT vs Normie' },
-  { key: 'yes_popcat', name: 'Yes POPCAT' },
-  { key: 'popcat_classic', name: 'POPCAT Classic' },
-  { key: 'popcat_gamer', name: 'POPCAT Gamer' },
-  { key: 'before_after', name: 'Before/After' },
-  { key: 'warrior_mode', name: 'Warrior Mode' }
+  { key: 'popcat_vs_normie', name: 'POPCAT vs Normie 🐱' },
+  { key: 'yes_popcat', name: 'Yes POPCAT ✅' },
+  { key: 'popcat_classic', name: 'Classic POPCAT 💪' },
+  { key: 'popcat_gamer', name: 'Gamer POPCAT 🎮' },
+  { key: 'before_after', name: 'Before/After 🔥' },
+  { key: 'warrior_mode', name: 'Warrior Mode ⚔️' }
 ];
 
 const BACKGROUNDS = [
-  { key: 'gym', name: 'Gym', url: assets.backgrounds.gym },
-  { key: 'neon', name: 'Neon', url: assets.backgrounds.neon },
-  { key: 'beach', name: 'Beach', url: assets.backgrounds.beach },
-  { key: 'office', name: 'Office', url: assets.backgrounds.office },
-  { key: 'arena', name: 'Arena', url: assets.backgrounds.arena },
-  { key: 'neutral', name: 'Neutral', url: assets.backgrounds.neutral }
+  { key: 'gym', name: 'Gym 💪', url: assets.backgrounds.gym },
+  { key: 'neon', name: 'Neon Nights 🌃', url: assets.backgrounds.neon },
+  { key: 'beach', name: 'Beach Vibes 🏖️', url: assets.backgrounds.beach },
+  { key: 'office', name: 'Office Grind 💼', url: assets.backgrounds.office },
+  { key: 'arena', name: 'Battle Arena ⚔️', url: assets.backgrounds.arena },
+  { key: 'neutral', name: 'Clean Slate ⚪', url: assets.backgrounds.neutral }
 ];
 
 const BODIES = [
-  { key: 'flex', name: 'Flex Pose', url: assets.bodies.flex },
-  { key: 'pc', name: 'PC Setup', url: assets.bodies.pc },
-  { key: 'seated', name: 'Seated', url: assets.bodies.seated },
-  { key: 'reflective', name: 'Reflective', url: assets.bodies.reflective },
-  { key: 'classic', name: 'Classic', url: assets.bodies.classic },
-  { key: 'warrior', name: 'Warrior', url: assets.bodies.warrior }
+  { key: 'flex', name: 'Flex Mode 💪', url: assets.bodies.flex },
+  { key: 'pc', name: 'PC Gamer 🖥️', url: assets.bodies.pc },
+  { key: 'seated', name: 'Chill Vibes 😎', url: assets.bodies.seated },
+  { key: 'reflective', name: 'Thinker 🤔', url: assets.bodies.reflective },
+  { key: 'classic', name: 'Classic Chad 🗿', url: assets.bodies.classic },
+  { key: 'warrior', name: 'Warrior ⚔️', url: assets.bodies.warrior }
 ];
 
 const PROPS = [
-  { key: 'glasses', name: 'Glasses', url: assets.props.glasses },
-  { key: 'whey', name: 'Whey Protein', url: assets.props.whey },
-  { key: 'chain', name: 'Chain', url: assets.props.chain },
-  { key: 'flag', name: 'Flag', url: assets.props.flag },
-  { key: 'confetti', name: 'Confetti', url: assets.props.confetti },
-  { key: 'trophy', name: 'Trophy', url: assets.props.trophy }
+  { key: 'glasses', name: 'Cool Shades 😎', url: assets.props.glasses },
+  { key: 'whey', name: 'Protein Stack 💪', url: assets.props.whey },
+  { key: 'chain', name: 'Bling Chain 💎', url: assets.props.chain },
+  { key: 'flag', name: 'Victory Flag 🚩', url: assets.props.flag },
+  { key: 'confetti', name: 'Party Time 🎉', url: assets.props.confetti },
+  { key: 'trophy', name: 'Champion Trophy 🏆', url: assets.props.trophy }
 ];
 
 const HEADS = [
-  { key: 'popcat', name: 'POPCAT Face', url: assets.heads.popcat },
-  { key: 'megapopcat', name: 'Mega POPCAT', url: assets.heads.megapopcat },
-  { key: 'thinking', name: 'Thinking', url: assets.heads.thinking }
+  { key: 'popcat', name: 'Classic POPCAT 🐱', url: assets.heads.popcat },
+  { key: 'megapopcat', name: 'Mega POPCAT 🐱‍👤', url: assets.heads.megapopcat },
+  { key: 'thinking', name: 'Big Brain 🧠', url: assets.heads.thinking }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
@@ -898,7 +898,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
         }
       } else {
         toast({
-          title: 'Falha ao salvar',
+          title: 'Save failed',
           description: errorMessage,
           variant: 'destructive',
         });
@@ -972,13 +972,13 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h2 className="text-xl font-bold font-ui">Meme Editor</h2>
+          <h2 className="text-xl font-bold font-ui">Meme Factory 🏭</h2>
           <div className="w-16" />
         </div>
 
         {/* Template Selection */}
         <Card className="p-4 mb-4 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">Template</Label>
+          <Label className="text-sm font-ui mb-2 block">🎭 Choose Your Style</Label>
           <div className="grid grid-cols-2 gap-2 mb-2">
             {TEMPLATES.map(template => (
               <Button
@@ -1420,7 +1420,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
 
         {/* Layers Panel */}
         <Card className="p-4 mb-4 mt-6 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">Backgrounds</Label>
+          <Label className="text-sm font-ui mb-2 block">🎨 Backgrounds</Label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {BACKGROUNDS.map(bg => (
               <Button
@@ -1438,7 +1438,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">Bodies</Label>
+          <Label className="text-sm font-ui mb-2 block">💪 Bodies</Label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {BODIES.map(body => (
               <Button
@@ -1452,7 +1452,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">Head</Label>
+          <Label className="text-sm font-ui mb-2 block">😺 Heads</Label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {HEADS.map(head => (
               <Button
@@ -1476,7 +1476,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
                 >
                   <span>
                     <Upload className="w-3 h-3 mr-1" />
-                    Upload Imagem
+                    Upload Image
                   </span>
                 </Button>
                 <input
@@ -1490,7 +1490,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             </div>
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">Props</Label>
+          <Label className="text-sm font-ui mb-2 block">🎁 Props & Extras</Label>
           <div className="grid grid-cols-2 gap-2 mb-4">
             {PROPS.map(prop => (
               <Button
@@ -1507,12 +1507,12 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
 
         {/* Text Controls */}
         <Card className="p-4 mb-4 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">Text</Label>
+          <Label className="text-sm font-ui mb-2 block">💬 Add Text</Label>
           <div className="space-y-3">
             <Input
               value={textContent}
               onChange={(e) => setTextContent(e.target.value)}
-              placeholder="Enter meme text"
+              placeholder="Make it legendary..."
               className="font-ui"
             />
             <div className="flex items-center gap-2">
@@ -1545,7 +1545,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             className="w-full h-12 font-ui bg-accent text-accent-foreground hover:bg-accent/90"
           >
             <Save className="w-4 h-4 mr-2" />
-            {isExporting ? 'Saving...' : 'Save to Gallery'}
+            {isExporting ? 'Saving your masterpiece...' : '💾 Save to Gallery'}
           </Button>
           
           <Button
@@ -1555,14 +1555,14 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             className="w-full h-12 font-ui bg-secondary text-secondary-foreground hover:bg-secondary/80 disabled:opacity-50"
           >
             <Download className="w-4 h-4 mr-2" />
-            {isExporting ? 'Generating PNG...' : 'Download PNG'}
+            {isExporting ? 'Generating PNG...' : '⬇️ Download PNG'}
           </Button>
         </div>
 
         {/* Watermark Notice */}
         <div className="mt-4 text-center">
           <Badge variant="outline" className="text-xs font-ui">
-            "Made by POPCAT Memer" watermark will be added
+            🐱 "Made with POPCAT Memer" watermark included
           </Badge>
         </div>
 
@@ -1579,15 +1579,15 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
         >
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
-              <DialogTitle className="font-ui">Save to Phone</DialogTitle>
+              <DialogTitle className="font-ui">Save to Your Device 📱</DialogTitle>
               <DialogDescription className="font-ui">
-                Press and hold the image to save to gallery. Or tap "Download directly".
+                Long-press the image to save to gallery, or tap "Download" below.
               </DialogDescription>
             </DialogHeader>
             <div className="rounded-lg overflow-hidden border border-border">
               {mobilePreviewUrl && (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={mobilePreviewUrl} alt="Meme gerado para download" className="w-full h-auto" />
+                <img src={mobilePreviewUrl} alt="Your POPCAT meme ready to download" className="w-full h-auto" />
               )}
             </div>
             <DialogFooter>
@@ -1597,7 +1597,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
                   download={`popcat-meme-${Date.now()}.png`}
                   className="inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground px-4 py-2 font-ui"
                 >
-                  Download directly
+                  Download Now 📥
                 </a>
               )}
             </DialogFooter>

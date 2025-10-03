@@ -44,10 +44,10 @@ export const PopcatMaker = () => {
           {user && (
             <div className="glass-effect rounded-2xl p-4 border-2 border-primary/20 hover-lift">
               <p className="text-xl font-bold font-popcat gradient-text-sunset">
-                Meow meow, {user.first_name || user.username || 'Popcat'}! 🐾
+                Yo {user.first_name || user.username || 'Popcat'}! Ready to POP? 🐱
               </p>
               <p className="text-sm text-muted-foreground font-ui mt-2">
-                Ready to create some epic memes? Let's POP! 💥
+                Let's create some legendary memes and stack those POPS! 💎
               </p>
             </div>
           )}
@@ -69,7 +69,7 @@ export const PopcatMaker = () => {
                 size="lg"
               >
                 <Plus className="w-7 h-7" />
-                Create Epic Meme! 🎨
+                Create Meme 🎨
               </Button>
             </div>
           </Card>
@@ -83,7 +83,7 @@ export const PopcatMaker = () => {
                 size="lg"
               >
                 <FolderOpen className="w-7 h-7" />
-                My Collection 📁
+                My Memes 📁
               </Button>
             </div>
           </Card>
@@ -99,19 +99,19 @@ export const PopcatMaker = () => {
             <ul className="space-y-3 font-ui text-sm">
               <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
                 <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0s' }}>🎭</span>
-                <span className="text-foreground leading-relaxed">Upload your face for ultimate POPCAT vibes!</span>
+                <span className="text-foreground leading-relaxed">Upload your face or any image to make it POP!</span>
               </li>
               <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
                 <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.2s' }}>💥</span>
-                <span className="text-foreground leading-relaxed">Keep text short and punchy for maximum POP!</span>
+                <span className="text-foreground leading-relaxed">Keep text short and punchy - let the meme speak!</span>
               </li>
               <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
                 <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.4s' }}>🏆</span>
-                <span className="text-foreground leading-relaxed">Share your memes and climb the leaderboard!</span>
+                <span className="text-foreground leading-relaxed">Share your memes in groups to earn POPS!</span>
               </li>
               <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
                 <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>🚀</span>
-                <span className="text-foreground leading-relaxed">Join the POPCAT community revolution!</span>
+                <span className="text-foreground leading-relaxed">Join the POPCAT revolution - to the moon! 🌙</span>
               </li>
             </ul>
           </div>
@@ -122,10 +122,10 @@ export const PopcatMaker = () => {
           <div className="p-6 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">
             <div className="text-center">
               <h3 className="font-popcat text-xl mb-3 text-white drop-shadow-lg">
-                🌟 Join the POPCAT Revolution! 🌟
+                🌟 POPCAT REVOLUTION 🌟
               </h3>
               <p className="text-sm text-white/90 font-ui mb-4 leading-relaxed">
-                Be part of the most epic meme community on Solana! 
+                Join the most legendary meme community on Solana! 
               </p>
               <div className="flex justify-center gap-3 text-3xl">
                 <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0s' }}>🐱</span>

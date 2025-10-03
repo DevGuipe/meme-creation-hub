@@ -524,7 +524,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <h2 className="text-xl font-bold font-ui">My Gallery</h2>
+            <h2 className="text-xl font-bold font-ui">My Gallery 🎨</h2>
             <div className="w-16" />
           </div>
           
@@ -574,13 +574,13 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <h2 className="text-xl font-bold font-ui">My Gallery</h2>
+            <h2 className="text-xl font-bold font-ui">My Gallery 🎨</h2>
             <div className="w-16" />
           </div>
           
           <Card className="p-6 text-center bg-card border-border">
             <div className="text-6xl mb-4">😿</div>
-            <h3 className="text-lg font-bold mb-2 font-ui">Connection Error</h3>
+            <h3 className="text-lg font-bold mb-2 font-ui">Oops! Connection Failed</h3>
             <p className="text-sm text-muted-foreground mb-4 font-ui">
               {error}
             </p>
@@ -589,14 +589,14 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
                 onClick={() => loadMemes(0)}
                 className="bg-accent text-accent-foreground hover:bg-accent/90 font-ui"
               >
-                Try Again
+                Try Again 🔄
               </Button>
               <Button 
                 variant="outline"
                 onClick={onBack}
                 className="font-ui"
               >
-                Go Back
+                Go Back 🏠
               </Button>
             </div>
           </Card>
@@ -618,7 +618,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h2 className="text-xl font-bold font-ui">My Gallery</h2>
+          <h2 className="text-xl font-bold font-ui">My Gallery 🎨</h2>
           <div className="w-16" />
         </div>
 
@@ -626,9 +626,9 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
           /* Empty State */
           <Card className="p-6 text-center brutal-shadow bg-card border-border">
             <div className="text-6xl mb-4">🐱</div>
-            <h3 className="text-lg font-bold mb-2 font-ui">No memes yet</h3>
+            <h3 className="text-lg font-bold mb-2 font-ui">No Memes Yet!</h3>
             <p className="text-sm text-muted-foreground mb-4 font-ui">
-              You have no memes yet. Create your first now!
+              Time to create your first legendary POPCAT meme! 🚀
             </p>
             <div className="flex gap-2 justify-center">
               <Button 
@@ -636,14 +636,14 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
                 className="bg-accent text-accent-foreground hover:bg-accent/90 font-ui"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Create First Meme
+                Create First Meme 🎨
               </Button>
               <Button 
                 variant="outline"
                 onClick={() => loadMemes(0)}
                 className="font-ui"
               >
-                Refresh
+                Refresh 🔄
               </Button>
             </div>
           </Card>
@@ -652,7 +652,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
           <div className="space-y-4">
             <div className="text-center mb-4">
               <p className="text-sm text-muted-foreground font-ui">
-                {memes.length} meme{memes.length !== 1 ? 's' : ''} in your gallery
+                {memes.length} epic meme{memes.length !== 1 ? 's' : ''} in your collection 🔥
               </p>
             </div>
 
@@ -750,7 +750,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
                    <div className="mt-3 pt-3 border-t border-border">
                      <div className="flex items-center justify-between">
                        <p className="text-xs text-muted-foreground font-ui">
-                         Use <code className="bg-muted px-1 rounded">/meme {meme.id_short}</code> in group
+                         Share in group: <code className="bg-muted px-1 rounded">/meme {meme.id_short}</code>
                        </p>
                        <Button
                          variant="ghost"
@@ -773,7 +773,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
               className="w-full h-12 font-ui bg-accent text-accent-foreground hover:bg-accent/90"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Create New Meme
+              Create New Meme 🎨
             </Button>
 
           </div>

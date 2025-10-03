@@ -1,8 +1,8 @@
-# 🗿 Meme Maker Forge
+# 🐱 POPCAT Meme Maker
 
 ## About the Project
 
-**Meme Maker Forge** is a complete meme generator with gamification system. Built with React, TypeScript, Supabase and native Telegram Bot integration.
+**POPCAT Meme Maker** is the ultimate meme generator with full gamification system. Built with React, TypeScript, Supabase and native Telegram Bot integration.
 
 ## Technologies Used
 
@@ -16,7 +16,7 @@
 
 - ✅ Complete meme editor with templates
 - ✅ Authentication system via Telegram WebApp
-- ✅ Complete database on Supabase with RLS
+- ✅ Full database on Supabase with RLS
 - ✅ Functional Telegram bot with commands and reactions
 - ✅ Gamification system (POPS Points)
 - ✅ Personal meme gallery
@@ -48,4 +48,4 @@ See the `INSTALLATION.md` file for complete deployment instructions on VPS Ubunt
 
 ---
 
-*🗿 Ready to forge some memes! 💪*
+*🐱 Ready to POP some memes! 💪*
