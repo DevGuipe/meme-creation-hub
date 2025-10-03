@@ -115,94 +115,142 @@ serve(async (req) => {
 
       // Handle "How to Use" callback
       if (data === 'help') {
-        const helpText = `🐱 *POPCAT MEMER - HOW TO POP* 🐱
+        console.log('📖 Processing help callback for user:', userId);
+        
+        const helpText = `🐱 *HOW TO POP LIKE A LEGEND* 🐱
 
-📱 *CREATE EPIC MEMES:*
-Tap the "Open POPCAT Memer" button to launch the app and start creating!
+📱 *START CREATING:*
+Tap "🐱 Open POPCAT Memer" to launch the app and unleash your creativity!
 
-🎨 *CUSTOMIZE YOUR MEME:*
-• Choose from legendary Popcat templates (Pop Pop Classic, Oatmeal Says YES, Click Wars Champion, etc.)
-• Pick backgrounds that POP
-• Add Oatmeal faces and cat poses
-• Customize text that makes everyone say "POP POP!" 🐱
+🎨 *BUILD YOUR MASTERPIECE:*
+• Pick legendary templates: Pop Pop Classic, Oatmeal Says YES, Click Wars Champion, and more!
+• Choose epic backgrounds that make your meme POP 💥
+• Add hilarious Oatmeal faces and cat poses
+• Write text that'll make everyone go "MEOW MEOW!" 🐱
 
-💾 *SAVE & SHARE:*
-• Save your meme to earn +3 POPS 🎉
-• Share to groups for +1 POPS per reaction! 💪
+💾 *SAVE & EARN:*
+• Save your creation → Get +3 POPS instantly! 🎉
+• Share in groups → Earn +1 POPS per reaction! 💪
+• Rack up points and dominate the rankings! 📈
 
-📊 *EARN POPS POINTS:*
-• Create memes → +3 POPS
-• Get reactions → +1 POPS each
-• Climb the leaderboard and become a Click Wars Champion! 🏆
+🏆 *BECOME A CLICK CHAMPION:*
+• Every meme = +3 POPS
+• Every reaction = +1 POPS
+• Top the leaderboard and claim your throne! 👑
 
-🗿 *PUBLISH IN GROUPS:*
-Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
+📤 *SHARE WITH THE WORLD:*
+Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch the POPS roll in!
 
-*Ready to POP? Let's gooooo! 🚀*`;
+*Ready to become a POP legend? Let's GOOOO! 🚀*`;
 
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            callback_query_id: callbackQuery.id,
-          })
-        });
+        try {
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              callback_query_id: callbackQuery.id,
+              text: '📖 Opening guide...'
+            })
+          });
 
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: callbackQuery.message.chat.id,
-            text: helpText,
-            parse_mode: 'Markdown'
-          })
-        });
+          const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: callbackQuery.message.chat.id,
+              text: helpText,
+              parse_mode: 'Markdown'
+            })
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ Failed to send help message:', errorText);
+          } else {
+            console.log('✅ Help message sent successfully');
+          }
+        } catch (error) {
+          console.error('❌ Error sending help:', error);
+        }
 
         return new Response('Help sent', { status: 200, headers: corsHeaders });
       }
 
       // Handle "Leaderboard" callback
       if (data === 'leaderboard') {
-        // Fetch top 5 users from leaderboard
-        const { data: topUsers, error: leaderboardError } = await supabase
-          .rpc('get_user_rankings')
-          .limit(5);
-
-        let leaderboardText = '🏆 *POPCAT LEADERBOARD - TOP POPPERS* 🏆\n\n';
+        console.log('🏆 Processing leaderboard callback for user:', userId);
         
-        if (leaderboardError || !topUsers || topUsers.length === 0) {
-          leaderboardText += '🐱 No one is popping yet! Be the first legend!\n\nCreate memes, get reactions, and dominate the leaderboard! 💪';
-        } else {
-          topUsers.forEach((user: any, index: number) => {
-            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
-            const username = user.username ? `@${user.username}` : user.first_name || 'Anonymous Popper';
-            const score = user.total_score || 0;
-            const weeklyGain = user.weekly_gain || 0;
-            const gainEmoji = weeklyGain > 0 ? '📈' : weeklyGain < 0 ? '📉' : '➖';
-            
-            leaderboardText += `${medal} *${username}* - ${score} POPS ${gainEmoji}\n`;
-          });
+        try {
+          // Fetch top 10 users from leaderboard
+          const { data: topUsers, error: leaderboardError } = await supabase
+            .rpc('get_user_rankings')
+            .limit(10);
+
+          console.log('📊 Leaderboard data:', { topUsers, leaderboardError });
+
+          let leaderboardText = '🏆 *TOP POPCAT CHAMPIONS* 🏆\n\n';
           
-          leaderboardText += '\n🐱 Keep popping to reach the top! 🚀';
+          if (leaderboardError) {
+            console.error('❌ Leaderboard error:', leaderboardError);
+            leaderboardText += '⚠️ Oops! Could not load the leaderboard right now.\n\nTry again in a moment! 🐱';
+          } else if (!topUsers || topUsers.length === 0) {
+            leaderboardText += '🐱 *The arena is empty!*\n\nBe the FIRST legend to dominate this leaderboard!\n\n💪 Create epic memes, get reactions, and climb to the TOP! 🚀';
+          } else {
+            leaderboardText += '🎯 *Current Click War Champions:*\n\n';
+            
+            topUsers.forEach((user: any, index: number) => {
+              const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+              const displayName = user.first_name || 'Anonymous Popper';
+              const score = user.total_score || 0;
+              const weeklyScore = user.weekly_score || 0;
+              
+              leaderboardText += `${medal} *${displayName}*\n`;
+              leaderboardText += `   💎 Total: ${score} POPS | 📅 Week: ${weeklyScore} POPS\n\n`;
+            });
+            
+            leaderboardText += '🔥 *Keep clicking to reach the top!* 🔥\n';
+            leaderboardText += '💪 Every meme and reaction counts!\n\n';
+            leaderboardText += '🐱 *MEOW MEOW!* 🐱';
+          }
+
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              callback_query_id: callbackQuery.id,
+              text: '🏆 Loading leaderboard...'
+            })
+          });
+
+          const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: callbackQuery.message.chat.id,
+              text: leaderboardText,
+              parse_mode: 'Markdown'
+            })
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('❌ Failed to send leaderboard:', errorText);
+          } else {
+            console.log('✅ Leaderboard sent successfully');
+          }
+        } catch (error) {
+          console.error('❌ Error processing leaderboard:', error);
+          
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              callback_query_id: callbackQuery.id,
+              text: '❌ Error loading leaderboard',
+              show_alert: true
+            })
+          });
         }
-
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            callback_query_id: callbackQuery.id,
-          })
-        });
-
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: callbackQuery.message.chat.id,
-            text: leaderboardText,
-            parse_mode: 'Markdown'
-          })
-        });
 
         return new Response('Leaderboard sent', { status: 200, headers: corsHeaders });
       }
@@ -368,7 +416,7 @@ Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
       // Send welcome message with WebApp button and action buttons
       const welcomeMessage = {
         chat_id: chatId,
-        text: "🐱 *MEOW MEOW! WELCOME TO POPCAT MEMER!* 🐱\n\nReady to create some LEGENDARY memes and earn POPS points like a true Popcat Champion? 🚀\n\n✨ Tap below to start your clicking journey to meme greatness! 💪",
+        text: "🐱 *MEOW MEOW! WELCOME TO POPCAT MEMER!* 🐱\n\nReady to create LEGENDARY memes and earn POPS like a true Click Champion? 🚀\n\n✨ Tap below to unleash your inner Popcat and start your journey to meme greatness! 💪\n\n🎨 *Let's POP!* 🎨",
         parse_mode: 'Markdown',
         reply_markup: {
           inline_keyboard: [
