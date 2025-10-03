@@ -78,45 +78,45 @@ const raceWithTimeout = async <T,>(promise: Promise<T>, ms: number, label: strin
 };
 
 const TEMPLATES = [
-  { key: 'popcat_vs_normie', name: 'POPCAT vs Normie 🐱' },
-  { key: 'yes_popcat', name: 'Yes POPCAT ✅' },
-  { key: 'popcat_classic', name: 'Classic POPCAT 💪' },
-  { key: 'popcat_gamer', name: 'Gamer POPCAT 🎮' },
-  { key: 'before_after', name: 'Before/After 🔥' },
-  { key: 'warrior_mode', name: 'Warrior Mode ⚔️' }
+  { key: 'popcat_vs_normie', name: 'Pop Pop Classic 🐱' },
+  { key: 'yes_popcat', name: 'Oatmeal Says YES ✅' },
+  { key: 'popcat_classic', name: 'Click Wars Champion 🏆' },
+  { key: 'popcat_gamer', name: 'Clicking Master 🖱️' },
+  { key: 'before_after', name: 'Pop Evolution 📈' },
+  { key: 'warrior_mode', name: 'Leaderboard King 👑' }
 ];
 
 const BACKGROUNDS = [
-  { key: 'gym', name: 'Gym 💪', url: assets.backgrounds.gym },
-  { key: 'neon', name: 'Neon Nights 🌃', url: assets.backgrounds.neon },
-  { key: 'beach', name: 'Beach Vibes 🏖️', url: assets.backgrounds.beach },
-  { key: 'office', name: 'Office Grind 💼', url: assets.backgrounds.office },
-  { key: 'arena', name: 'Battle Arena ⚔️', url: assets.backgrounds.arena },
-  { key: 'neutral', name: 'Clean Slate ⚪', url: assets.backgrounds.neutral }
+  { key: 'gym', name: 'Pop Gradient 🌈', url: assets.backgrounds.gym },
+  { key: 'neon', name: 'Neon Poppers 💜', url: assets.backgrounds.neon },
+  { key: 'beach', name: 'Chill Pop Zone 🌊', url: assets.backgrounds.beach },
+  { key: 'office', name: 'Click Station 💻', url: assets.backgrounds.office },
+  { key: 'arena', name: 'Pop Arena 🎮', url: assets.backgrounds.arena },
+  { key: 'neutral', name: 'Clean Pop ⚪', url: assets.backgrounds.neutral }
 ];
 
 const BODIES = [
-  { key: 'flex', name: 'Flex Mode 💪', url: assets.bodies.flex },
-  { key: 'pc', name: 'PC Gamer 🖥️', url: assets.bodies.pc },
-  { key: 'seated', name: 'Chill Vibes 😎', url: assets.bodies.seated },
-  { key: 'reflective', name: 'Thinker 🤔', url: assets.bodies.reflective },
-  { key: 'classic', name: 'Classic Chad 🗿', url: assets.bodies.classic },
-  { key: 'warrior', name: 'Warrior ⚔️', url: assets.bodies.warrior }
+  { key: 'flex', name: 'Stretching Cat 🐱', url: assets.bodies.flex },
+  { key: 'pc', name: 'Clicking Cat 🖱️', url: assets.bodies.pc },
+  { key: 'seated', name: 'Sitting Cat 😺', url: assets.bodies.seated },
+  { key: 'reflective', name: 'Thinking Cat 🤔', url: assets.bodies.reflective },
+  { key: 'classic', name: 'Classic Oatmeal 🐱', url: assets.bodies.classic },
+  { key: 'warrior', name: 'Champion Cat 🏆', url: assets.bodies.warrior }
 ];
 
 const PROPS = [
   { key: 'glasses', name: 'Cool Shades 😎', url: assets.props.glasses },
-  { key: 'whey', name: 'Protein Stack 💪', url: assets.props.whey },
-  { key: 'chain', name: 'Bling Chain 💎', url: assets.props.chain },
-  { key: 'flag', name: 'Victory Flag 🚩', url: assets.props.flag },
-  { key: 'confetti', name: 'Party Time 🎉', url: assets.props.confetti },
-  { key: 'trophy', name: 'Champion Trophy 🏆', url: assets.props.trophy }
+  { key: 'whey', name: 'Pop Power ⚡', url: assets.props.whey },
+  { key: 'chain', name: 'Bling Pop 💎', url: assets.props.chain },
+  { key: 'flag', name: 'Country Flag 🚩', url: assets.props.flag },
+  { key: 'confetti', name: 'Pop Party 🎉', url: assets.props.confetti },
+  { key: 'trophy', name: 'Leaderboard Trophy 🏆', url: assets.props.trophy }
 ];
 
 const HEADS = [
-  { key: 'popcat', name: 'Classic POPCAT 🐱', url: assets.heads.popcat },
-  { key: 'megapopcat', name: 'Mega POPCAT 🐱‍👤', url: assets.heads.megapopcat },
-  { key: 'thinking', name: 'Big Brain 🧠', url: assets.heads.thinking }
+  { key: 'popcat', name: 'Oatmeal Closed 🐱', url: assets.heads.popcat },
+  { key: 'megapopcat', name: 'Oatmeal POP! 😮', url: assets.heads.megapopcat },
+  { key: 'thinking', name: 'Oatmeal Thinks 🤔', url: assets.heads.thinking }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
@@ -127,38 +127,38 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
         { id: 'bg', type: 'background', content: assets.backgrounds.neutral, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body_left', type: 'body', content: assets.templates.popcat_vs_normie.normieBody, x: 30, y: 65, scale: 0.85, rotation: 0, zIndex: 1 },
         { id: 'head_left', type: 'head', content: assets.templates.popcat_vs_normie.normieHead, x: 30, y: 40, scale: 0.75, rotation: 0, zIndex: 2 },
-        { id: 'text_left', type: 'text', content: 'THE NORMIE', x: 30, y: 18, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text_left', type: 'text', content: 'MOUTH CLOSED', x: 30, y: 18, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
         { id: 'body_right', type: 'body', content: assets.templates.popcat_vs_normie.popcatBody, x: 70, y: 65, scale: 0.90, rotation: 0, zIndex: 1 },
         { id: 'head_right', type: 'head', content: assets.templates.popcat_vs_normie.popcatHead, x: 70, y: 40, scale: 0.80, rotation: 0, zIndex: 2 },
-        { id: 'text_right', type: 'text', content: 'THE POPCAT', x: 70, y: 18, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text_right', type: 'text', content: 'POP POP! 🐱', x: 70, y: 18, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'yes_popcat':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.neutral, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body', type: 'body', content: assets.templates.yes_popcat.popcatBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.yes_popcat.popcatHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
-        { id: 'text', type: 'text', content: 'YES', x: 50, y: 15, scale: 1.2, rotation: 0, zIndex: 3, fontSize: 32, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text', type: 'text', content: 'YES.', x: 50, y: 15, scale: 1.2, rotation: 0, zIndex: 3, fontSize: 32, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'popcat_classic':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.gym, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body', type: 'body', content: assets.templates.popcat_classic.popcatBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.popcat_classic.popcatHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
-        { id: 'text', type: 'text', content: 'BE A POPCAT', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 26, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text', type: 'text', content: 'CLICK WARS CHAMPION', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'popcat_gamer':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.neon, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body', type: 'body', content: assets.templates.popcat_gamer.popcatBody, x: 50, y: 68, scale: 1.0, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.popcat_gamer.popcatHead, x: 50, y: 42, scale: 0.85, rotation: 0, zIndex: 2 },
-        { id: 'text', type: 'text', content: 'GAMING LIKE A POPCAT', x: 50, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text', type: 'text', content: 'CLICKING MASTER', x: 50, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 20, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'before_after':
       return [
         baseBg,
-        { id: 'text_before', type: 'text', content: 'BEFORE', x: 30, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text_before', type: 'text', content: '0 CLICKS', x: 30, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
         { id: 'body_before', type: 'body', content: assets.templates.before_after.beforeBody, x: 30, y: 65, scale: 0.85, rotation: 0, zIndex: 1 },
-        { id: 'text_after', type: 'text', content: 'AFTER', x: 70, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text_after', type: 'text', content: '1M CLICKS 🚀', x: 70, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
         { id: 'body_after', type: 'body', content: assets.templates.before_after.afterBody, x: 70, y: 65, scale: 0.90, rotation: 0, zIndex: 1 },
         { id: 'head_after', type: 'head', content: assets.templates.before_after.afterHead, x: 70, y: 38, scale: 0.85, rotation: 0, zIndex: 2 },
       ];
@@ -168,7 +168,7 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
         { id: 'body', type: 'body', content: assets.templates.warrior_mode.warriorBody, x: 50, y: 65, scale: 1.0, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.warrior_mode.warriorHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
         { id: 'trophy', type: 'prop', content: assets.templates.warrior_mode.trophy, x: 75, y: 25, scale: 0.60, rotation: 0, zIndex: 3 },
-        { id: 'text', type: 'text', content: 'WARRIOR MODE', x: 50, y: 10, scale: 0.95, rotation: 0, zIndex: 4, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text', type: 'text', content: 'LEADERBOARD KING 👑', x: 50, y: 10, scale: 0.95, rotation: 0, zIndex: 4, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     default:
       return [baseBg];
@@ -978,7 +978,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
 
         {/* Template Selection */}
         <Card className="p-4 mb-4 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">🎭 Choose Your Style</Label>
+          <Label className="text-sm font-ui mb-2 block">🐱 Pick Your Pop Template</Label>
           <div className="grid grid-cols-2 gap-2 mb-2">
             {TEMPLATES.map(template => (
               <Button
@@ -1438,7 +1438,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">💪 Bodies</Label>
+          <Label className="text-sm font-ui mb-2 block">🐱 Cat Poses</Label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {BODIES.map(body => (
               <Button
@@ -1452,7 +1452,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">😺 Heads</Label>
+          <Label className="text-sm font-ui mb-2 block">😮 Oatmeal Faces</Label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {HEADS.map(head => (
               <Button
@@ -1490,7 +1490,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             </div>
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">🎁 Props & Extras</Label>
+          <Label className="text-sm font-ui mb-2 block">✨ Pop Extras</Label>
           <div className="grid grid-cols-2 gap-2 mb-4">
             {PROPS.map(prop => (
               <Button
