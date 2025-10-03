@@ -33,7 +33,8 @@ export interface Meme {
   owner_id: string; // FIXED: Added missing owner_id field
   template_key: string;
   layers_payload: Layer[];
-  image_urls: Record<string, string>;
+  image_url?: string | null; // New format (single URL from DB)
+  image_urls?: Record<string, string>; // Old format (for backwards compatibility)
   created_at: string;
 }
 

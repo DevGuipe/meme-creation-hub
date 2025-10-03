@@ -269,7 +269,8 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
   };
 
   const downloadMeme = async (meme: Meme) => {
-    if (!meme.image_urls?.preview) {
+    const imageUrl = meme.image_url || meme.image_urls?.preview || meme.image_urls?.original;
+    if (!imageUrl) {
       toast({
         title: "Download failed",
         description: "No image available for this meme.",
@@ -286,7 +287,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
       await new Promise<void>((resolve, reject) => {
         img.onload = () => resolve();
         img.onerror = () => reject(new Error('Failed to load meme image'));
-        img.src = meme.image_urls.preview;
+        img.src = imageUrl;
       });
 
       // Create a high-res canvas
@@ -662,24 +663,27 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
                   <div className="flex gap-3">
                     {/* Thumbnail */}
                     <div className="w-20 h-20 bg-muted rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center relative">
-                       {meme.image_urls?.preview && !hasPlaceholderPreview(meme) ? (
-                         <img 
-                           src={meme.image_urls.preview}
-                           alt={`Meme #${meme.id_short}`}
-                           className="w-full h-full object-cover"
-                           onError={(e) => {
-                             const target = e.target as HTMLElement;
-                             target.style.display = 'none';
-                             const fallback = target.nextElementSibling as HTMLElement;
-                             if (fallback) fallback.style.display = 'flex';
-                             // Auto-repair attempt
-                             autoRepairMemePreview(meme);
-                           }}
-                         />
-                       ) : null}
+                       {(() => {
+                         const thumbUrl = meme.image_url || meme.image_urls?.preview || meme.image_urls?.original;
+                         return thumbUrl && !hasPlaceholderPreview(meme) ? (
+                           <img 
+                             src={thumbUrl}
+                             alt={`Meme #${meme.id_short}`}
+                             className="w-full h-full object-cover"
+                             onError={(e) => {
+                               const target = e.target as HTMLElement;
+                               target.style.display = 'none';
+                               const fallback = target.nextElementSibling as HTMLElement;
+                               if (fallback) fallback.style.display = 'flex';
+                               // Auto-repair attempt
+                               autoRepairMemePreview(meme);
+                             }}
+                           />
+                         ) : null;
+                       })()}
                        <div 
                          className="text-2xl w-full h-full flex items-center justify-center" 
-                         style={{ display: (meme.image_urls?.preview && !hasPlaceholderPreview(meme)) ? 'none' : 'flex' }}
+                         style={{ display: (meme.image_url || meme.image_urls?.preview || meme.image_urls?.original) && !hasPlaceholderPreview(meme) ? 'none' : 'flex' }}
                        >
                          {hasPlaceholderPreview(meme) ? (
                            repairingMemes.has(meme.id) ? (
