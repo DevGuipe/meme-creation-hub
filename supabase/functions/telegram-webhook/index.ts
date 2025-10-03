@@ -121,10 +121,10 @@ serve(async (req) => {
 Tap the "Open POPCAT Memer" button to launch the app and start creating!
 
 🎨 *CUSTOMIZE YOUR MEME:*
-• Choose from legendary templates (Chad, Virgin vs Chad, Yes Chad, etc.)
+• Choose from legendary Popcat templates (Pop Pop Classic, Oatmeal Says YES, Click Wars Champion, etc.)
 • Pick backgrounds that POP
-• Add text that slaps
-• Drag & drop elements like a boss
+• Add Oatmeal faces and cat poses
+• Customize text that makes everyone say "POP POP!" 🐱
 
 💾 *SAVE & SHARE:*
 • Save your meme to earn +3 POPS 🎉
@@ -133,7 +133,7 @@ Tap the "Open POPCAT Memer" button to launch the app and start creating!
 📊 *EARN POPS POINTS:*
 • Create memes → +3 POPS
 • Get reactions → +1 POPS each
-• Climb the leaderboard like a GIGACHAD! 🏆
+• Climb the leaderboard and become a Click Wars Champion! 🏆
 
 🗿 *PUBLISH IN GROUPS:*
 Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
@@ -171,11 +171,11 @@ Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
         let leaderboardText = '🏆 *POPCAT LEADERBOARD - TOP POPPERS* 🏆\n\n';
         
         if (leaderboardError || !topUsers || topUsers.length === 0) {
-          leaderboardText += '🐱 No one is popping yet! Be the first GIGACHAD!\n\nCreate memes, get reactions, and dominate the leaderboard! 💪';
+          leaderboardText += '🐱 No one is popping yet! Be the first legend!\n\nCreate memes, get reactions, and dominate the leaderboard! 💪';
         } else {
           topUsers.forEach((user: any, index: number) => {
             const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
-            const username = user.username ? `@${user.username}` : user.first_name || 'Anonymous Chad';
+            const username = user.username ? `@${user.username}` : user.first_name || 'Anonymous Popper';
             const score = user.total_score || 0;
             const weeklyGain = user.weekly_gain || 0;
             const gainEmoji = weeklyGain > 0 ? '📈' : weeklyGain < 0 ? '📉' : '➖';
@@ -368,7 +368,7 @@ Use \`/meme <id>\` in any group to share your saved memes and farm those POPS!
       // Send welcome message with WebApp button and action buttons
       const welcomeMessage = {
         chat_id: chatId,
-        text: "🐱 *MEOW MEOW! WELCOME TO POPCAT MEMER!* 🐱\n\nReady to create some LEGENDARY memes and farm POPS points like a GIGACHAD? 🚀\n\n✨ Tap below to join the POP revolution and start your journey to meme greatness! 💪",
+        text: "🐱 *MEOW MEOW! WELCOME TO POPCAT MEMER!* 🐱\n\nReady to create some LEGENDARY memes and earn POPS points like a true Popcat Champion? 🚀\n\n✨ Tap below to start your clicking journey to meme greatness! 💪",
         parse_mode: 'Markdown',
         reply_markup: {
           inline_keyboard: [
