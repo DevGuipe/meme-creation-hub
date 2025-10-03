@@ -133,6 +133,10 @@ export type Database = {
         Args: { telegram_user_id: number; user_first_name: string }
         Returns: string
       }
+      generate_meme_short_id: {
+        Args: { owner_uuid: string }
+        Returns: string
+      }
       get_user_id_by_telegram_id: {
         Args: { telegram_user_id: number }
         Returns: string

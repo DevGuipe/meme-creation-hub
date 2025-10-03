@@ -146,7 +146,7 @@ serve(async (req: Request) => {
     if (idempotencyKey) {
       const { data: existing, error: existingErr } = await supabase
         .from("memes")
-        .select("id, id_short, image_urls")
+        .select("id, id_short, image_url")
         .eq("idempotency_key", idempotencyKey)
         .is("deleted_at", null)
         .limit(1)
@@ -154,7 +154,7 @@ serve(async (req: Request) => {
 
       if (existingErr) console.warn("Idempotency lookup error", existingErr);
       if (existing) {
-        const url = (existing.image_urls as any)?.original || null;
+        const url = existing.image_url || null;
         console.log("♻️ Returning existing idempotent meme", existing.id_short);
         return jsonResponse(200, { memeId: existing.id, id_short: existing.id_short, url });
       }
@@ -197,14 +197,14 @@ serve(async (req: Request) => {
       owner_id: ownerId,
       template_key: templateKey,
       layers_payload: layersPayload,
-      image_urls: publicUrl ? { original: publicUrl } : null,
+      image_url: publicUrl,
       idempotency_key: idempotencyKey || null,
     } as const;
 
     const { data: inserted, error: insertErr } = await supabase
       .from("memes")
       .insert(insertPayload)
-      .select("id, id_short, image_urls")
+      .select("id, id_short, image_url")
       .single();
 
     if (insertErr) {
@@ -212,13 +212,13 @@ serve(async (req: Request) => {
       if (String(insertErr.message || "").toLowerCase().includes("idempotency") || String(insertErr.code || "") === "23505") {
         const { data: existing, error: exErr } = await supabase
           .from("memes")
-          .select("id, id_short, image_urls")
+          .select("id, id_short, image_url")
           .eq("idempotency_key", idempotencyKey)
           .is("deleted_at", null)
           .limit(1)
           .maybeSingle();
         if (!exErr && existing) {
-          const url = (existing.image_urls as any)?.original || null;
+          const url = existing.image_url || null;
           console.log("♻️ Returning existing after unique conflict", existing.id_short);
           return jsonResponse(200, { memeId: existing.id, id_short: existing.id_short, url });
         }
@@ -227,7 +227,7 @@ serve(async (req: Request) => {
       return jsonResponse(500, { error: "Database insert failed", details: [insertErr.message || "Unknown DB error"] });
     }
 
-    const url = (inserted.image_urls as any)?.original || null;
+    const url = inserted.image_url || null;
     console.log("✅ save-meme done", { memeId: inserted.id, id_short: inserted.id_short, hasUrl: !!url });
     return jsonResponse(200, { memeId: inserted.id, id_short: inserted.id_short, url });
   } catch (e) {
