@@ -460,7 +460,7 @@ serve(async (req) => {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 chat_id: userId,
-                text: `Não consegui publicar seu meme #${memeId} no grupo (permissão/erro). Avise um admin para permitir o bot enviar mensagens.`
+                text: `Couldn't publish your meme #${memeId} in the group (permission/error). Ask an admin to allow the bot to send messages.`
               })
             });
           }
@@ -496,7 +496,7 @@ serve(async (req) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: userId,
-              text: `Não consegui publicar seu meme #${memeId} no grupo (permissão/erro). Avise um admin para permitir o bot enviar mensagens.`
+              text: `Couldn't publish your meme #${memeId} in the group (permission/error). Ask an admin to allow the bot to send messages.`
             })
           });
         } else {
