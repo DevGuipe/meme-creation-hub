@@ -63,6 +63,7 @@ export type Database = {
           amount: number
           created_at: string
           id: string
+          meme_id: string | null
           metadata: Json | null
           source: string
           user_id: string
@@ -71,6 +72,7 @@ export type Database = {
           amount?: number
           created_at?: string
           id?: string
+          meme_id?: string | null
           metadata?: Json | null
           source: string
           user_id: string
@@ -79,6 +81,7 @@ export type Database = {
           amount?: number
           created_at?: string
           id?: string
+          meme_id?: string | null
           metadata?: Json | null
           source?: string
           user_id?: string
@@ -92,6 +95,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      reactions: {
+        Row: {
+          created_at: string | null
+          id: string
+          meme_id: string
+          message_id: string
+          reactor_telegram_id: number
+          type: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          meme_id: string
+          message_id: string
+          reactor_telegram_id: number
+          type: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          meme_id?: string
+          message_id?: string
+          reactor_telegram_id?: number
+          type?: string
+        }
+        Relationships: []
       }
       users: {
         Row: {

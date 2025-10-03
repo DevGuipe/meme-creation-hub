@@ -229,6 +229,29 @@ serve(async (req: Request) => {
 
     const url = inserted.image_url || null;
     console.log("✅ save-meme done", { memeId: inserted.id, id_short: inserted.id_short, hasUrl: !!url });
+    
+    // Award POPS points for saving meme (3 points)
+    try {
+      const { error: eventError } = await supabase
+        .from("popcat_events")
+        .insert({
+          user_id: ownerId,
+          source: "save_meme",
+          amount: 3,
+          meme_id: inserted.id
+        });
+      
+      if (eventError) {
+        console.warn("⚠️ Failed to record POPS event (non-critical)", eventError);
+        // Don't fail the request - meme was saved successfully
+      } else {
+        console.log("🎉 +3 POPS awarded for saving meme");
+      }
+    } catch (eventErr) {
+      console.warn("⚠️ Exception recording POPS event (non-critical)", eventErr);
+      // Continue - meme save is the critical operation
+    }
+    
     return jsonResponse(200, { memeId: inserted.id, id_short: inserted.id_short, url });
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
