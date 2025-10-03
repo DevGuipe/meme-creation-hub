@@ -115,14 +115,14 @@ serve(async (req) => {
 
     console.log('🔗 Generated public URL', { publicUrl });
 
-    // Update meme record with preview URL
+    // Update meme record with image URL (new format)
     console.log('💾 Updating database record', { memeId, publicUrl });
     
     const { data: updateData, error: updateError } = await supabase
       .from('memes')
-      .update({ image_urls: { preview: publicUrl } })
+      .update({ image_url: publicUrl })
       .eq('id', memeId)
-      .select('id, image_urls');
+      .select('id, image_url');
 
     if (updateError) {
       console.error('❌ Database update failed', { 
