@@ -20,6 +20,7 @@ export type Database = {
           deleted_at: string | null
           id: string
           id_short: string
+          idempotency_key: string | null
           image_url: string | null
           layers_payload: Json
           owner_id: string | null
@@ -30,6 +31,7 @@ export type Database = {
           deleted_at?: string | null
           id?: string
           id_short: string
+          idempotency_key?: string | null
           image_url?: string | null
           layers_payload: Json
           owner_id?: string | null
@@ -40,6 +42,7 @@ export type Database = {
           deleted_at?: string | null
           id?: string
           id_short?: string
+          idempotency_key?: string | null
           image_url?: string | null
           layers_payload?: Json
           owner_id?: string | null
