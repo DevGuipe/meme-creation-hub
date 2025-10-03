@@ -29,24 +29,26 @@ export const PopcatMaker = () => {
   }
 
   const HomeScreen = () => (
-    <div className="min-h-screen bg-gradient-to-br from-background via-purple-50/30 to-orange-50/30 p-4 animate-fade-in">
-      <div className="max-w-md mx-auto pt-8 space-y-6">
+    <div className="min-h-screen bg-transparent p-4 sm:p-6 animate-fade-in">
+      <div className="max-w-lg mx-auto pt-6 sm:pt-10 space-y-8">
         {/* Enhanced Header with Floating Animation */}
-        <div className="text-center mb-10 animate-slide-up">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-5xl animate-bounce-gentle filter drop-shadow-lg">🐱</span>
-            <h1 className="text-4xl md:text-5xl font-popcat gradient-text tracking-wider relative">
-              POPCAT
-              <span className="block text-2xl md:text-3xl mt-1">MEMER</span>
-            </h1>
-            <span className="text-5xl animate-pulse filter drop-shadow-lg">🚀</span>
+        <div className="text-center mb-12 animate-slide-up">
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <span className="text-6xl sm:text-7xl animate-bounce-gentle filter drop-shadow-2xl">🐱</span>
+            <div className="relative">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-popcat gradient-text tracking-wider">
+                POPCAT
+                <span className="block text-3xl sm:text-4xl md:text-5xl mt-2 gradient-text-sunset">MEMER</span>
+              </h1>
+            </div>
+            <span className="text-6xl sm:text-7xl animate-pulse filter drop-shadow-2xl">🚀</span>
           </div>
           {user && (
-            <div className="glass-effect rounded-2xl p-4 border-2 border-primary/20 hover-lift">
-              <p className="text-xl font-bold font-popcat gradient-text-sunset">
+            <div className="glass-effect rounded-3xl p-6 border-3 border-white/40 hover-lift backdrop-blur-strong">
+              <p className="text-xl sm:text-2xl font-bold font-popcat gradient-text mb-2">
                 Yo {user.first_name || user.username || 'Popcat'}! Ready to POP? 🐱
               </p>
-              <p className="text-sm text-muted-foreground font-ui mt-2">
+              <p className="text-sm sm:text-base text-muted-foreground font-ui leading-relaxed">
                 Let's create some legendary memes and stack those POPS! 💎
               </p>
             </div>
@@ -59,30 +61,30 @@ export const PopcatMaker = () => {
         </div>
 
         {/* Main Actions with Enhanced Design */}
-        <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          <Card className="p-0 overflow-hidden border-3 border-primary hover-lift brutal-shadow bg-gradient-to-br from-white to-orange-50/50">
-            <div className="p-6 bg-gradient-to-r from-primary/5 to-accent/5">
+        <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <Card className="p-0 overflow-hidden border-3 border-primary hover-lift shadow-xl hover:shadow-2xl bg-gradient-to-br from-white via-orange-50/30 to-orange-100/50">
+            <div className="p-8 bg-gradient-to-r from-primary/5 to-accent/5">
               <Button 
                 onClick={() => setView('editor')}
                 variant="popcat"
-                className="w-full h-16 text-xl font-popcat gap-3"
-                size="lg"
+                className="w-full h-16 sm:h-18 text-xl sm:text-2xl font-popcat gap-4"
+                size="xl"
               >
-                <Plus className="w-7 h-7" />
+                <Plus className="w-8 h-8" />
                 Create Meme 🎨
               </Button>
             </div>
           </Card>
 
-          <Card className="p-0 overflow-hidden border-3 border-purple-400 hover-lift brutal-shadow bg-gradient-to-br from-white to-purple-50/50">
-            <div className="p-6 bg-gradient-to-r from-purple-100/30 to-pink-100/30">
+          <Card className="p-0 overflow-hidden border-3 border-purple-400 hover-lift shadow-xl hover:shadow-2xl bg-gradient-to-br from-white via-purple-50/30 to-purple-100/50">
+            <div className="p-8 bg-gradient-to-r from-purple-100/30 to-pink-100/30">
               <Button 
                 onClick={() => setView('gallery')}
-                variant="outline"
-                className="w-full h-16 text-xl font-popcat gap-3 border-purple-400 text-purple-700 hover:bg-purple-500 hover:text-white"
-                size="lg"
+                variant="gradient"
+                className="w-full h-16 sm:h-18 text-xl sm:text-2xl font-popcat gap-4"
+                size="xl"
               >
-                <FolderOpen className="w-7 h-7" />
+                <FolderOpen className="w-8 h-8" />
                 My Memes 📁
               </Button>
             </div>
@@ -90,27 +92,27 @@ export const PopcatMaker = () => {
         </div>
 
         {/* Tips with Modern Glass Effect */}
-        <Card className="glass-effect border-2 border-white/40 hover-lift animate-scale-in" style={{ animationDelay: '0.2s' }}>
-          <div className="p-6">
-            <h3 className="font-popcat text-lg mb-4 flex items-center gap-2 gradient-text">
+        <Card className="glass-effect border-3 border-white/40 hover-lift animate-scale-in backdrop-blur-strong" style={{ animationDelay: '0.2s' }}>
+          <div className="p-8">
+            <h3 className="font-popcat text-xl sm:text-2xl mb-6 flex items-center gap-3 gradient-text">
               🐱 POPCAT Pro Tips
-              <span className="text-2xl animate-bounce-gentle">💡</span>
+              <span className="text-3xl animate-bounce-gentle">💡</span>
             </h3>
-            <ul className="space-y-3 font-ui text-sm">
-              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
-                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0s' }}>🎭</span>
+            <ul className="space-y-4 font-ui text-sm sm:text-base">
+              <li className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/60 transition-all duration-300 hover-scale">
+                <span className="text-3xl flex-shrink-0 animate-float" style={{ animationDelay: '0s' }}>🎭</span>
                 <span className="text-foreground leading-relaxed">Upload your face or any image to make it POP!</span>
               </li>
-              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
-                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.2s' }}>💥</span>
+              <li className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/60 transition-all duration-300 hover-scale">
+                <span className="text-3xl flex-shrink-0 animate-float" style={{ animationDelay: '0.3s' }}>💥</span>
                 <span className="text-foreground leading-relaxed">Keep text short and punchy - let the meme speak!</span>
               </li>
-              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
-                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.4s' }}>🏆</span>
+              <li className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/60 transition-all duration-300 hover-scale">
+                <span className="text-3xl flex-shrink-0 animate-float" style={{ animationDelay: '0.6s' }}>🏆</span>
                 <span className="text-foreground leading-relaxed">Share your memes in groups to earn POPS!</span>
               </li>
-              <li className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
-                <span className="text-2xl flex-shrink-0 animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>🚀</span>
+              <li className="flex items-start gap-4 p-3 rounded-2xl hover:bg-white/60 transition-all duration-300 hover-scale">
+                <span className="text-3xl flex-shrink-0 animate-float" style={{ animationDelay: '0.9s' }}>🚀</span>
                 <span className="text-foreground leading-relaxed">Join the POPCAT revolution - to the moon! 🌙</span>
               </li>
             </ul>
@@ -118,24 +120,27 @@ export const PopcatMaker = () => {
         </Card>
 
         {/* Community CTA with Neon Effect */}
-        <Card className="p-0 overflow-hidden border-3 border-purple-400 popcat-neon hover-scale animate-scale-in" style={{ animationDelay: '0.3s' }}>
-          <div className="p-6 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">
+        <Card className="p-0 overflow-hidden border-3 border-purple-400 hover-scale animate-scale-in popcat-neon" style={{ animationDelay: '0.3s' }}>
+          <div className="p-8 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">
             <div className="text-center">
-              <h3 className="font-popcat text-xl mb-3 text-white drop-shadow-lg">
+              <h3 className="font-popcat text-2xl sm:text-3xl mb-4 text-white drop-shadow-2xl">
                 🌟 POPCAT REVOLUTION 🌟
               </h3>
-              <p className="text-sm text-white/90 font-ui mb-4 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/95 font-ui mb-6 leading-relaxed">
                 Join the most legendary meme community on Solana! 
               </p>
-              <div className="flex justify-center gap-3 text-3xl">
-                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0s' }}>🐱</span>
-                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.2s' }}>💎</span>
-                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.4s' }}>🚀</span>
-                <span className="animate-bounce-gentle filter drop-shadow-lg" style={{ animationDelay: '0.6s' }}>🌙</span>
+              <div className="flex justify-center gap-4 sm:gap-6 text-4xl sm:text-5xl">
+                <span className="animate-float filter drop-shadow-2xl" style={{ animationDelay: '0s' }}>🐱</span>
+                <span className="animate-float filter drop-shadow-2xl" style={{ animationDelay: '0.3s' }}>💎</span>
+                <span className="animate-float filter drop-shadow-2xl" style={{ animationDelay: '0.6s' }}>🚀</span>
+                <span className="animate-float filter drop-shadow-2xl" style={{ animationDelay: '0.9s' }}>🌙</span>
               </div>
             </div>
           </div>
         </Card>
+
+        {/* Bottom Spacing */}
+        <div className="h-8"></div>
       </div>
     </div>
   );

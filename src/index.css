@@ -8,73 +8,81 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* POPCAT Brand Colors - Light mode - Modern & Vibrant */
-    --background: 220 20% 98%; /* Cool white */
-    --foreground: 220 30% 10%; /* Deep blue-black */
+    /* POPCAT Brand Colors - Light mode - Ultra Vibrant */
+    --background: 220 25% 99%; /* Near white with subtle blue */
+    --foreground: 220 35% 8%; /* Deep rich black */
 
     --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 220 30% 10%;
+    --card-foreground: 220 35% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 10%;
+    --popover-foreground: 220 35% 8%;
 
-    --primary: 25 95% 53%; /* POPCAT Orange */
-    --primary-foreground: 0 0% 100%; /* Pure white */
+    --primary: 25 98% 55%; /* Ultra vibrant POPCAT Orange */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 250 100% 95%; /* Light purple */
-    --secondary-foreground: 250 70% 20%; /* Dark purple */
+    --secondary: 250 100% 96%; /* Softer purple background */
+    --secondary-foreground: 250 75% 18%; /* Richer purple text */
 
-    --muted: 220 20% 96%; /* Subtle gray */
-    --muted-foreground: 220 15% 45%; /* Medium gray */
+    --muted: 220 25% 97%; /* Lighter muted */
+    --muted-foreground: 220 18% 40%; /* Slightly darker muted text */
 
-    --accent: 280 90% 60%; /* Vibrant purple */
+    --accent: 280 95% 62%; /* More saturated purple */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 90% 58%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 90%; /* Light border */
-    --input: 220 20% 94%; /* Input background */
-    --ring: 25 95% 53%; /* POPCAT Orange */
+    --border: 220 25% 92%; /* Softer border */
+    --input: 220 25% 96%; /* Lighter input */
+    --ring: 25 98% 55%;
 
-    --radius: 1.25rem; /* More rounded */
+    --radius: 1.5rem; /* Extra rounded */
 
-    /* POPCAT custom tokens - Enhanced */
-    --popcat-orange: 25 95% 53%; /* Main orange */
-    --popcat-orange-light: 30 100% 65%; /* Lighter orange */
-    --popcat-orange-dark: 20 90% 45%; /* Darker orange */
-    --popcat-purple: 280 90% 60%; /* Vibrant purple */
-    --popcat-purple-light: 280 100% 85%; /* Light purple */
-    --popcat-blue: 220 90% 55%; /* Vibrant blue */
-    --popcat-pink: 340 95% 70%; /* Hot pink */
-    --popcat-yellow: 45 100% 60%; /* Golden yellow */
-    --popcat-green: 150 70% 50%; /* Success green */
+    /* POPCAT custom tokens - Enhanced Vibrant Palette */
+    --popcat-orange: 25 98% 55%;
+    --popcat-orange-light: 30 100% 68%;
+    --popcat-orange-dark: 20 95% 42%;
+    --popcat-purple: 280 95% 62%;
+    --popcat-purple-light: 280 100% 88%;
+    --popcat-purple-dark: 280 85% 45%;
+    --popcat-blue: 220 95% 58%;
+    --popcat-pink: 340 98% 72%;
+    --popcat-yellow: 45 100% 62%;
+    --popcat-green: 150 75% 52%;
+    --popcat-teal: 180 85% 55%;
+    --popcat-red: 0 90% 58%;
 
-    /* Modern Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(30 100% 65%));
-    --gradient-vibrant: linear-gradient(135deg, hsl(25 95% 53%), hsl(280 90% 60%), hsl(220 90% 55%));
-    --gradient-sunset: linear-gradient(135deg, hsl(340 95% 70%), hsl(25 95% 53%), hsl(45 100% 60%));
-    --gradient-purple: linear-gradient(135deg, hsl(280 100% 85%), hsl(280 90% 60%));
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+    /* Ultra Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 98% 55%) 0%, hsl(30 100% 68%) 100%);
+    --gradient-vibrant: linear-gradient(135deg, hsl(25 98% 55%) 0%, hsl(280 95% 62%) 50%, hsl(220 95% 58%) 100%);
+    --gradient-sunset: linear-gradient(135deg, hsl(340 98% 72%) 0%, hsl(25 98% 55%) 50%, hsl(45 100% 62%) 100%);
+    --gradient-purple: linear-gradient(135deg, hsl(280 100% 88%) 0%, hsl(280 95% 62%) 100%);
+    --gradient-ocean: linear-gradient(135deg, hsl(220 95% 58%) 0%, hsl(180 85% 55%) 100%);
+    --gradient-neon: linear-gradient(135deg, hsl(280 95% 62%) 0%, hsl(340 98% 72%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
 
-    /* Enhanced Shadows */
-    --shadow-sm: 0 2px 8px -2px hsl(220 30% 10% / 0.1);
-    --shadow-md: 0 4px 16px -4px hsl(220 30% 10% / 0.15);
-    --shadow-lg: 0 8px 32px -8px hsl(220 30% 10% / 0.2);
-    --shadow-xl: 0 12px 48px -12px hsl(220 30% 10% / 0.25);
-    --shadow-popcat: 0 8px 32px -8px hsl(25 95% 53% / 0.4);
-    --shadow-purple: 0 8px 32px -8px hsl(280 90% 60% / 0.4);
-    --shadow-glow: 0 0 32px hsl(25 95% 53% / 0.3);
-    --shadow-neon: 0 0 20px hsl(280 90% 60% / 0.6), 0 0 40px hsl(280 90% 60% / 0.3);
+    /* Advanced Shadows */
+    --shadow-xs: 0 1px 3px -1px hsl(220 35% 8% / 0.08);
+    --shadow-sm: 0 2px 8px -2px hsl(220 35% 8% / 0.12);
+    --shadow-md: 0 4px 16px -4px hsl(220 35% 8% / 0.16);
+    --shadow-lg: 0 8px 32px -8px hsl(220 35% 8% / 0.22);
+    --shadow-xl: 0 16px 48px -12px hsl(220 35% 8% / 0.28);
+    --shadow-2xl: 0 24px 64px -16px hsl(220 35% 8% / 0.35);
+    --shadow-popcat: 0 10px 40px -10px hsl(25 98% 55% / 0.45);
+    --shadow-purple: 0 10px 40px -10px hsl(280 95% 62% / 0.45);
+    --shadow-glow: 0 0 40px hsl(25 98% 55% / 0.4);
+    --shadow-neon: 0 0 24px hsl(280 95% 62% / 0.7), 0 0 48px hsl(280 95% 62% / 0.4);
+    --shadow-inner: inset 0 2px 8px hsl(220 35% 8% / 0.08);
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 29%;
-    --sidebar-primary: 201 13% 20%;
-    --sidebar-primary-foreground: 0 0% 96%;
-    --sidebar-accent: 0 0% 94%;
-    --sidebar-accent-foreground: 0 0% 29%;
-    --sidebar-border: 0 0% 89%;
-    --sidebar-ring: 71 57% 71%;
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 220 35% 8%;
+    --sidebar-primary: 25 98% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 25% 96%;
+    --sidebar-accent-foreground: 220 35% 8%;
+    --sidebar-border: 220 25% 92%;
+    --sidebar-ring: 25 98% 55%;
   }
 
   .dark {
@@ -126,44 +134,64 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
-    background: var(--gradient-vibrant);
+    background: linear-gradient(135deg, 
+      hsl(220 95% 98%) 0%, 
+      hsl(280 100% 98%) 25%,
+      hsl(340 100% 98%) 50%,
+      hsl(30 100% 98%) 75%,
+      hsl(220 95% 98%) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
     min-height: 100vh;
+    position: relative;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   /* Mobile-first responsive design */
   html {
     @apply text-base;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
-  /* Touch targets for mobile */
+  /* Touch targets for mobile - Enhanced */
   button, a, [role="button"] {
     min-height: 44px;
     min-width: 44px;
+    @apply transition-all duration-200;
   }
 
   /* Enhanced Typography System */
   .font-popcat {
     font-family: 'Russo One', 'Fredoka', sans-serif;
     font-weight: 400;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    line-height: 1.2;
   }
 
   .font-display {
     font-family: 'Russo One', sans-serif;
     font-weight: 400;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
   }
 
   .font-ui {
     font-family: 'Poppins', 'Inter', system-ui, sans-serif;
     font-weight: 500;
+    line-height: 1.5;
   }
 
   .font-body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    line-height: 1.6;
   }
 
   /* Modern POPCAT Design Elements */
@@ -182,6 +210,7 @@ All colors MUST be HSL.
 
   .popcat-neon {
     box-shadow: var(--shadow-neon);
+    animation: neon-pulse 1.5s ease-in-out infinite;
   }
 
   .popcat-border {
@@ -190,36 +219,47 @@ All colors MUST be HSL.
   }
 
   .glass-effect {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   }
 
   .brutal-shadow {
     box-shadow: 
-      4px 4px 0px hsl(220 30% 10% / 0.2),
-      8px 8px 0px hsl(220 30% 10% / 0.1);
+      5px 5px 0px hsl(220 35% 8% / 0.25),
+      10px 10px 0px hsl(220 35% 8% / 0.12);
   }
 
   /* Enhanced scrollbar */
   ::-webkit-scrollbar {
-    width: 12px;
+    width: 14px;
+    height: 14px;
   }
 
   ::-webkit-scrollbar-track {
     background: hsl(var(--muted));
-    border-radius: 10px;
+    border-radius: 12px;
+    margin: 4px;
   }
 
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    border-radius: 10px;
-    border: 2px solid hsl(var(--muted));
+    border-radius: 12px;
+    border: 3px solid hsl(var(--muted));
+    transition: all 0.2s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    border-width: 2px;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
   }
 }
 
@@ -271,10 +311,23 @@ All colors MUST be HSL.
   /* Animation Utilities */
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px hsl(25 95% 53% / 0.3);
+      box-shadow: 0 0 24px hsl(25 98% 55% / 0.4);
     }
     50% {
-      box-shadow: 0 0 40px hsl(25 95% 53% / 0.6);
+      box-shadow: 0 0 48px hsl(25 98% 55% / 0.7);
+    }
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% {
+      box-shadow: 
+        0 0 20px hsl(280 95% 62% / 0.5),
+        0 0 40px hsl(280 95% 62% / 0.3);
+    }
+    50% {
+      box-shadow: 
+        0 0 30px hsl(280 95% 62% / 0.8),
+        0 0 60px hsl(280 95% 62% / 0.5);
     }
   }
 
@@ -283,16 +336,16 @@ All colors MUST be HSL.
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
     }
   }
 
   @keyframes shimmer {
     0% {
-      background-position: -1000px 0;
+      background-position: -1200px 0;
     }
     100% {
-      background-position: 1000px 0;
+      background-position: 1200px 0;
     }
   }
 
@@ -301,7 +354,7 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
     }
   }
 
@@ -313,6 +366,15 @@ All colors MUST be HSL.
     100% {
       transform: scale(1);
       opacity: 1;
+    }
+  }
+
+  @keyframes rotate-slow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 
@@ -332,12 +394,18 @@ All colors MUST be HSL.
     animation: scale-in 0.3s ease-out;
   }
 
+  .animate-rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
+
   /* Gradient Text */
   .gradient-text {
     background: var(--gradient-vibrant);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
   }
 
   .gradient-text-sunset {
@@ -345,20 +413,28 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% 200%;
+  }
+
+  .gradient-text-ocean {
+    background: var(--gradient-ocean);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Hover Effects */
   .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
   }
 
   .hover-scale {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .hover-scale:hover {
@@ -371,5 +447,24 @@ All colors MUST be HSL.
 
   .hover-glow:hover {
     box-shadow: var(--shadow-glow);
+  }
+
+  .hover-rotate {
+    transition: transform 0.3s ease;
+  }
+
+  .hover-rotate:hover {
+    transform: rotate(5deg);
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-strong {
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+  }
+
+  .backdrop-blur-medium {
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
   }
 }

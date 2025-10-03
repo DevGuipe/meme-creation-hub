@@ -1419,14 +1419,16 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
         )}
 
         {/* Layers Panel */}
-        <Card className="p-4 mb-4 mt-6 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">🎨 Backgrounds</Label>
-          <div className="grid grid-cols-3 gap-2 mb-4">
+        <Card className="p-6 mb-6 glass-effect border-3 border-white/40 hover-lift">
+          <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
+            🎨 Backgrounds
+          </Label>
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {BACKGROUNDS.map(bg => (
               <Button
                 key={bg.key}
                 variant="outline"
-                className="text-xs font-ui px-2 py-2 h-auto min-h-[2rem] text-center"
+                className="text-xs font-ui px-3 py-3 h-auto min-h-[2.5rem] text-center rounded-xl hover:scale-105"
                 onClick={() => {
                   console.log('🎯 Background clicked:', { key: bg.key, name: bg.name, url: bg.url });
                   updateLayer('bg', { content: bg.key });
@@ -1438,13 +1440,15 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">🐱 Cat Poses</Label>
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
+            🐱 Cat Poses
+          </Label>
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {BODIES.map(body => (
               <Button
                 key={body.key}
                 variant="outline"
-                className="text-xs font-ui px-2 py-2 h-auto min-h-[2rem] text-center"
+                className="text-xs font-ui px-3 py-3 h-auto min-h-[2.5rem] text-center rounded-xl hover:scale-105"
                 onClick={() => addLayer('body', body.key)}
               >
                 <span className="truncate">{body.name}</span>
@@ -1452,13 +1456,15 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">😮 Oatmeal Faces</Label>
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
+            😮 Oatmeal Faces
+          </Label>
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {HEADS.map(head => (
               <Button
                 key={head.key}
                 variant="outline"
-                className="text-xs font-ui px-2 py-2 h-auto min-h-[2rem] text-center"
+                className="text-xs font-ui px-3 py-3 h-auto min-h-[2.5rem] text-center rounded-xl hover:scale-105"
                 onClick={() => addLayer('head', head.key)}
               >
                 <span className="truncate">{head.name}</span>
@@ -1466,16 +1472,16 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             ))}
           </div>
           
-          <div className="space-y-3">
-            <div className="flex gap-2">
+          <div className="space-y-4 mb-6">
+            <div className="flex gap-3">
               <Label htmlFor="head-upload" className="flex-1">
                 <Button 
-                  variant="outline" 
-                  className="text-xs font-ui w-full" 
+                  variant="secondary" 
+                  className="text-sm font-ui w-full h-12 rounded-xl hover:scale-105" 
                   asChild
                 >
                   <span>
-                    <Upload className="w-3 h-3 mr-1" />
+                    <Upload className="w-4 h-4 mr-2" />
                     Upload Image
                   </span>
                 </Button>
@@ -1490,13 +1496,15 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             </div>
           </div>
 
-          <Label className="text-sm font-ui mb-2 block">✨ Pop Extras</Label>
-          <div className="grid grid-cols-2 gap-2 mb-4">
+          <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
+            ✨ Pop Extras
+          </Label>
+          <div className="grid grid-cols-2 gap-3 mb-4">
             {PROPS.map(prop => (
               <Button
                 key={prop.key}
                 variant="outline"
-                className="text-xs font-ui px-2 py-2 h-auto min-h-[2rem] text-center"
+                className="text-xs font-ui px-3 py-3 h-auto min-h-[2.5rem] text-center rounded-xl hover:scale-105"
                 onClick={() => addLayer('prop', prop.key)}
               >
                 <span className="truncate">{prop.name}</span>
@@ -1506,8 +1514,10 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
         </Card>
 
         {/* Text Controls */}
-        <Card className="p-4 mb-4 bg-card border-border">
-          <Label className="text-sm font-ui mb-2 block">💬 Add Text</Label>
+        <Card className="p-6 mb-6 glass-effect border-3 border-white/40 hover-lift">
+          <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
+            💬 Add Text
+          </Label>
           <div className="space-y-3">
             <Input
               value={textContent}
