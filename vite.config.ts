@@ -15,4 +15,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    force: true, // Force re-optimization on every restart
+    exclude: ['node_modules/.cache']
+  },
+  cacheDir: 'node_modules/.vite',
 }));
