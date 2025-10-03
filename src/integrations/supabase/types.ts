@@ -55,6 +55,41 @@ export type Database = {
           },
         ]
       }
+      popcat_events: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          metadata: Json | null
+          source: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          source: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          source?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "popcat_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string | null
@@ -101,6 +136,30 @@ export type Database = {
       get_user_id_by_telegram_id: {
         Args: { telegram_user_id: number }
         Returns: string
+      }
+      get_user_ranking: {
+        Args: { user_telegram_id: number }
+        Returns: {
+          first_name: string
+          global_rank: number
+          telegram_id: number
+          total_score: number
+          user_id: string
+          weekly_rank: number
+          weekly_score: number
+        }[]
+      }
+      get_user_rankings: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          first_name: string
+          global_rank: number
+          telegram_id: number
+          total_score: number
+          user_id: string
+          weekly_rank: number
+          weekly_score: number
+        }[]
       }
     }
     Enums: {
