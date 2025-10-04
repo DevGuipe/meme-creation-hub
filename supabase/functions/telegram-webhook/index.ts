@@ -406,7 +406,7 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
       }
 
       // Get WebApp URL from environment or use default
-      const webAppUrl = Deno.env.get('WEB_APP_URL') || 'https://popcatmemer.click';
+      const webAppUrl = Deno.env.get('WEB_APP_URL') || 'https://chadmaker.click';
       console.log('🌐 Using WebApp URL:', webAppUrl);
 
       // Build WebApp URL with user data in query params (fallback for initDataUnsafe issues)
@@ -539,7 +539,7 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
           if (/^https?:\/\//.test(preview)) {
             imageUrl = preview;
           } else if (preview.startsWith('/')) {
-            const webUrl = Deno.env.get('WEB_APP_URL') || 'https://popcatmemer.click';
+            const webUrl = Deno.env.get('WEB_APP_URL') || 'https://chadmaker.click';
             imageUrl = `${webUrl}${preview}`;
           }
         }

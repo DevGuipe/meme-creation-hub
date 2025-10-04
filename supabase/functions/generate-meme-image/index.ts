@@ -125,12 +125,12 @@ serve(async (req) => {
 
         // If the URL is a data: URL (not fetchable by Telegram), fallback to web placeholder
         if (imageUrl.startsWith('data:')) {
-          const webUrl = Deno.env.get('WEB_APP_URL') || 'https://popcatmemer.click';
+          const webUrl = Deno.env.get('WEB_APP_URL') || 'https://chadmaker.click';
           imageUrl = `${webUrl}/placeholder.svg`;
         }
       } catch (parseError) {
         console.error('Error parsing layers_payload:', parseError);
-        const webUrl = Deno.env.get('WEB_APP_URL') || 'https://popcatmemer.click';
+        const webUrl = Deno.env.get('WEB_APP_URL') || 'https://chadmaker.click';
         imageUrl = `${webUrl}/placeholder.svg`;
       }
     }
