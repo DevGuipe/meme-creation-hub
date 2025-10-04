@@ -17,16 +17,16 @@ import classicBody from './bodies/classic.png';
 import cartoonBody from './bodies/cartoon.png';
 
 // Props
-import glasses from './props/glasses.png';
-import chain from './props/chain.png';
-import flag from './props/flag.png';
-import confetti from './props/confetti.png';
-import crown from './props/crown.png';
-import headphones from './props/headphones.png';
-import diamondHands from './props/diamond-hands.png';
-import rocket from './props/rocket.png';
-import controller from './props/controller.png';
-import coin from './props/coin.png';
+import pixelShades from './props/pixel-shades.png';
+import greenSweater from './props/green-sweater.png';
+import whiteHoodie from './props/white-hoodie.png';
+import leatherJacket from './props/leather-jacket.png';
+import lafdUniform from './props/lafd-uniform.png';
+import greenCandles from './props/green-candles.png';
+import rocketCandles from './props/rocket-candles.png';
+import pixelPopcat from './props/pixel-popcat.png';
+import popcatCoin from './props/popcat-coin.png';
+import billionsCap from './props/billions-cap.png';
 
 // Heads (general use/props)
 import popcatFace from './heads/popcat-face.png';
@@ -80,16 +80,16 @@ export const assets = {
     cartoon: cartoonBody,
   },
   props: {
-    glasses: glasses,
-    chain: chain,
-    flag: flag,
-    confetti: confetti,
-    crown: crown,
-    headphones: headphones,
-    diamondHands: diamondHands,
-    rocket: rocket,
-    controller: controller,
-    coin: coin,
+    pixelShades: pixelShades,
+    greenSweater: greenSweater,
+    whiteHoodie: whiteHoodie,
+    leatherJacket: leatherJacket,
+    lafdUniform: lafdUniform,
+    greenCandles: greenCandles,
+    rocketCandles: rocketCandles,
+    pixelPopcat: pixelPopcat,
+    popcatCoin: popcatCoin,
+    billionsCap: billionsCap,
   },
   heads: {
     popcat: popcatFace,

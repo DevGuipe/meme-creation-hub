@@ -105,16 +105,16 @@ const BODIES = [
 ];
 
 const PROPS = [
-  { key: 'glasses', name: 'Chad Shades 😎', url: assets.props.glasses },
-  { key: 'chain', name: 'Drip 💎', url: assets.props.chain },
-  { key: 'flag', name: 'Nation 🚩', url: assets.props.flag },
-  { key: 'confetti', name: 'Celebrate 🎉', url: assets.props.confetti },
-  { key: 'crown', name: 'King 👑', url: assets.props.crown },
-  { key: 'headphones', name: 'Gamer 🎧', url: assets.props.headphones },
-  { key: 'diamondHands', name: 'HODL 💎🙌', url: assets.props.diamondHands },
-  { key: 'rocket', name: 'To The Moon 🚀', url: assets.props.rocket },
-  { key: 'controller', name: 'Pro Player 🎮', url: assets.props.controller },
-  { key: 'coin', name: 'Rich 🪙', url: assets.props.coin }
+  { key: 'pixelShades', name: 'Pixel 😎', url: assets.props.pixelShades },
+  { key: 'greenSweater', name: 'Cozy 🧥', url: assets.props.greenSweater },
+  { key: 'whiteHoodie', name: 'Hood 🤍', url: assets.props.whiteHoodie },
+  { key: 'leatherJacket', name: 'Drip 🧥', url: assets.props.leatherJacket },
+  { key: 'lafdUniform', name: 'LAFD 👔', url: assets.props.lafdUniform },
+  { key: 'greenCandles', name: 'Pump 📈', url: assets.props.greenCandles },
+  { key: 'rocketCandles', name: 'HODL 🚀', url: assets.props.rocketCandles },
+  { key: 'pixelPopcat', name: 'Moon 🌙', url: assets.props.pixelPopcat },
+  { key: 'popcatCoin', name: 'Pro 🪙', url: assets.props.popcatCoin },
+  { key: 'billionsCap', name: 'Rich 🧢', url: assets.props.billionsCap }
 ];
 
 const HEADS = [
