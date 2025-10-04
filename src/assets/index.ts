@@ -6,7 +6,7 @@ import neonBg from './backgrounds/neon.png';
 import beachBg from './backgrounds/beach.png';
 import officeBg from './backgrounds/office.png';
 import fireBg from './backgrounds/fire.png';
-import memeBg from './backgrounds/meme.png';
+import schoolBg from './backgrounds/school.png';
 
 // Bodies (general use/props)
 import lasersBody from './bodies/lasers.png';
@@ -66,7 +66,7 @@ export const assets = {
     beach: beachBg,
     office: officeBg,
     fire: fireBg,
-    meme: memeBg,
+    school: schoolBg,
   },
   bodies: {
     lasers: lasersBody,

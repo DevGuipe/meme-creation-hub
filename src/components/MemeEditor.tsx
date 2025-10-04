@@ -92,7 +92,7 @@ const BACKGROUNDS = [
   { key: 'beach', name: 'Beach 🌊', url: assets.backgrounds.beach },
   { key: 'office', name: 'Office 💻', url: assets.backgrounds.office },
   { key: 'fire', name: 'Fire 🔥', url: assets.backgrounds.fire },
-  { key: 'meme', name: 'Meme 🎭', url: assets.backgrounds.meme }
+  { key: 'school', name: 'School 🎓', url: assets.backgrounds.school }
 ];
 
 const BODIES = [
@@ -124,11 +124,11 @@ const HEADS = [
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
-  const baseBg: Layer = { id: 'bg', type: 'background', content: 'meme', x: 50, y: 50, scale: 1, rotation: 0, zIndex: 0 };
+  const baseBg: Layer = { id: 'bg', type: 'background', content: 'school', x: 50, y: 50, scale: 1, rotation: 0, zIndex: 0 };
   switch (templateKey) {
     case 'pop_vs_closed':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.room, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'cute_closed', type: 'prop', content: assets.templates.pop_vs_closed.cuteClosed, x: 25, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
         { id: 'cute_open', type: 'prop', content: assets.templates.pop_vs_closed.cuteOpen, x: 45, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
         { id: 'drawn_closed', type: 'prop', content: assets.templates.pop_vs_closed.drawnClosed, x: 65, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
@@ -137,13 +137,13 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
       ];
     case 'yes_pop':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.beach, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'tribune', type: 'prop', content: assets.templates.yes_pop.tribune, x: 50, y: 55, scale: 1.0, rotation: 0, zIndex: 1 },
         { id: 'text', type: 'text', content: 'YES.', x: 50, y: 15, scale: 1.2, rotation: 0, zIndex: 3, fontSize: 32, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'click_wars':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.room, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.fire, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'boom', type: 'prop', content: assets.templates.click_wars.boom, x: 35, y: 55, scale: 0.85, rotation: 0, zIndex: 1 },
         { id: 'clicks', type: 'prop', content: assets.templates.click_wars.clicks, x: 65, y: 55, scale: 0.85, rotation: 0, zIndex: 1 },
         { id: 'text', type: 'text', content: 'CLICK WARS', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 26, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
@@ -156,7 +156,7 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
       ];
     case 'evolution':
       return [
-        baseBg,
+        { id: 'bg', type: 'background', content: assets.backgrounds.school, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'teacher', type: 'prop', content: assets.templates.evolution.teacher, x: 30, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
         { id: 'text_left', type: 'text', content: 'ANGRY TEACHER 😡', x: 30, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
         { id: 'vomit', type: 'prop', content: assets.templates.evolution.vomit, x: 70, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
@@ -164,7 +164,7 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
       ];
     case 'domination':
       return [
-        baseBg,
+        { id: 'bg', type: 'background', content: assets.backgrounds.room, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'wave', type: 'prop', content: assets.templates.domination.wave, x: 30, y: 45, scale: 0.70, rotation: 0, zIndex: 1 },
         { id: 'squeeze', type: 'prop', content: assets.templates.domination.squeeze, x: 55, y: 55, scale: 0.60, rotation: 0, zIndex: 1 },
         { id: 'clock', type: 'prop', content: assets.templates.domination.clock, x: 75, y: 35, scale: 0.55, rotation: 0, zIndex: 1 },
