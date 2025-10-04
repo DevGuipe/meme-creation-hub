@@ -34,33 +34,30 @@ import megaPopcatFace from './heads/megapopcat-face.png';
 import laserFace from './heads/laser-face.png';
 
 // Template-specific assets
-// POP vs Closed
-import popVsClosedClosedBody from './templates/pop_vs_closed/closed-body.png';
-import popVsClosedPopBody from './templates/pop_vs_closed/pop-body.png';
-import popVsClosedClosedHead from './templates/pop_vs_closed/closed-head.png';
-import popVsClosedPopHead from './templates/pop_vs_closed/pop-head.png';
-
-// Yes POP
-import yesPopBody from './templates/yes_pop/pop-body.png';
-import yesPopHead from './templates/yes_pop/pop-head.png';
-
 // Click Wars
-import clickWarsBody from './templates/click_wars/pop-body.png';
-import clickWarsHead from './templates/click_wars/pop-head.png';
-
-// Pro Gamer
-import proGamerBody from './templates/pro_gamer/pop-body.png';
-import proGamerHead from './templates/pro_gamer/pop-head.png';
+import clickWarsBoom from './templates/click_wars/boom.png';
+import clickWarsClicks from './templates/click_wars/clicks.png';
 
 // Evolution
-import evolutionNoobBody from './templates/evolution/noob-body.png';
-import evolutionProBody from './templates/evolution/pro-body.png';
-import evolutionProHead from './templates/evolution/pro-head.png';
+import evolutionTeacher from './templates/evolution/teacher.png';
+import evolutionVomit from './templates/evolution/vomit.png';
 
-// World Record
-import worldRecordBody from './templates/world_record/pop-body.png';
-import worldRecordHead from './templates/world_record/pop-head.png';
-import worldRecordTrophy from './templates/world_record/trophy.png';
+// POP vs Closed
+import popVsClosedCuteClosed from './templates/pop_vs_closed/cute-closed.png';
+import popVsClosedCuteOpen from './templates/pop_vs_closed/cute-open.png';
+import popVsClosedDrawnClosed from './templates/pop_vs_closed/drawn-closed.png';
+import popVsClosedDrawnOpen from './templates/pop_vs_closed/drawn-open.png';
+
+// Karaoke
+import karaokeSinging from './templates/karaoke/singing.png';
+
+// Domination
+import dominationWave from './templates/domination/wave.png';
+import dominationSqueeze from './templates/domination/squeeze.png';
+import dominationClock from './templates/domination/clock.png';
+
+// Yes POP
+import yesPopTribune from './templates/yes_pop/tribune.png';
 
 export const assets = {
   backgrounds: {
@@ -97,33 +94,30 @@ export const assets = {
     laser: laserFace,
   },
   templates: {
-    pop_vs_closed: {
-      closedBody: popVsClosedClosedBody,
-      popBody: popVsClosedPopBody,
-      closedHead: popVsClosedClosedHead,
-      popHead: popVsClosedPopHead,
-    },
-    yes_pop: {
-      popBody: yesPopBody,
-      popHead: yesPopHead,
-    },
     click_wars: {
-      popBody: clickWarsBody,
-      popHead: clickWarsHead,
-    },
-    pro_gamer: {
-      popBody: proGamerBody,
-      popHead: proGamerHead,
+      boom: clickWarsBoom,
+      clicks: clickWarsClicks,
     },
     evolution: {
-      noobBody: evolutionNoobBody,
-      proBody: evolutionProBody,
-      proHead: evolutionProHead,
+      teacher: evolutionTeacher,
+      vomit: evolutionVomit,
     },
-    world_record: {
-      popBody: worldRecordBody,
-      popHead: worldRecordHead,
-      trophy: worldRecordTrophy,
+    pop_vs_closed: {
+      cuteClosed: popVsClosedCuteClosed,
+      cuteOpen: popVsClosedCuteOpen,
+      drawnClosed: popVsClosedDrawnClosed,
+      drawnOpen: popVsClosedDrawnOpen,
+    },
+    karaoke: {
+      singing: karaokeSinging,
+    },
+    domination: {
+      wave: dominationWave,
+      squeeze: dominationSqueeze,
+      clock: dominationClock,
+    },
+    yes_pop: {
+      tribune: yesPopTribune,
     },
   },
 };

@@ -80,10 +80,10 @@ const raceWithTimeout = async <T,>(promise: Promise<T>, ms: number, label: strin
 const TEMPLATES = [
   { key: 'pop_vs_closed', name: 'POP vs Closed 🐱' },
   { key: 'yes_pop', name: 'Yes POP ✅' },
-  { key: 'click_wars', name: 'Click Wars ⚔️' },
-  { key: 'pro_gamer', name: 'Pro Gamer 🎮' },
-  { key: 'evolution', name: 'Evolution 📈' },
-  { key: 'world_record', name: 'World Record 🏆' }
+  { key: 'click_wars', name: 'Click Wars 💥' },
+  { key: 'karaoke', name: 'Karaoke 🎤' },
+  { key: 'evolution', name: 'Evolution 📚' },
+  { key: 'domination', name: 'World Domination 🌊' }
 ];
 
 const BACKGROUNDS = [
@@ -129,50 +129,46 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
     case 'pop_vs_closed':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
-        { id: 'body_left', type: 'body', content: assets.templates.pop_vs_closed.closedBody, x: 30, y: 65, scale: 0.85, rotation: 0, zIndex: 1 },
-        { id: 'head_left', type: 'head', content: assets.templates.pop_vs_closed.closedHead, x: 30, y: 40, scale: 0.75, rotation: 0, zIndex: 2 },
-        { id: 'text_left', type: 'text', content: 'CLOSED', x: 30, y: 18, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
-        { id: 'body_right', type: 'body', content: assets.templates.pop_vs_closed.popBody, x: 70, y: 65, scale: 0.90, rotation: 0, zIndex: 1 },
-        { id: 'head_right', type: 'head', content: assets.templates.pop_vs_closed.popHead, x: 70, y: 40, scale: 0.80, rotation: 0, zIndex: 2 },
-        { id: 'text_right', type: 'text', content: 'POP! 😮', x: 70, y: 18, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'cute_closed', type: 'prop', content: assets.templates.pop_vs_closed.cuteClosed, x: 25, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
+        { id: 'cute_open', type: 'prop', content: assets.templates.pop_vs_closed.cuteOpen, x: 45, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
+        { id: 'drawn_closed', type: 'prop', content: assets.templates.pop_vs_closed.drawnClosed, x: 65, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
+        { id: 'drawn_open', type: 'prop', content: assets.templates.pop_vs_closed.drawnOpen, x: 85, y: 55, scale: 0.75, rotation: 0, zIndex: 1 },
+        { id: 'text', type: 'text', content: 'POP vs CLOSED', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 24, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'yes_pop':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
-        { id: 'body', type: 'body', content: assets.templates.yes_pop.popBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
-        { id: 'head', type: 'head', content: assets.templates.yes_pop.popHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
+        { id: 'tribune', type: 'prop', content: assets.templates.yes_pop.tribune, x: 50, y: 55, scale: 1.0, rotation: 0, zIndex: 1 },
         { id: 'text', type: 'text', content: 'YES.', x: 50, y: 15, scale: 1.2, rotation: 0, zIndex: 3, fontSize: 32, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'click_wars':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.room, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
-        { id: 'body', type: 'body', content: assets.templates.click_wars.popBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
-        { id: 'head', type: 'head', content: assets.templates.click_wars.popHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
-        { id: 'text', type: 'text', content: 'CLICK CHAMPION', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'boom', type: 'prop', content: assets.templates.click_wars.boom, x: 35, y: 55, scale: 0.85, rotation: 0, zIndex: 1 },
+        { id: 'clicks', type: 'prop', content: assets.templates.click_wars.clicks, x: 65, y: 55, scale: 0.85, rotation: 0, zIndex: 1 },
+        { id: 'text', type: 'text', content: 'CLICK WARS', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 26, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
-    case 'pro_gamer':
+    case 'karaoke':
       return [
         { id: 'bg', type: 'background', content: assets.backgrounds.neon, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
-        { id: 'body', type: 'body', content: assets.templates.pro_gamer.popBody, x: 50, y: 68, scale: 1.0, rotation: 0, zIndex: 1 },
-        { id: 'head', type: 'head', content: assets.templates.pro_gamer.popHead, x: 50, y: 42, scale: 0.85, rotation: 0, zIndex: 2 },
-        { id: 'text', type: 'text', content: 'PRO GAMER', x: 50, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 20, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'singing', type: 'prop', content: assets.templates.karaoke.singing, x: 50, y: 55, scale: 1.0, rotation: 0, zIndex: 1 },
+        { id: 'text', type: 'text', content: 'POPCAT KARAOKE 🎤', x: 50, y: 15, scale: 0.95, rotation: 0, zIndex: 3, fontSize: 24, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'evolution':
       return [
         baseBg,
-        { id: 'text_before', type: 'text', content: 'NOOB', x: 30, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
-        { id: 'body_before', type: 'body', content: assets.templates.evolution.noobBody, x: 30, y: 65, scale: 0.85, rotation: 0, zIndex: 1 },
-        { id: 'text_after', type: 'text', content: 'PRO 🚀', x: 70, y: 12, scale: 0.9, rotation: 0, zIndex: 3, fontSize: 18, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
-        { id: 'body_after', type: 'body', content: assets.templates.evolution.proBody, x: 70, y: 65, scale: 0.90, rotation: 0, zIndex: 1 },
-        { id: 'head_after', type: 'head', content: assets.templates.evolution.proHead, x: 70, y: 38, scale: 0.85, rotation: 0, zIndex: 2 },
+        { id: 'teacher', type: 'prop', content: assets.templates.evolution.teacher, x: 30, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
+        { id: 'text_left', type: 'text', content: 'ANGRY TEACHER 😡', x: 30, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'vomit', type: 'prop', content: assets.templates.evolution.vomit, x: 70, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
+        { id: 'text_right', type: 'text', content: 'POPCAT VOMIT 🤮', x: 70, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
-    case 'world_record':
+    case 'domination':
       return [
         baseBg,
-        { id: 'body', type: 'body', content: assets.templates.world_record.popBody, x: 50, y: 65, scale: 1.0, rotation: 0, zIndex: 1 },
-        { id: 'head', type: 'head', content: assets.templates.world_record.popHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
-        { id: 'trophy', type: 'prop', content: assets.templates.world_record.trophy, x: 75, y: 25, scale: 0.60, rotation: 0, zIndex: 3 },
-        { id: 'text', type: 'text', content: 'WORLD RECORD 🏆', x: 50, y: 10, scale: 0.95, rotation: 0, zIndex: 4, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'wave', type: 'prop', content: assets.templates.domination.wave, x: 30, y: 45, scale: 0.70, rotation: 0, zIndex: 1 },
+        { id: 'squeeze', type: 'prop', content: assets.templates.domination.squeeze, x: 55, y: 55, scale: 0.60, rotation: 0, zIndex: 1 },
+        { id: 'clock', type: 'prop', content: assets.templates.domination.clock, x: 75, y: 35, scale: 0.55, rotation: 0, zIndex: 1 },
+        { id: 'text', type: 'text', content: 'WORLD DOMINATION 🌊', x: 50, y: 10, scale: 0.85, rotation: 0, zIndex: 4, fontSize: 20, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     default:
       return [baseBg];
