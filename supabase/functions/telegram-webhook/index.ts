@@ -256,7 +256,7 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
       }
 
       // Parse reaction data: "react_type_memeId" format
-      const reactionMatch = data.match(/^react_(thumbs_up|laugh|flex|popcat|moai)_(.+)$/);
+      const reactionMatch = data.match(/^react_(popcat|pop|fire|gem|rocket)_(.+)$/);
       if (reactionMatch) {
         const reactionType = reactionMatch[1];
         const memeId = reactionMatch[2];
@@ -277,7 +277,7 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               callback_query_id: callbackQuery.id,
-              text: `You already reacted with ${reactionType === 'thumbs_up' ? '👍' : reactionType === 'laugh' ? '😂' : reactionType === 'flex' ? '💪' : reactionType === 'popcat' ? '🐱' : '🗿'}`,
+              text: `You already reacted with ${reactionType === 'popcat' ? '🐱' : reactionType === 'pop' ? '😮' : reactionType === 'fire' ? '🔥' : reactionType === 'gem' ? '💎' : '🚀'}`,
               show_alert: false
             })
           });
@@ -320,10 +320,10 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
                   .from('popcat_events')
                   .insert({
                     user_id: meme.owner_id,
-                    source: reactionType === 'thumbs_up' ? 'reaction_thumbs' : 
-                            reactionType === 'laugh' ? 'reaction_laugh' : 
-                            reactionType === 'flex' ? 'reaction_flex' : 
-                            reactionType === 'popcat' ? 'reaction_popcat' : 'reaction_moai',
+                    source: reactionType === 'popcat' ? 'reaction_popcat' : 
+                            reactionType === 'pop' ? 'reaction_pop' : 
+                            reactionType === 'fire' ? 'reaction_fire' : 
+                            reactionType === 'gem' ? 'reaction_gem' : 'reaction_rocket',
                     amount: 1,
                     meme_id: memeId
                   });
@@ -578,11 +578,11 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
           caption: `🐱 POPCAT Meme #${memeId} by @${sanitizedUsername || sanitizedFirstName} 💥`,
           reply_markup: {
           inline_keyboard: [[
-            { text: "👍", callback_data: `react_thumbs_up_${meme.id}` },
-            { text: "😂", callback_data: `react_laugh_${meme.id}` },
-            { text: "💪", callback_data: `react_flex_${meme.id}` },
             { text: "🐱", callback_data: `react_popcat_${meme.id}` },
-            { text: "🗿", callback_data: `react_moai_${meme.id}` }
+            { text: "😮", callback_data: `react_pop_${meme.id}` },
+            { text: "🔥", callback_data: `react_fire_${meme.id}` },
+            { text: "💎", callback_data: `react_gem_${meme.id}` },
+            { text: "🚀", callback_data: `react_rocket_${meme.id}` }
           ]]
           }
         };
@@ -629,11 +629,11 @@ Use \`/meme <id>\` in any Telegram group to publish your saved memes and watch t
           text: `🐱 POPCAT Meme #${memeId} by @${sanitizedUsername || sanitizedFirstName} 💥`,
           reply_markup: {
             inline_keyboard: [[
-              { text: "👍", callback_data: `react_thumbs_up_${meme.id}` },
-              { text: "😂", callback_data: `react_laugh_${meme.id}` },
-              { text: "💪", callback_data: `react_flex_${meme.id}` },
               { text: "🐱", callback_data: `react_popcat_${meme.id}` },
-              { text: "🗿", callback_data: `react_moai_${meme.id}` }
+              { text: "😮", callback_data: `react_pop_${meme.id}` },
+              { text: "🔥", callback_data: `react_fire_${meme.id}` },
+              { text: "💎", callback_data: `react_gem_${meme.id}` },
+              { text: "🚀", callback_data: `react_rocket_${meme.id}` }
             ]]
           }
         };
