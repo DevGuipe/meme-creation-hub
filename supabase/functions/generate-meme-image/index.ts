@@ -23,8 +23,9 @@ interface Layer {
 }
 
 async function generateMemeImage(layers: Layer[], memeId: string): Promise<string> {
-  // For now, return a simple generated image with meme info
-  // TODO: Implement proper canvas rendering when Deno Canvas API is available
+  // LIMITATION: Deno's Canvas API is not fully stable for complex rendering
+  // For production, we prefer using pre-rendered images from Storage
+  // This fallback generates a simple SVG placeholder when Storage images are unavailable
   
   // Create SVG as string and convert to base64
   const svg = `

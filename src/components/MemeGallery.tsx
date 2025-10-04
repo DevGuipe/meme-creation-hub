@@ -165,11 +165,7 @@ export const MemeGallery = ({ onBack, onCreateNew, telegramUserId }: MemeGallery
       const errorMessage = error instanceof Error ? error.message : "Could not load your memes";
       setError(errorMessage);
       
-      toast({
-        title: "Failed to load gallery",
-        description: "Could not load your memes. Please try again.",
-        variant: "destructive",
-      });
+      // Don't show toast here, we'll show a retry button in the UI instead
     } finally {
       setIsLoading(false);
     }

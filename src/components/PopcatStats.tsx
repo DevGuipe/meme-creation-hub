@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, Target } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import { validateTelegramId } from '@/lib/validations';
 import { TELEGRAM_ID_RANGE } from '@/lib/constants';
 import { logger } from '@/lib/logger';
@@ -50,6 +51,7 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
   const [stats, setStats] = useState<PopcatStatsType | null>(null);
   const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     loadStats();
@@ -98,6 +100,12 @@ export const PopcatStats = ({ userId }: PopcatStatsProps) => {
           weeklyRank: 1,
           badge: 'Supreme Popcat',
           recentEvents: []
+        });
+        // Show warning toast for development mode
+        toast({
+          title: "Development Mode",
+          description: "Showing mock statistics. Connect via Telegram to see real data.",
+          variant: "default",
         });
         return;
       }

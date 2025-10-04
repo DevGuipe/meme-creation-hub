@@ -477,7 +477,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
                       
                       if (canShare && nav.share) {
                         await nav.share({ files: [file], title: 'POPCAT Meme' });
-                        toast({ title: 'Compartilhado! 🎉', description: 'Imagem enviada para o app escolhido.' });
+                        toast({ title: 'Shared! 🎉', description: 'Meme sent to your chosen app!' });
                         resolve();
                         return;
                       }
@@ -582,8 +582,8 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
     if (isExporting) {
       logger.warn('Save already in progress, ignoring duplicate click');
       toast({
-        title: "Já salvando",
-        description: "Por favor aguarde o salvamento anterior concluir.",
+        title: "Already saving",
+        description: "Please wait for the current save to complete.",
         variant: "default",
       });
       return;
@@ -887,8 +887,8 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
             idempotencyKey: currentIdemKey,
           });
           toast({
-            title: 'Sem conexão',
-            description: 'Salvamos em fila e enviaremos assim que reconectar.',
+            title: 'No connection',
+            description: 'Meme queued and will be saved when you\'re back online.',
           });
         } else {
           toast({
