@@ -23,6 +23,10 @@ import chain from './props/chain.png';
 import flag from './props/flag.png';
 import confetti from './props/confetti.png';
 import trophy from './props/trophy.png';
+import crown from './props/crown.png';
+import headphones from './props/headphones.png';
+import diamondHands from './props/diamond-hands.png';
+import rocket from './props/rocket.png';
 
 // Heads (general use/props)
 import popcatFace from './heads/popcat-face.png';
@@ -82,6 +86,10 @@ export const assets = {
     flag: flag,
     confetti: confetti,
     trophy: trophy,
+    crown: crown,
+    headphones: headphones,
+    diamondHands: diamondHands,
+    rocket: rocket,
   },
   heads: {
     popcat: popcatFace,

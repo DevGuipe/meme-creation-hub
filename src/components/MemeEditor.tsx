@@ -105,12 +105,16 @@ const BODIES = [
 ];
 
 const PROPS = [
-  { key: 'glasses', name: 'Cool Shades 😎', url: assets.props.glasses },
-  { key: 'whey', name: 'Pop Power ⚡', url: assets.props.whey },
-  { key: 'chain', name: 'Bling Pop 💎', url: assets.props.chain },
-  { key: 'flag', name: 'Country Flag 🚩', url: assets.props.flag },
-  { key: 'confetti', name: 'Pop Party 🎉', url: assets.props.confetti },
-  { key: 'trophy', name: 'Leaderboard Trophy 🏆', url: assets.props.trophy }
+  { key: 'glasses', name: 'Chad Shades 😎', url: assets.props.glasses },
+  { key: 'whey', name: 'Gains 💪', url: assets.props.whey },
+  { key: 'chain', name: 'Drip 💎', url: assets.props.chain },
+  { key: 'flag', name: 'Nation 🚩', url: assets.props.flag },
+  { key: 'confetti', name: 'Celebrate 🎉', url: assets.props.confetti },
+  { key: 'trophy', name: 'Winner 🏆', url: assets.props.trophy },
+  { key: 'crown', name: 'King 👑', url: assets.props.crown },
+  { key: 'headphones', name: 'Gamer 🎧', url: assets.props.headphones },
+  { key: 'diamondHands', name: 'HODL 💎🙌', url: assets.props.diamondHands },
+  { key: 'rocket', name: 'To The Moon 🚀', url: assets.props.rocket }
 ];
 
 const HEADS = [
