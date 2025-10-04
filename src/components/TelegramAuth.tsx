@@ -24,6 +24,8 @@ declare global {
         };
         initData?: string;
         ready?: () => void;
+        // Not typed in our local declaration by default
+        expand?: () => void;
       };
     };
   }
@@ -70,6 +72,9 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
     if (window.Telegram?.WebApp) {
       logger.info('Detected Telegram WebApp');
       window.Telegram.WebApp.ready?.();
+      // Ensure the webview expands to full height to avoid white screen perception
+      try { window.Telegram.WebApp.expand?.(); } catch {}
+
 
       // Helper to extract user from Telegram initData
       const getUserFromInitData = () => {
