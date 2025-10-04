@@ -99,7 +99,7 @@ const BODIES = [
   { key: 'lasers', name: 'Lasers 👁️', url: assets.bodies.lasers },
   { key: 'gamer', name: 'Gamer 🎮', url: assets.bodies.gamer },
   { key: 'otaku', name: 'Otaku 📺', url: assets.bodies.otaku },
-  { key: 'reflective', name: 'LoL 😂', url: assets.bodies.reflective },
+  { key: 'threeD', name: '3D 🎨', url: assets.bodies.threeD },
   { key: 'classic', name: 'Classic 🐱', url: assets.bodies.classic },
   { key: 'cartoon', name: 'Cartoon 🎨', url: assets.bodies.cartoon }
 ];

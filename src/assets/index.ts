@@ -12,7 +12,7 @@ import memeBg from './backgrounds/meme.jpg';
 import lasersBody from './bodies/lasers.png';
 import gamerBody from './bodies/gamer.png';
 import otakuBody from './bodies/otaku.png';
-import reflectiveBody from './bodies/reflective.png';
+import threeDBody from './bodies/3d.png';
 import classicBody from './bodies/classic.png';
 import cartoonBody from './bodies/cartoon.png';
 
@@ -75,7 +75,7 @@ export const assets = {
     lasers: lasersBody,
     gamer: gamerBody,
     otaku: otakuBody,
-    reflective: reflectiveBody,
+    threeD: threeDBody,
     classic: classicBody,
     cartoon: cartoonBody,
   },
