@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { ArrowLeft, Save, Download, Upload, RotateCw, FlipHorizontal, Plus, Bold, Italic, Trash2 } from 'lucide-react';
+import { ArrowLeft, Save, Download, Upload, RotateCw, FlipHorizontal, Plus, Bold, Italic, Trash2, Eraser } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { memeLayerSchema, memeTextSchema, sanitizeText, validateTelegramId, sanitizeLayer } from '@/lib/validations';
@@ -21,6 +21,7 @@ import { POPCAT_CONFIG, FILE_UPLOAD_LIMITS, TELEGRAM_ID_RANGE } from '@/lib/cons
 import { invokeEdgeFunction } from '@/utils/edgeInvoke';
 import { safeString, isNetworkError } from '@/utils/errorHandling';
 import { enqueueSaveMeme } from '@/utils/offlineQueue';
+import { removeBackground, loadImage } from '@/utils/removeBackground';
 
 
 interface MemeEditorProps {
@@ -192,6 +193,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
   const [textContent, setTextContent] = useState('');
   const [allCaps, setAllCaps] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
+  const [isRemovingBg, setIsRemovingBg] = useState(false);
   // Store uploaded images in ref for memory management
   const uploadedImagesRef = useRef<Record<string, string>>({});
   const [isEditingText, setIsEditingText] = useState(false);
@@ -384,6 +386,47 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
       });
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleRemoveBackground = async () => {
+    if (!selectedLayer) return;
+    
+    const layer = layers.find(l => l.id === selectedLayer);
+    if (!layer || (layer.type !== 'head' && layer.type !== 'prop')) {
+      toast({
+        title: "Invalid selection",
+        description: "Please select an image layer to remove background",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setIsRemovingBg(true);
+      toast({
+        title: "Processing...",
+        description: "Removing background, this may take a moment",
+      });
+
+      const img = await loadImage(layer.content);
+      const newImageDataUrl = await removeBackground(img);
+      
+      updateLayer(selectedLayer, { content: newImageDataUrl });
+      
+      toast({
+        title: "Success!",
+        description: "Background removed successfully",
+      });
+    } catch (error) {
+      logger.error('Background removal failed', error);
+      toast({
+        title: "Failed",
+        description: error instanceof Error ? error.message : "Could not remove background",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRemovingBg(false);
+    }
   };
 
   const downloadMeme = async () => {
@@ -1331,6 +1374,17 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
                     >
                       <FlipHorizontal className="w-3 h-3" />
                     </Button>
+                    {(selectedLayerData.type === 'head' || selectedLayerData.type === 'prop') && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs font-ui"
+                        onClick={handleRemoveBackground}
+                        disabled={isRemovingBg}
+                      >
+                        <Eraser className="w-3 h-3" />
+                      </Button>
+                    )}
                     <Button
                       variant="outline"
                       size="sm"
