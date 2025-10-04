@@ -33,7 +33,7 @@ function resizeImageIfNeeded(canvas: HTMLCanvasElement, ctx: CanvasRenderingCont
 
 export const removeBackground = async (imageElement: HTMLImageElement): Promise<string> => {
   const segmenter = await pipeline('image-segmentation', 'Xenova/segformer-b0-finetuned-ade-512-512', {
-    device: 'webgpu',
+    device: 'wasm',
   });
   
   const canvas = document.createElement('canvas');
