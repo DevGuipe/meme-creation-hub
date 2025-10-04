@@ -116,7 +116,7 @@ const PROPS = [
 const HEADS = [
   { key: 'popcat', name: 'Closed 🐱', url: assets.heads.popcat },
   { key: 'megapopcat', name: 'POP! 😮', url: assets.heads.megapopcat },
-  { key: 'lasereyes', name: 'Laser Eyes 👁️', url: assets.heads.lasereyes }
+  { key: 'laser', name: 'Laser 👁️', url: assets.heads.laser }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {

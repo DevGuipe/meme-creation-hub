@@ -25,9 +25,9 @@ import confetti from './props/confetti.png';
 import trophy from './props/trophy.png';
 
 // Heads (general use/props)
-import popcatFace from './heads/chad-face.png';
-import megaPopcatFace from './heads/gigachad-face.png';
-import laserEyesFace from './heads/laser-eyes-face.png';
+import popcatFace from './heads/popcat-face.png';
+import megaPopcatFace from './heads/megapopcat-face.png';
+import laserFace from './heads/laser-face.png';
 
 // Template-specific assets
 // POPCAT vs Normie
@@ -86,7 +86,7 @@ export const assets = {
   heads: {
     popcat: popcatFace,
     megapopcat: megaPopcatFace,
-    lasereyes: laserEyesFace,
+    laser: laserFace,
   },
   templates: {
     popcat_vs_normie: {
