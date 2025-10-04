@@ -70,53 +70,63 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
     if (window.Telegram?.WebApp) {
       logger.info('Detected Telegram WebApp');
       window.Telegram.WebApp.ready?.();
-      
-      // Debug: Log all available Telegram data
-      logger.debug('Telegram WebApp data:', {
-        hasInitData: !!window.Telegram.WebApp.initData,
-        hasInitDataUnsafe: !!window.Telegram.WebApp.initDataUnsafe,
-        initDataUnsafe: window.Telegram.WebApp.initDataUnsafe,
-        initData: window.Telegram.WebApp.initData
-      });
-      
-      const user = window.Telegram.WebApp.initDataUnsafe?.user;
-      logger.debug('Telegram user data', { hasUser: !!user, user });
-      
-      if (user) {
-        logger.info('User found in initDataUnsafe');
-        registerUser(user);
-      } else if (parsedUserId) {
-        // Fallback: use URL params if initDataUnsafe is empty
-        logger.info('initDataUnsafe empty, using URL data');
-        const userFromUrl = {
-          id: parsedUserId,
-          username: tgUsername || undefined,
-          first_name: tgFirstName || 'User'
-        };
-        registerUser(userFromUrl);
-      } else {
-        // Try to parse initData string as last resort
-        const initData = window.Telegram.WebApp.initData;
-        if (initData) {
-          logger.info('Trying to parse initData string');
-          try {
-            const params = new URLSearchParams(initData);
-            const userStr = params.get('user');
-            if (userStr) {
-              const parsedUser = JSON.parse(userStr);
-              logger.info('User obtained from initData string', { parsedUser });
-              registerUser(parsedUser);
-              return;
-            }
-          } catch (parseError) {
-            logger.error('Error parsing initData', parseError);
-          }
+
+      // Helper to extract user from Telegram initData
+      const getUserFromInitData = () => {
+        try {
+          const u = window.Telegram?.WebApp?.initDataUnsafe?.user;
+          if (u?.id) return u;
+        } catch {}
+        try {
+          const initData = window.Telegram?.WebApp?.initData;
+          if (!initData) return null;
+          const params = new URLSearchParams(initData);
+          const userStr = params.get('user');
+          if (userStr) return JSON.parse(userStr);
+        } catch (parseError) {
+          logger.error('Error parsing initData', parseError);
         }
-        
-        logger.error('No user data found in any method');
+        return null;
+      };
+
+      // Wait up to 5s for Telegram to populate user data (some clients are delayed)
+      const waitForUser = async (timeoutMs = 5000, intervalMs = 100) => {
+        const start = Date.now();
+        let u = getUserFromInitData();
+        while (!u && Date.now() - start < timeoutMs) {
+          await new Promise((r) => setTimeout(r, intervalMs));
+          u = getUserFromInitData();
+        }
+        return u;
+      };
+
+      (async () => {
+        logger.info('Waiting for Telegram user data...');
+        const user = await waitForUser(5000, 100);
+        logger.debug('Telegram user data', { hasUser: !!user, user });
+
+        if (user) {
+          logger.info('User obtained from Telegram WebApp');
+          registerUser(user);
+          return;
+        }
+
+        if (parsedUserId) {
+          // Fallback: use URL params if initDataUnsafe is empty
+          logger.info('initData empty, using URL data');
+          const userFromUrl = {
+            id: parsedUserId,
+            username: tgUsername || undefined,
+            first_name: tgFirstName || 'User'
+          };
+          registerUser(userFromUrl);
+          return;
+        }
+
+        logger.error('No user data found after waiting');
         setError('Could not get Telegram data. Please open the app through the bot using the "Open App" button.');
         setIsLoading(false);
-      }
+      })();
     } else {
       logger.info('Not running inside Telegram WebApp');
       
