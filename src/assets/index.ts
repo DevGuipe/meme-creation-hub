@@ -1,12 +1,12 @@
 // Asset imports organized by category
 
 // Backgrounds
-import roomBg from './backgrounds/room.jpg';
-import neonBg from './backgrounds/neon.jpg';
-import beachBg from './backgrounds/beach.jpg';
-import officeBg from './backgrounds/office.jpg';
-import fireBg from './backgrounds/fire.jpg';
-import memeBg from './backgrounds/meme.jpg';
+import roomBg from './backgrounds/room.png';
+import neonBg from './backgrounds/neon.png';
+import beachBg from './backgrounds/beach.png';
+import officeBg from './backgrounds/office.png';
+import fireBg from './backgrounds/fire.png';
+import memeBg from './backgrounds/meme.png';
 
 // Bodies (general use/props)
 import lasersBody from './bodies/lasers.png';
