@@ -1,5 +1,9 @@
-// Simple, CSP-safe background removal using Canvas only (no WASM, no external APIs)
-// Heuristic: sample background color from corners and remove similar pixels
+// Improved background removal using border flood fill (no WASM, no external APIs)
+// Strategy:
+// 1) Downscale if needed (<=1024px)
+// 2) Estimate background color from multiple border samples
+// 3) Run flood fill from all border pixels, marking as background only when within a color distance threshold
+// 4) Set alpha=0 for marked background pixels, alpha=255 for others (crisp cut, no gradient)
 
 const MAX_IMAGE_DIMENSION = 1024;
 
@@ -22,94 +26,127 @@ function resizeImageIfNeeded(canvas: HTMLCanvasElement, ctx: CanvasRenderingCont
   ctx.drawImage(image, 0, 0, width, height);
 }
 
-function colorDistance(a: [number, number, number], b: [number, number, number]) {
-  const dr = a[0] - b[0];
-  const dg = a[1] - b[1];
-  const db = a[2] - b[2];
-  return Math.sqrt(dr * dr + dg * dg + db * db);
+function colorDistanceSq(a0: number, a1: number, a2: number, b0: number, b1: number, b2: number) {
+  // Weighted RGB distance (slightly favor G which human vision is more sensitive to)
+  const dr = a0 - b0;
+  const dg = a1 - b1;
+  const db = a2 - b2;
+  return (dr * dr) * 0.9 + (dg * dg) * 1.2 + (db * db) * 0.9;
 }
 
-function sampleCorners(imgData: ImageData, w: number, h: number): [number, number, number][] {
-  const p = (x: number, y: number) => {
-    const i = (y * w + x) * 4;
-    return [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2]] as [number, number, number];
-  };
-  const m = (a: [number, number, number], b: [number, number, number]) =>
-    [Math.round((a[0] + b[0]) / 2), Math.round((a[1] + b[1]) / 2), Math.round((a[2] + b[2]) / 2)] as [number, number, number];
+function sampleBorderAverage(imgData: ImageData, w: number, h: number) {
+  const d = imgData.data;
+  let rSum = 0, gSum = 0, bSum = 0, count = 0;
+  const stepX = Math.max(1, Math.floor(w / 100));
+  const stepY = Math.max(1, Math.floor(h / 100));
 
-  const tl = p(0, 0);
-  const tr = p(w - 1, 0);
-  const bl = p(0, h - 1);
-  const br = p(w - 1, h - 1);
+  // Top and bottom rows
+  for (let x = 0; x < w; x += stepX) {
+    let iTop = (0 * w + x) * 4;
+    rSum += d[iTop]; gSum += d[iTop + 1]; bSum += d[iTop + 2]; count++;
 
-  return [tl, tr, bl, br, m(tl, tr), m(bl, br), m(tl, bl), m(tr, br)];
+    let iBot = ((h - 1) * w + x) * 4;
+    rSum += d[iBot]; gSum += d[iBot + 1]; bSum += d[iBot + 2]; count++;
+  }
+
+  // Left and right columns
+  for (let y = 0; y < h; y += stepY) {
+    let iLeft = (y * w + 0) * 4;
+    rSum += d[iLeft]; gSum += d[iLeft + 1]; bSum += d[iLeft + 2]; count++;
+
+    let iRight = (y * w + (w - 1)) * 4;
+    rSum += d[iRight]; gSum += d[iRight + 1]; bSum += d[iRight + 2]; count++;
+  }
+
+  return [Math.round(rSum / count), Math.round(gSum / count), Math.round(bSum / count)] as [number, number, number];
 }
 
 export const removeBackground = async (
   imageElement: HTMLImageElement,
-  opts?: { threshold?: number; softness?: number }
+  opts?: { threshold?: number }
 ): Promise<string> => {
-  const threshold = Math.max(10, Math.min(opts?.threshold ?? 45, 120));
-  const softness = Math.max(0, Math.min(opts?.softness ?? 10, 60)); // pixels to feather
+  // Threshold defaults tuned for typical flat backgrounds; increase if background is more varied
+  const threshold = opts?.threshold ?? 42; // in linear RGB distance units (we compare squared distance)
+  const threshSq = threshold * threshold;
 
   const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   if (!ctx) throw new Error('Could not get canvas context');
 
   resizeImageIfNeeded(canvas, ctx, imageElement);
-  const { width, height } = canvas;
+  const { width: w, height: h } = canvas;
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const data = imgData.data;
 
-  const imgData = ctx.getImageData(0, 0, width, height);
-  const bgSamples = sampleCorners(imgData, width, height);
+  const [br, bg, bb] = sampleBorderAverage(imgData, w, h);
 
-  // Averaged background color
-  const bg: [number, number, number] = bgSamples.reduce(
-    (acc, c) => [acc[0] + c[0], acc[1] + c[1], acc[2] + c[2]] as [number, number, number],
-    [0, 0, 0]
-  ).map((v) => Math.round(v / bgSamples.length)) as [number, number, number];
+  // Flood fill from all borders
+  const visited = new Uint8Array(w * h); // 0=unvisited, 1=queued/visited background, 2=foreground
+  const qx = new Int32Array(w * h);
+  const qy = new Int32Array(w * h);
+  let qs = 0, qe = 0;
 
-  // First pass: set alpha for background-like pixels
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = (y * width + x) * 4;
-      const r = imgData.data[i];
-      const g = imgData.data[i + 1];
-      const b = imgData.data[i + 2];
+  const enqueue = (x: number, y: number) => {
+    const idx = y * w + x;
+    if (visited[idx] !== 0) return;
+    const i = idx * 4;
+    const distSq = colorDistanceSq(data[i], data[i + 1], data[i + 2], br, bg, bb);
+    if (distSq <= threshSq) {
+      visited[idx] = 1;
+      qx[qe] = x; qy[qe] = y; qe++;
+    } else {
+      visited[idx] = 2; // mark as foreground-ish to avoid enqueuing it later
+    }
+  };
 
-      const d = colorDistance([r, g, b], bg);
-      if (d < threshold) {
-        // Feather alpha based on distance (softer edges)
-        const alpha = Math.max(0, Math.min(255, Math.round((d / threshold) * 255)));
-        imgData.data[i + 3] = alpha;
+  // Seed queue with all border pixels
+  for (let x = 0; x < w; x++) { enqueue(x, 0); enqueue(x, h - 1); }
+  for (let y = 0; y < h; y++) { enqueue(0, y); enqueue(w - 1, y); }
+
+  // BFS (4-connected)
+  while (qs < qe) {
+    const cx = qx[qs];
+    const cy = qy[qs];
+    qs++;
+
+    const neighbors = (
+      cx > 0 ? [[cx - 1, cy]] : []
+    ).concat(
+      cx < w - 1 ? [[cx + 1, cy]] : []
+    ).concat(
+      cy > 0 ? [[cx, cy - 1]] : []
+    ).concat(
+      cy < h - 1 ? [[cx, cy + 1]] : []
+    );
+
+    for (const [nx, ny] of neighbors) {
+      const nIdx = ny * w + nx;
+      if (visited[nIdx] !== 0) continue;
+      const i = nIdx * 4;
+      const distSq = colorDistanceSq(data[i], data[i + 1], data[i + 2], br, bg, bb);
+      if (distSq <= threshSq) {
+        visited[nIdx] = 1;
+        qx[qe] = nx; qy[qe] = ny; qe++;
+      } else {
+        visited[nIdx] = 2; // foreground-ish
       }
     }
   }
 
-  // Optional edge softening pass
-  if (softness > 0) {
-    const out = new ImageData(new Uint8ClampedArray(imgData.data), width, height);
-    const rad = Math.max(1, Math.floor(softness / 3));
-    for (let y = 1; y < height - 1; y++) {
-      for (let x = 1; x < width - 1; x++) {
-        const i = (y * width + x) * 4 + 3;
-        // Simple box blur on alpha channel
-        let sum = 0;
-        let count = 0;
-        for (let dy = -rad; dy <= rad; dy++) {
-          for (let dx = -rad; dx <= rad; dx++) {
-            const ai = ((y + dy) * width + (x + dx)) * 4 + 3;
-            sum += imgData.data[ai];
-            count++;
-          }
-        }
-        out.data[i] = Math.round(sum / count);
+  // Compose final alpha: background -> 0, others -> 255
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const idx = y * w + x;
+      const aIndex = idx * 4 + 3;
+      if (visited[idx] === 1) {
+        data[aIndex] = 0;
+      } else {
+        data[aIndex] = 255;
       }
     }
-    ctx.putImageData(out, 0, 0);
-  } else {
-    ctx.putImageData(imgData, 0, 0);
   }
 
+  ctx.putImageData(imgData, 0, 0);
   return canvas.toDataURL('image/png', 1.0);
 };
 
