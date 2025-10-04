@@ -34,33 +34,33 @@ import megaPopcatFace from './heads/megapopcat-face.png';
 import laserFace from './heads/laser-face.png';
 
 // Template-specific assets
-// POPCAT vs Normie
-import popcatVsNormieNormieBody from './templates/virgin_vs_chad/virgin-body.png';
-import popcatVsNormiePopcatBody from './templates/virgin_vs_chad/chad-body.png';
-import popcatVsNormieNormieHead from './templates/virgin_vs_chad/virgin-head.png';
-import popcatVsNormiePopcatHead from './templates/virgin_vs_chad/chad-head.png';
+// POP vs Closed
+import popVsClosedClosedBody from './templates/pop_vs_closed/closed-body.png';
+import popVsClosedPopBody from './templates/pop_vs_closed/pop-body.png';
+import popVsClosedClosedHead from './templates/pop_vs_closed/closed-head.png';
+import popVsClosedPopHead from './templates/pop_vs_closed/pop-head.png';
 
-// Yes POPCAT
-import yesPopcatBody from './templates/yes_chad/chad-body.png';
-import yesPopcatHead from './templates/yes_chad/chad-head.png';
+// Yes POP
+import yesPopBody from './templates/yes_pop/pop-body.png';
+import yesPopHead from './templates/yes_pop/pop-head.png';
 
-// POPCAT Classic
-import popcatClassicBody from './templates/chad_classic/chad-body.png';
-import popcatClassicHead from './templates/chad_classic/chad-head.png';
+// Click Wars
+import clickWarsBody from './templates/click_wars/pop-body.png';
+import clickWarsHead from './templates/click_wars/pop-head.png';
 
-// POPCAT Gamer
-import popcatGamerBody from './templates/chad_pc/chad-body.png';
-import popcatGamerHead from './templates/chad_pc/chad-head.png';
+// Pro Gamer
+import proGamerBody from './templates/pro_gamer/pop-body.png';
+import proGamerHead from './templates/pro_gamer/pop-head.png';
 
-// Before After
-import beforeAfterBeforeBody from './templates/before_after/before-body.png';
-import beforeAfterAfterBody from './templates/before_after/after-body.png';
-import beforeAfterAfterHead from './templates/before_after/after-head.png';
+// Evolution
+import evolutionNoobBody from './templates/evolution/noob-body.png';
+import evolutionProBody from './templates/evolution/pro-body.png';
+import evolutionProHead from './templates/evolution/pro-head.png';
 
-// Warrior Mode
-import warriorModeBody from './templates/warrior_mode/warrior-body.png';
-import warriorModeHead from './templates/warrior_mode/warrior-head.png';
-import warriorModeTrophy from './templates/warrior_mode/trophy.png';
+// World Record
+import worldRecordBody from './templates/world_record/pop-body.png';
+import worldRecordHead from './templates/world_record/pop-head.png';
+import worldRecordTrophy from './templates/world_record/trophy.png';
 
 export const assets = {
   backgrounds: {
@@ -97,33 +97,33 @@ export const assets = {
     laser: laserFace,
   },
   templates: {
-    popcat_vs_normie: {
-      normieBody: popcatVsNormieNormieBody,
-      popcatBody: popcatVsNormiePopcatBody,
-      normieHead: popcatVsNormieNormieHead,
-      popcatHead: popcatVsNormiePopcatHead,
+    pop_vs_closed: {
+      closedBody: popVsClosedClosedBody,
+      popBody: popVsClosedPopBody,
+      closedHead: popVsClosedClosedHead,
+      popHead: popVsClosedPopHead,
     },
-    yes_popcat: {
-      popcatBody: yesPopcatBody,
-      popcatHead: yesPopcatHead,
+    yes_pop: {
+      popBody: yesPopBody,
+      popHead: yesPopHead,
     },
-    popcat_classic: {
-      popcatBody: popcatClassicBody,
-      popcatHead: popcatClassicHead,
+    click_wars: {
+      popBody: clickWarsBody,
+      popHead: clickWarsHead,
     },
-    popcat_gamer: {
-      popcatBody: popcatGamerBody,
-      popcatHead: popcatGamerHead,
+    pro_gamer: {
+      popBody: proGamerBody,
+      popHead: proGamerHead,
     },
-    before_after: {
-      beforeBody: beforeAfterBeforeBody,
-      afterBody: beforeAfterAfterBody,
-      afterHead: beforeAfterAfterHead,
+    evolution: {
+      noobBody: evolutionNoobBody,
+      proBody: evolutionProBody,
+      proHead: evolutionProHead,
     },
-    warrior_mode: {
-      warriorBody: warriorModeBody,
-      warriorHead: warriorModeHead,
-      trophy: warriorModeTrophy,
+    world_record: {
+      popBody: worldRecordBody,
+      popHead: worldRecordHead,
+      trophy: worldRecordTrophy,
     },
   },
 };
