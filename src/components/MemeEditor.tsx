@@ -1381,8 +1381,10 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
                         className="text-xs font-ui"
                         onClick={handleRemoveBackground}
                         disabled={isRemovingBg}
+                        title="Remove Background"
                       >
-                        <Eraser className="w-3 h-3" />
+                        <Eraser className="w-3 h-3 mr-1" />
+                        Remove Background
                       </Button>
                     )}
                     <Button
