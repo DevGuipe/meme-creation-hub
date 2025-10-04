@@ -118,8 +118,8 @@ const PROPS = [
 ];
 
 const HEADS = [
-  { key: 'popcat', name: 'Classic', url: assets.heads.popcat },
-  { key: 'megapopcat', name: 'Cartoon', url: assets.heads.megapopcat },
+  { key: 'popcat', name: 'Classic 🐱', url: assets.heads.popcat },
+  { key: 'megapopcat', name: 'Cartoon 🎨', url: assets.heads.megapopcat },
   { key: 'laser', name: 'Lasers 👁️', url: assets.heads.laser }
 ];
 
