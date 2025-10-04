@@ -18,15 +18,15 @@ import cartoonBody from './bodies/cartoon.png';
 
 // Props
 import glasses from './props/glasses.png';
-import whey from './props/whey.png';
 import chain from './props/chain.png';
 import flag from './props/flag.png';
 import confetti from './props/confetti.png';
-import trophy from './props/trophy.png';
 import crown from './props/crown.png';
 import headphones from './props/headphones.png';
 import diamondHands from './props/diamond-hands.png';
 import rocket from './props/rocket.png';
+import controller from './props/controller.png';
+import coin from './props/coin.png';
 
 // Heads (general use/props)
 import popcatFace from './heads/popcat-face.png';
@@ -81,15 +81,15 @@ export const assets = {
   },
   props: {
     glasses: glasses,
-    whey: whey,
     chain: chain,
     flag: flag,
     confetti: confetti,
-    trophy: trophy,
     crown: crown,
     headphones: headphones,
     diamondHands: diamondHands,
     rocket: rocket,
+    controller: controller,
+    coin: coin,
   },
   heads: {
     popcat: popcatFace,
