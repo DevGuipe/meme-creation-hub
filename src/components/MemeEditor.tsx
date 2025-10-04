@@ -78,30 +78,30 @@ const raceWithTimeout = async <T,>(promise: Promise<T>, ms: number, label: strin
 };
 
 const TEMPLATES = [
-  { key: 'popcat_vs_normie', name: 'Pop Pop Classic 🐱' },
-  { key: 'yes_popcat', name: 'Oatmeal Says YES ✅' },
-  { key: 'popcat_classic', name: 'Click Wars Champion 🏆' },
-  { key: 'popcat_gamer', name: 'Clicking Master 🖱️' },
-  { key: 'before_after', name: 'Pop Evolution 📈' },
-  { key: 'warrior_mode', name: 'Leaderboard King 👑' }
+  { key: 'popcat_vs_normie', name: 'Classic 🐱' },
+  { key: 'yes_popcat', name: 'YES ✅' },
+  { key: 'popcat_classic', name: 'Champion 🏆' },
+  { key: 'popcat_gamer', name: 'Gamer 🖱️' },
+  { key: 'before_after', name: 'Evolution 📈' },
+  { key: 'warrior_mode', name: 'Victory 👑' }
 ];
 
 const BACKGROUNDS = [
-  { key: 'gym', name: 'Pop Gradient 🌈', url: assets.backgrounds.gym },
-  { key: 'neon', name: 'Neon Poppers 💜', url: assets.backgrounds.neon },
-  { key: 'beach', name: 'Chill Pop Zone 🌊', url: assets.backgrounds.beach },
-  { key: 'office', name: 'Click Station 💻', url: assets.backgrounds.office },
-  { key: 'arena', name: 'Pop Arena 🎮', url: assets.backgrounds.arena },
-  { key: 'neutral', name: 'Clean Pop ⚪', url: assets.backgrounds.neutral }
+  { key: 'gym', name: 'Gradient 🌈', url: assets.backgrounds.gym },
+  { key: 'neon', name: 'Neon 💜', url: assets.backgrounds.neon },
+  { key: 'beach', name: 'Beach 🌊', url: assets.backgrounds.beach },
+  { key: 'office', name: 'Office 💻', url: assets.backgrounds.office },
+  { key: 'arena', name: 'Arena 🎮', url: assets.backgrounds.arena },
+  { key: 'neutral', name: 'Clean ⚪', url: assets.backgrounds.neutral }
 ];
 
 const BODIES = [
-  { key: 'flex', name: 'Stretching Cat 🐱', url: assets.bodies.flex },
-  { key: 'pc', name: 'Clicking Cat 🖱️', url: assets.bodies.pc },
-  { key: 'seated', name: 'Sitting Cat 😺', url: assets.bodies.seated },
-  { key: 'reflective', name: 'Thinking Cat 🤔', url: assets.bodies.reflective },
-  { key: 'classic', name: 'Classic Oatmeal 🐱', url: assets.bodies.classic },
-  { key: 'warrior', name: 'Champion Cat 🏆', url: assets.bodies.warrior }
+  { key: 'flex', name: 'Flex 💪', url: assets.bodies.flex },
+  { key: 'pc', name: 'Gamer 🎮', url: assets.bodies.pc },
+  { key: 'seated', name: 'Seated 🪑', url: assets.bodies.seated },
+  { key: 'reflective', name: 'Thinking 🤔', url: assets.bodies.reflective },
+  { key: 'classic', name: 'Classic 🐱', url: assets.bodies.classic },
+  { key: 'warrior', name: 'Champion 🏆', url: assets.bodies.warrior }
 ];
 
 const PROPS = [
@@ -114,9 +114,9 @@ const PROPS = [
 ];
 
 const HEADS = [
-  { key: 'popcat', name: 'Oatmeal Closed 🐱', url: assets.heads.popcat },
-  { key: 'megapopcat', name: 'Oatmeal POP! 😮', url: assets.heads.megapopcat },
-  { key: 'thinking', name: 'Oatmeal Thinks 🤔', url: assets.heads.thinking }
+  { key: 'popcat', name: 'Closed 🐱', url: assets.heads.popcat },
+  { key: 'megapopcat', name: 'POP! 😮', url: assets.heads.megapopcat },
+  { key: 'thinking', name: 'Thinking 🤔', url: assets.heads.thinking }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
@@ -1457,7 +1457,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
           </div>
 
           <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
-            😮 Oatmeal Faces
+            😮 Faces
           </Label>
           <div className="grid grid-cols-3 gap-3 mb-6">
             {HEADS.map(head => (
