@@ -118,9 +118,9 @@ const PROPS = [
 ];
 
 const HEADS = [
-  { key: 'popcat', name: 'Closed 🐱', url: assets.heads.popcat },
-  { key: 'megapopcat', name: 'POP! 😮', url: assets.heads.megapopcat },
-  { key: 'laser', name: 'Laser 👁️', url: assets.heads.laser }
+  { key: 'popcat', name: 'Classic', url: assets.heads.popcat },
+  { key: 'megapopcat', name: 'Cartoon', url: assets.heads.megapopcat },
+  { key: 'laser', name: 'Lasers 👁️', url: assets.heads.laser }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
@@ -1461,7 +1461,7 @@ export const MemeEditor = ({ onBack, onSave, telegramUserId }: MemeEditorProps) 
           </div>
 
           <Label className="text-base font-popcat mb-4 block gradient-text flex items-center gap-2">
-            😮 Faces
+            😮 POP
           </Label>
           <div className="grid grid-cols-3 gap-3 mb-6">
             {HEADS.map(head => (
