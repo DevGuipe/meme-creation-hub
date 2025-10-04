@@ -37,6 +37,15 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
     logger.debug('TelegramAuth: Starting authentication');
     logger.debug('window.Telegram exists?', { hasTelegram: !!window.Telegram });
     
+    // CRITICAL FIX: Add timeout to prevent infinite loading
+    const authTimeout = setTimeout(() => {
+      if (isLoading) {
+        logger.error('TelegramAuth: Authentication timeout after 10 seconds');
+        setError('Authentication timeout. Please try refreshing the page.');
+        setIsLoading(false);
+      }
+    }, 10000); // 10 second timeout
+    
     // Try to get user from URL params first (fallback method)
     const urlParams = new URLSearchParams(window.location.search);
     const tgUserId = urlParams.get('tgUserId');
@@ -132,7 +141,12 @@ export const TelegramAuth = ({ onAuthenticated }: TelegramAuthProps) => {
         registerUser(mockUser);
       }
     }
-  }, []);
+    
+    // Cleanup timeout on unmount
+    return () => {
+      clearTimeout(authTimeout);
+    };
+  }, [isLoading]); // Added isLoading as dependency to track state
 
   const registerUser = async (telegramUser: TelegramUser) => {
     try {

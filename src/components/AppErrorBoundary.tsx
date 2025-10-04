@@ -30,19 +30,36 @@ export class AppErrorBoundary extends React.Component<React.PropsWithChildren, A
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4">
-          <Card className="p-8 text-center bg-card border-border brutal-shadow max-w-md w-full">
-            <h2 className="text-xl font-bold font-ui mb-2 text-foreground">Algo deu errado</h2>
-            <p className="text-muted-foreground font-ui mb-4">
-              O aplicativo encontrou um erro inesperado.
+        <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+          <Card className="p-8 text-center bg-white border-0 shadow-2xl max-w-md w-full" style={{ borderRadius: '20px' }}>
+            <div style={{ fontSize: '60px', marginBottom: '20px' }}>😿</div>
+            <h2 className="text-2xl font-bold mb-2" style={{ color: '#333' }}>Oops! Something Broke</h2>
+            <p className="text-gray-600 mb-4">
+              The app encountered an unexpected error.
             </p>
             {this.state.error && (
-              <pre className="text-xs text-destructive/90 bg-muted p-3 rounded mb-4 overflow-auto text-left">
-                {this.state.error.message}
-              </pre>
+              <details className="mb-4 text-left">
+                <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700 mb-2">
+                  🔍 Technical Details
+                </summary>
+                <pre className="text-xs text-red-600 bg-gray-100 p-3 rounded overflow-auto max-h-40">
+                  {this.state.error.message}
+                  {this.state.error.stack && `\n\n${this.state.error.stack}`}
+                </pre>
+              </details>
             )}
-            <Button onClick={this.handleReload} className="bg-accent text-accent-foreground hover:bg-accent/90 font-ui">
-              Recarregar
+            <Button 
+              onClick={this.handleReload} 
+              className="w-full"
+              style={{ 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                border: 'none',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                padding: '12px'
+              }}
+            >
+              🔄 Reload App
             </Button>
           </Card>
         </div>
