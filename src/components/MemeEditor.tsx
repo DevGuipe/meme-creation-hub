@@ -87,21 +87,21 @@ const TEMPLATES = [
 ];
 
 const BACKGROUNDS = [
-  { key: 'gym', name: 'Gradient 🌈', url: assets.backgrounds.gym },
+  { key: 'room', name: 'Room 🛏️', url: assets.backgrounds.room },
   { key: 'neon', name: 'Neon 💜', url: assets.backgrounds.neon },
   { key: 'beach', name: 'Beach 🌊', url: assets.backgrounds.beach },
   { key: 'office', name: 'Office 💻', url: assets.backgrounds.office },
-  { key: 'arena', name: 'Arena 🎮', url: assets.backgrounds.arena },
-  { key: 'neutral', name: 'Clean ⚪', url: assets.backgrounds.neutral }
+  { key: 'fire', name: 'Fire 🔥', url: assets.backgrounds.fire },
+  { key: 'meme', name: 'Meme 🎭', url: assets.backgrounds.meme }
 ];
 
 const BODIES = [
-  { key: 'flex', name: 'Flex 💪', url: assets.bodies.flex },
-  { key: 'pc', name: 'Gamer 🎮', url: assets.bodies.pc },
-  { key: 'seated', name: 'Seated 🪑', url: assets.bodies.seated },
-  { key: 'reflective', name: 'Thinking 🤔', url: assets.bodies.reflective },
+  { key: 'lasers', name: 'Lasers 👁️', url: assets.bodies.lasers },
+  { key: 'gamer', name: 'Gamer 🎮', url: assets.bodies.gamer },
+  { key: 'otaku', name: 'Otaku 📺', url: assets.bodies.otaku },
+  { key: 'reflective', name: 'LoL 😂', url: assets.bodies.reflective },
   { key: 'classic', name: 'Classic 🐱', url: assets.bodies.classic },
-  { key: 'warrior', name: 'Champion 🏆', url: assets.bodies.warrior }
+  { key: 'cartoon', name: 'Cartoon 🎨', url: assets.bodies.cartoon }
 ];
 
 const PROPS = [
@@ -116,15 +116,15 @@ const PROPS = [
 const HEADS = [
   { key: 'popcat', name: 'Closed 🐱', url: assets.heads.popcat },
   { key: 'megapopcat', name: 'POP! 😮', url: assets.heads.megapopcat },
-  { key: 'thinking', name: 'Thinking 🤔', url: assets.heads.thinking }
+  { key: 'lasereyes', name: 'Laser Eyes 👁️', url: assets.heads.lasereyes }
 ];
 
 const buildTemplateLayers = (templateKey: string): Layer[] => {
-  const baseBg: Layer = { id: 'bg', type: 'background', content: 'neutral', x: 50, y: 50, scale: 1, rotation: 0, zIndex: 0 };
+  const baseBg: Layer = { id: 'bg', type: 'background', content: 'meme', x: 50, y: 50, scale: 1, rotation: 0, zIndex: 0 };
   switch (templateKey) {
     case 'popcat_vs_normie':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.neutral, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body_left', type: 'body', content: assets.templates.popcat_vs_normie.normieBody, x: 30, y: 65, scale: 0.85, rotation: 0, zIndex: 1 },
         { id: 'head_left', type: 'head', content: assets.templates.popcat_vs_normie.normieHead, x: 30, y: 40, scale: 0.75, rotation: 0, zIndex: 2 },
         { id: 'text_left', type: 'text', content: 'MOUTH CLOSED', x: 30, y: 18, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
@@ -134,14 +134,14 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
       ];
     case 'yes_popcat':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.neutral, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.meme, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body', type: 'body', content: assets.templates.yes_popcat.popcatBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.yes_popcat.popcatHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
         { id: 'text', type: 'text', content: 'YES.', x: 50, y: 15, scale: 1.2, rotation: 0, zIndex: 3, fontSize: 32, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'popcat_classic':
       return [
-        { id: 'bg', type: 'background', content: assets.backgrounds.gym, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
+        { id: 'bg', type: 'background', content: assets.backgrounds.room, x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'body', type: 'body', content: assets.templates.popcat_classic.popcatBody, x: 50, y: 65, scale: 1.05, rotation: 0, zIndex: 1 },
         { id: 'head', type: 'head', content: assets.templates.popcat_classic.popcatHead, x: 50, y: 40, scale: 0.90, rotation: 0, zIndex: 2 },
         { id: 'text', type: 'text', content: 'CLICK WARS CHAMPION', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 22, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },

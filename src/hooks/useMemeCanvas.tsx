@@ -175,7 +175,7 @@ export const useMemeCanvas = (layers: Layer[], canvasSize: number = 400, onLayer
     let assetUrl = '';
     switch (type) {
       case 'background':
-        assetUrl = assets.backgrounds[content as keyof typeof assets.backgrounds] || assets.backgrounds.neutral;
+        assetUrl = assets.backgrounds[content as keyof typeof assets.backgrounds] || assets.backgrounds.meme;
         console.log('🖼️ Background asset lookup:', { content, assetUrl, available: Object.keys(assets.backgrounds) });
         break;
       case 'body':

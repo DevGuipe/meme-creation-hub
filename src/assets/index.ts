@@ -1,20 +1,20 @@
 // Asset imports organized by category
 
 // Backgrounds
-import gymBg from './backgrounds/gym.jpg';
+import roomBg from './backgrounds/room.jpg';
 import neonBg from './backgrounds/neon.jpg';
 import beachBg from './backgrounds/beach.jpg';
 import officeBg from './backgrounds/office.jpg';
-import arenaBg from './backgrounds/arena.jpg';
-import neutralBg from './backgrounds/neutral.jpg';
+import fireBg from './backgrounds/fire.jpg';
+import memeBg from './backgrounds/meme.jpg';
 
 // Bodies (general use/props)
-import flexBody from './bodies/flex.png';
-import pcBody from './bodies/pc.png';
-import seatedBody from './bodies/seated.png';
+import lasersBody from './bodies/lasers.png';
+import gamerBody from './bodies/gamer.png';
+import otakuBody from './bodies/otaku.png';
 import reflectiveBody from './bodies/reflective.png';
 import classicBody from './bodies/classic.png';
-import warriorBody from './bodies/warrior.png';
+import cartoonBody from './bodies/cartoon.png';
 
 // Props
 import glasses from './props/glasses.png';
@@ -27,7 +27,7 @@ import trophy from './props/trophy.png';
 // Heads (general use/props)
 import popcatFace from './heads/chad-face.png';
 import megaPopcatFace from './heads/gigachad-face.png';
-import thinkingFace from './heads/thinking-face.png';
+import laserEyesFace from './heads/laser-eyes-face.png';
 
 // Template-specific assets
 // POPCAT vs Normie
@@ -60,20 +60,20 @@ import warriorModeTrophy from './templates/warrior_mode/trophy.png';
 
 export const assets = {
   backgrounds: {
-    gym: gymBg,
+    room: roomBg,
     neon: neonBg,
     beach: beachBg,
     office: officeBg,
-    arena: arenaBg,
-    neutral: neutralBg,
+    fire: fireBg,
+    meme: memeBg,
   },
   bodies: {
-    flex: flexBody,
-    pc: pcBody,
-    seated: seatedBody,
+    lasers: lasersBody,
+    gamer: gamerBody,
+    otaku: otakuBody,
     reflective: reflectiveBody,
     classic: classicBody,
-    warrior: warriorBody,
+    cartoon: cartoonBody,
   },
   props: {
     glasses: glasses,
@@ -86,7 +86,7 @@ export const assets = {
   heads: {
     popcat: popcatFace,
     megapopcat: megaPopcatFace,
-    thinking: thinkingFace,
+    lasereyes: laserEyesFace,
   },
   templates: {
     popcat_vs_normie: {
