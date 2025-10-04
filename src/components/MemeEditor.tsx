@@ -158,9 +158,8 @@ const buildTemplateLayers = (templateKey: string): Layer[] => {
       return [
         { id: 'bg', type: 'background', content: 'school', x: 50, y: 50, scale: 1.0, rotation: 0, zIndex: 0 },
         { id: 'teacher', type: 'prop', content: assets.templates.evolution.teacher, x: 30, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
-        { id: 'text_left', type: 'text', content: 'ANGRY TEACHER 😡', x: 30, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
         { id: 'vomit', type: 'prop', content: assets.templates.evolution.vomit, x: 70, y: 55, scale: 0.80, rotation: 0, zIndex: 1 },
-        { id: 'text_right', type: 'text', content: 'POPCAT VOMIT 🤮', x: 70, y: 15, scale: 0.8, rotation: 0, zIndex: 3, fontSize: 16, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 2, textAlign: 'center', textShadow: createShadowConfig(false) },
+        { id: 'text', type: 'text', content: 'EVOLUTION', x: 50, y: 15, scale: 1.0, rotation: 0, zIndex: 3, fontSize: 26, fontFamily: 'Impact, sans-serif', fontWeight: 'bold', fontStyle: 'normal', textColor: '#000000', strokeColor: '#ffffff', strokeWidth: 3, textAlign: 'center', textShadow: createShadowConfig(false) },
       ];
     case 'domination':
       return [
