@@ -1,78 +1,78 @@
-# 🤖 Guia de Configuração do Bot do Telegram
+# 🤖 Telegram Bot Setup Guide
 
-## Problema Identificado
-O erro "authentication required" ocorre quando o Telegram WebApp não consegue obter os dados do usuário. Isso geralmente acontece porque o bot não está configurado corretamente para abrir o WebApp.
+## Identified Problem
+The "authentication required" error occurs when the Telegram WebApp cannot obtain user data. This usually happens because the bot is not properly configured to open the WebApp.
 
-## Solução: Configure o Menu Button do Bot
+## Solution: Configure the Bot Menu Button
 
-### Passo 1: Fale com o BotFather
-1. Abra o Telegram e procure por `@BotFather`
-2. Envie o comando `/mybots`
-3. Selecione seu bot da lista
+### Step 1: Talk to BotFather
+1. Open Telegram and search for `@BotFather`
+2. Send the `/mybots` command
+3. Select your bot from the list
 
-### Passo 2: Configure o Menu Button
-1. Selecione "Bot Settings"
-2. Selecione "Menu Button"
-3. Escolha "Configure menu button"
-4. Envie a URL do seu app em produção: `https://chadmaker.click`
-5. Envie o texto do botão (ex: "🗿 Abrir CHAD Maker" ou "Open App")
+### Step 2: Configure the Menu Button
+1. Select "Bot Settings"
+2. Select "Menu Button"
+3. Choose "Configure menu button"
+4. Send your production app URL: `https://chadmaker.click`
+5. Send the button text (e.g., "🗿 Open CHAD Maker" or "Open App")
 
-### Passo 3: Teste a Configuração
-1. Abra uma conversa com seu bot
-2. Clique no botão do menu (ícone de quadrados no canto inferior esquerdo do chat)
-3. O app deve abrir dentro do Telegram com os dados do usuário
+### Step 3: Test the Configuration
+1. Open a conversation with your bot
+2. Click the menu button (grid icon in the bottom left corner of the chat)
+3. The app should open inside Telegram with user data
 
-## Alternativa: Use Inline Keyboard
-Se preferir usar um botão inline no lugar do menu button, você pode configurar assim:
+## Alternative: Use Inline Keyboard
+If you prefer to use an inline button instead of the menu button, you can configure it like this:
 
 ```python
-# Exemplo em Python com python-telegram-bot
+# Python example with python-telegram-bot
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
 keyboard = [[
     InlineKeyboardButton(
-        "🗿 Abrir CHAD Maker", 
+        "🗿 Open CHAD Maker", 
         web_app=WebAppInfo(url="https://chadmaker.click")
     )
 ]]
 reply_markup = InlineKeyboardMarkup(keyboard)
 
 await update.message.reply_text(
-    "Clique no botão abaixo para abrir o CHAD Maker:",
+    "Click the button below to open CHAD Maker:",
     reply_markup=reply_markup
 )
 ```
 
-## Verificando se Está Funcionando
+## Verifying It's Working
 
-### Logs Esperados (quando funcionando corretamente):
+### Expected Logs (when working correctly):
 ```
-✅ Detectado Telegram WebApp
+✅ Telegram WebApp detected
 ✅ Telegram user data: { hasUser: true, user: {...} }
-✅ Usuário encontrado no initDataUnsafe
+✅ User found in initDataUnsafe
 ```
 
-### Logs de Erro (problema de configuração):
+### Error Logs (configuration problem):
 ```
-❌ Detectado Telegram WebApp
+❌ Telegram WebApp detected
 ❌ Telegram user data: { hasUser: false }
-❌ Nenhum dado de usuário encontrado
+❌ No user data found
 ```
 
-## Depuração Avançada
+## Advanced Debugging
 
-Se mesmo após configurar ainda não funcionar:
+If it still doesn't work after configuring:
 
-1. **Verifique a URL**: Certifique-se de que a URL está correta e acessível
-2. **Teste em outro dispositivo**: Às vezes o cache do Telegram pode causar problemas
-3. **Verifique os logs**: Abra o DevTools do Telegram Desktop (Ctrl+Shift+I) e veja os logs do console
+1. **Check the URL**: Make sure the URL is correct and accessible
+2. **Test on another device**: Sometimes Telegram cache can cause issues
+3. **Check the logs**: Open Telegram Desktop DevTools (Ctrl+Shift+I) and check console logs
 
-## Modo de Desenvolvimento
+## Development Mode
 
-Para testar localmente sem o bot:
-- O app automaticamente usa um usuário mock quando acessado fora do Telegram
-- Você pode desenvolver normalmente em localhost
+To test locally without the bot:
+- The app automatically uses a mock user when accessed outside Telegram
+- You can develop normally on localhost
 
-## Recursos Úteis
+## Useful Resources
 - [Telegram WebApp Documentation](https://core.telegram.org/bots/webapps)
 - [BotFather Commands](https://core.telegram.org/bots#6-botfather)

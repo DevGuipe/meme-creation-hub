@@ -1,72 +1,72 @@
-# 🏠 Executar Chad Maker Forge Localmente
+# 🏠 Running Chad Maker Forge Locally
 
-Guia rápido para rodar o projeto em localhost para desenvolvimento e testes.
+Quick guide to run the project on localhost for development and testing.
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- Node.js (versão 18 ou superior)
-- npm ou bun
+- Node.js (version 18 or higher)
+- npm or bun
 - Git
 
 ---
 
-## 🚀 Instalação e Execução
+## 🚀 Installation and Execution
 
-### 1. Clonar o Repositório
+### 1. Clone the Repository
 
 ```bash
-# Se o repositório for privado, você precisará de autenticação
+# If the repository is private, you'll need authentication
 git clone https://github.com/DevGuipe/chad-maker-forge.git
 cd chad-maker-forge
 ```
 
-**Para repositórios privados:**
-- Use Personal Access Token ou configure SSH key
-- Veja detalhes no [INSTALLATION.md](INSTALLATION.md)
+**For private repositories:**
+- Use Personal Access Token or configure SSH key
+- See details in [INSTALLATION.md](INSTALLATION.md)
 
-### 2. Instalar Dependências
+### 2. Install Dependencies
 
 ```bash
-# Com npm
+# With npm
 npm install
 
-# Ou com bun (mais rápido)
+# Or with bun (faster)
 bun install
 ```
 
-### 3. Executar em Modo Desenvolvimento
+### 3. Run in Development Mode
 
 ```bash
-# Com npm
+# With npm
 npm run dev
 
-# Ou com bun
+# Or with bun
 bun dev
 ```
 
-O projeto estará disponível em: **http://localhost:8080**
+The project will be available at: **http://localhost:8080**
 
 ---
 
-## 🔧 Scripts Disponíveis
+## 🔧 Available Scripts
 
 ```bash
-# Desenvolvimento
-npm run dev          # Inicia servidor de desenvolvimento
+# Development
+npm run dev          # Start development server
 
 # Build
-npm run build        # Gera build de produção
-npm run preview      # Visualiza build localmente
+npm run build        # Generate production build
+npm run preview      # Preview build locally
 
 # Linting
-npm run lint         # Verifica código com ESLint
+npm run lint         # Check code with ESLint
 ```
 
 ---
 
-## 🌐 Configuração do Supabase
+## 🌐 Supabase Configuration
 
-O projeto já vem com configurações do Supabase no arquivo `.env`:
+The project comes with Supabase configurations in the `.env` file:
 
 ```env
 VITE_SUPABASE_PROJECT_ID="imyajbdqytdrefdnvgej"
@@ -74,83 +74,83 @@ VITE_SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 VITE_SUPABASE_URL="https://imyajbdqytdrefdnvgej.supabase.co"
 ```
 
-**Nota:** Estas são chaves públicas e podem ser expostas no frontend.
+**Note:** These are public keys and can be exposed in the frontend.
 
 ---
 
-## 🧪 Testando Funcionalidades
+## 🧪 Testing Features
 
 ### Telegram WebApp
-- No ambiente local, o componente usa dados mockados para desenvolvimento
-- Para testar com Telegram real, deploy em produção é necessário
+- In local environment, the component uses mocked data for development
+- To test with real Telegram, production deployment is required
 
-### Criação de Memes
-- Todas as funcionalidades de edição funcionam localmente
-- Upload e galeria utilizam o Supabase configurado
+### Meme Creation
+- All editing features work locally
+- Upload and gallery use the configured Supabase
 
-### Base de Dados
-- O projeto está conectado ao Supabase em produção
-- Dados criados localmente serão salvos no banco real
+### Database
+- The project is connected to Supabase in production
+- Data created locally will be saved to the real database
 
 ---
 
 ## 🚨 Troubleshooting
 
-### Erro de Porta em Uso
+### Port Already in Use Error
 ```bash
-# Se a porta 8080 estiver ocupada
+# If port 8080 is occupied
 npx kill-port 8080
 
-# Ou altere a porta no vite.config.ts
+# Or change the port in vite.config.ts
 ```
 
-### Problemas de Dependências
+### Dependency Issues
 ```bash
-# Limpar cache e reinstalar
+# Clear cache and reinstall
 rm -rf node_modules
 rm package-lock.json
 npm install
 ```
 
-### Erro de Telegram WebApp
+### Telegram WebApp Error
 ```bash
-# Normal em localhost - usa dados mockados
-# Verifique o console para confirmação
+# Normal on localhost - uses mocked data
+# Check console for confirmation
 ```
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 chad-maker-forge/
 ├── src/
-│   ├── components/          # Componentes React
-│   ├── pages/              # Páginas da aplicação
-│   ├── lib/                # Utilitários e configurações
-│   └── integrations/       # Integrações (Supabase)
-├── public/                 # Arquivos estáticos
-└── supabase/              # Configurações e funções
+│   ├── components/          # React components
+│   ├── pages/              # Application pages
+│   ├── lib/                # Utilities and configurations
+│   └── integrations/       # Integrations (Supabase)
+├── public/                 # Static files
+└── supabase/              # Supabase configurations and functions
 ```
 
 ---
 
-## ⚡ Dicas de Desenvolvimento
+## ⚡ Development Tips
 
-1. **Hot Reload**: Mudanças no código são refletidas automaticamente
-2. **DevTools**: Use React Developer Tools para debug
-3. **Console**: Monitore o console para logs e erros
-4. **Network**: Verifique chamadas à API no DevTools
-
----
-
-## 🔄 Workflow Recomendado
-
-1. **Desenvolva localmente** com `npm run dev`
-2. **Teste funcionalidades** no localhost:8080
-3. **Faça build** com `npm run build` 
-4. **Deploy** seguindo [INSTALLATION.md](INSTALLATION.md)
+1. **Hot Reload**: Code changes are reflected automatically
+2. **DevTools**: Use React Developer Tools for debugging
+3. **Console**: Monitor console for logs and errors
+4. **Network**: Check API calls in DevTools
 
 ---
 
-*💡 Para produção completa, siga o guia em [INSTALLATION.md](INSTALLATION.md)*
+## 🔄 Recommended Workflow
+
+1. **Develop locally** with `npm run dev`
+2. **Test features** on localhost:8080
+3. **Build** with `npm run build` 
+4. **Deploy** following [INSTALLATION.md](INSTALLATION.md)
+
+---
+
+*💡 For full production setup, follow the guide in [INSTALLATION.md](INSTALLATION.md)*

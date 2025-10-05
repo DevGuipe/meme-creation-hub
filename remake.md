@@ -1,209 +1,209 @@
-# Documentação Técnica - Meme Maker Application
-## Guia Completo para Reconstrução do Zero
+# Technical Documentation - Meme Maker Application
+## Complete Guide for Rebuilding from Scratch
 
 ---
 
-## 1. VISÃO GERAL
+## 1. OVERVIEW
 
-### 1.1 Propósito da Aplicação
-Esta é uma aplicação web de criação de memes que permite aos usuários criar, editar, salvar e compartilhar memes personalizados. A aplicação é projetada para funcionar tanto como uma Progressive Web App quanto integrada com plataformas de mensageria (como Telegram), oferecendo uma experiência fluida em múltiplos contextos de uso.
+### 1.1 Application Purpose
+This is a web application for creating memes that allows users to create, edit, save and share customized memes. The application is designed to work both as a Progressive Web App and integrated with messaging platforms (like Telegram), offering a fluid experience in multiple usage contexts.
 
-### 1.2 Características Principais
-- **Editor de Memes Visual**: Interface drag-and-drop com canvas interativo para composição de memes usando templates pré-definidos, imagens customizadas e textos estilizados
-- **Sistema de Templates**: Biblioteca de templates prontos com diferentes poses, corpos, cabeças e fundos temáticos
-- **Galeria Pessoal**: Armazenamento e gerenciamento de memes criados pelo usuário
-- **Sistema de Gamificação**: Pontuação e ranking para engajamento dos usuários
-- **Exportação Otimizada**: Geração de imagens em formato otimizado para compartilhamento em redes sociais
-- **Autenticação Flexível**: Suporte para múltiplos métodos de autenticação (WebApp, URL params, modo desenvolvimento)
+### 1.2 Main Features
+- **Visual Meme Editor**: Drag-and-drop interface with interactive canvas for composing memes using pre-defined templates, custom images and stylized texts
+- **Template System**: Library of ready-made templates with different poses, bodies, heads and themed backgrounds
+- **Personal Gallery**: Storage and management of memes created by the user
+- **Gamification System**: Scoring and ranking for user engagement
+- **Optimized Export**: Image generation in optimized format for sharing on social networks
+- **Flexible Authentication**: Support for multiple authentication methods (WebApp, URL params, development mode)
 
-### 1.3 Stack Tecnológico Recomendado
-- **Frontend**: React 18+ com TypeScript, Vite como build tool
-- **UI Framework**: Tailwind CSS para estilização, Radix UI para componentes acessíveis
-- **Canvas Engine**: Fabric.js v6 para manipulação de elementos visuais
+### 1.3 Recommended Technology Stack
+- **Frontend**: React 18+ with TypeScript, Vite as build tool
+- **UI Framework**: Tailwind CSS for styling, Radix UI for accessible components
+- **Canvas Engine**: Fabric.js v6 for visual element manipulation
 - **Backend**: Supabase (PostgreSQL + Edge Functions Deno)
-- **Storage**: Supabase Storage para armazenamento de imagens
-- **State Management**: React Query para cache e sincronização de dados
-- **Validação**: Zod para validação de schemas tanto no frontend quanto backend
+- **Storage**: Supabase Storage for image storage
+- **State Management**: React Query for data caching and synchronization
+- **Validation**: Zod for schema validation in both frontend and backend
 
 ---
 
-## 2. ARQUITETURA DA APLICAÇÃO
+## 2. APPLICATION ARCHITECTURE
 
-### 2.1 Estrutura de Diretórios
+### 2.1 Directory Structure
 
 ```
 /src
-  /components        → Componentes React reutilizáveis
-    /ui             → Componentes de UI base (shadcn)
-    MemeEditor.tsx  → Editor principal de memes
-    MemeGallery.tsx → Galeria de memes do usuário
-    UserAuth.tsx    → Componente de autenticação
-    StatsDisplay.tsx → Exibição de estatísticas/pontuação
-  /hooks            → Custom hooks React
-    useMemeCanvas.tsx → Lógica do canvas Fabric.js
-  /lib              → Utilitários e configurações
-    constants.ts    → Constantes da aplicação
-    validations.ts  → Schemas de validação Zod
-    logger.ts       → Sistema de logging
-    messages.ts     → Mensagens de erro/sucesso
-    utils.ts        → Funções utilitárias
-  /pages            → Páginas da aplicação
-    Index.tsx       → Página principal
-    NotFound.tsx    → Página 404
-  /types            → Definições TypeScript
-    index.ts        → Tipos compartilhados
-  /assets           → Recursos estáticos
-    /backgrounds    → Imagens de fundo
-    /bodies         → Sprites de corpos
-    /heads          → Sprites de cabeças
-    /props          → Elementos decorativos
-    /templates      → Estruturas de templates pré-montados
-  /integrations     → Integrações externas
-    /supabase       → Cliente e tipos Supabase
-  /utils            → Utilitários avançados
-    edgeInvoke.ts   → Wrapper para chamadas a edge functions
-    errorHandling.ts → Tratamento centralizado de erros
-    retryLogic.ts   → Lógica de retry para operações críticas
+  /components        → Reusable React components
+    /ui             → Base UI components (shadcn)
+    MemeEditor.tsx  → Main meme editor
+    MemeGallery.tsx → User's meme gallery
+    UserAuth.tsx    → Authentication component
+    StatsDisplay.tsx → Statistics/score display
+  /hooks            → Custom React hooks
+    useMemeCanvas.tsx → Fabric.js canvas logic
+  /lib              → Utilities and configurations
+    constants.ts    → Application constants
+    validations.ts  → Zod validation schemas
+    logger.ts       → Logging system
+    messages.ts     → Error/success messages
+    utils.ts        → Utility functions
+  /pages            → Application pages
+    Index.tsx       → Main page
+    NotFound.tsx    → 404 page
+  /types            → TypeScript definitions
+    index.ts        → Shared types
+  /assets           → Static resources
+    /backgrounds    → Background images
+    /bodies         → Body sprites
+    /heads          → Head sprites
+    /props          → Decorative elements
+    /templates      → Pre-assembled template structures
+  /integrations     → External integrations
+    /supabase       → Supabase client and types
+  /utils            → Advanced utilities
+    edgeInvoke.ts   → Wrapper for edge function calls
+    errorHandling.ts → Centralized error handling
+    retryLogic.ts   → Retry logic for critical operations
 
 /supabase
-  /functions        → Edge Functions (backend serverless)
-    /save-meme      → Salvar meme no banco
-    /get-user-memes → Buscar memes do usuário
-    /delete-meme    → Deletar meme
-    /system-status  → Status do sistema
-    /_shared        → Código compartilhado entre functions
-  /migrations       → Migrações SQL do banco de dados
-  config.toml       → Configuração do projeto Supabase
+  /functions        → Edge Functions (serverless backend)
+    /save-meme      → Save meme to database
+    /get-user-memes → Fetch user memes
+    /delete-meme    → Delete meme
+    /system-status  → System status
+    /_shared        → Shared code between functions
+  /migrations       → Database SQL migrations
+  config.toml       → Supabase project configuration
 ```
 
-### 2.2 Fluxo de Navegação
+### 2.2 Navigation Flow
 
-A aplicação possui 4 estados/views principais:
+The application has 4 main states/views:
 
-1. **Auth** → Tela de autenticação (entrada da aplicação)
-2. **Home** → Dashboard principal com estatísticas e ações principais
-3. **Editor** → Interface de criação/edição de memes
-4. **Gallery** → Lista de memes salvos pelo usuário
+1. **Auth** → Authentication screen (application entry)
+2. **Home** → Main dashboard with statistics and main actions
+3. **Editor** → Meme creation/editing interface
+4. **Gallery** → List of memes saved by user
 
-O fluxo é linear e controlado por uma state machine simples:
-- Auth → Home (após autenticação bem-sucedida)
-- Home ↔ Editor (criar novo meme)
-- Home ↔ Gallery (visualizar memes salvos)
-- Editor → Gallery (após salvar meme)
+The flow is linear and controlled by a simple state machine:
+- Auth → Home (after successful authentication)
+- Home ↔ Editor (create new meme)
+- Home ↔ Gallery (view saved memes)
+- Editor → Gallery (after saving meme)
 
-### 2.3 Gerenciamento de Estado
+### 2.3 State Management
 
-A aplicação utiliza uma combinação de estratégias de state management:
+The application uses a combination of state management strategies:
 
-- **Estado Local (useState)**: Para UI temporária (modais, inputs, seleções)
-- **React Query**: Para dados do servidor (memes, estatísticas, rankings)
-  - Cache automático com revalidação em background
-  - Retry logic para requisições falhadas
-  - Otimistic updates para melhor UX
-- **Refs (useRef)**: Para referências diretas ao canvas Fabric.js e caches de imagens
-- **Context**: Não utilizado (aplicação pequena, props drilling aceitável)
+- **Local State (useState)**: For temporary UI (modals, inputs, selections)
+- **React Query**: For server data (memes, statistics, rankings)
+  - Automatic caching with background revalidation
+  - Retry logic for failed requests
+  - Optimistic updates for better UX
+- **Refs (useRef)**: For direct references to Fabric.js canvas and image caches
+- **Context**: Not used (small application, acceptable props drilling)
 
 ---
 
-## 3. SISTEMA DE AUTENTICAÇÃO
+## 3. AUTHENTICATION SYSTEM
 
-### 3.1 Conceito Geral
+### 3.1 General Concept
 
-O sistema de autenticação é projetado para ser **flexível e multi-contexto**, suportando:
+The authentication system is designed to be **flexible and multi-context**, supporting:
 
-1. **Modo WebApp**: Quando rodando dentro de um WebApp (ex: Telegram MiniApp)
-   - Usa a API JavaScript do WebApp para obter dados do usuário
-   - Valida automaticamente através do SDK fornecido pela plataforma
+1. **WebApp Mode**: When running inside a WebApp (e.g.: Telegram MiniApp)
+   - Uses WebApp JavaScript API to obtain user data
+   - Automatically validates through platform-provided SDK
 
-2. **Modo URL Params**: Quando aberto via deep link/URL parametrizado
-   - Extrai userId, username e firstName dos query params
-   - Útil para compartilhamento direto e deep linking
+2. **URL Params Mode**: When opened via deep link/parameterized URL
+   - Extracts userId, username and firstName from query params
+   - Useful for direct sharing and deep linking
 
-3. **Modo Desenvolvimento**: Para testes locais sem dependências externas
-   - Cria um usuário mock com ID fixo em range reservado
-   - Permite desenvolvimento sem necessidade de setup de WebApp real
+3. **Development Mode**: For local testing without external dependencies
+   - Creates a mock user with fixed ID in reserved range
+   - Allows development without need for real WebApp setup
 
-### 3.2 Fluxo de Autenticação
+### 3.2 Authentication Flow
 
-**Etapa 1: Detecção do Contexto**
-- Verifica se existe window.Telegram.WebApp (rodando em WebApp)
-- Se sim, tenta extrair dados de window.Telegram.WebApp.initDataUnsafe.user
-- Se não, verifica URL params (?tgUserId=123&tgUsername=john)
-- Como último recurso, usa usuário mock de desenvolvimento
+**Step 1: Context Detection**
+- Checks if window.Telegram.WebApp exists (running in WebApp)
+- If yes, tries to extract data from window.Telegram.WebApp.initDataUnsafe.user
+- If not, checks URL params (?tgUserId=123&tgUsername=john)
+- As last resort, uses mock development user
 
-**Etapa 2: Validação dos Dados**
-- Todos os dados de usuário são validados com schema Zod
-- Valida formato do ID (número inteiro positivo dentro de range permitido)
-- Valida comprimento de username e first_name
+**Step 2: Data Validation**
+- All user data is validated with Zod schema
+- Validates ID format (positive integer within allowed range)
+- Validates username and first_name length
 
-**Etapa 3: Registro/Verificação no Banco**
-- Chama função RPC `check_user_exists_by_telegram_id` para verificar se usuário existe
-- Se não existir, chama `create_user_if_not_exists` para criar registro
-- Ambas as funções usam SECURITY DEFINER para bypass de RLS
-- Implementa retry logic com backoff exponencial para resiliência
+**Step 3: Registration/Verification in Database**
+- Calls RPC function `check_user_exists_by_telegram_id` to check if user exists
+- If doesn't exist, calls `create_user_if_not_exists` to create record
+- Both functions use SECURITY DEFINER for RLS bypass
+- Implements retry logic with exponential backoff for resilience
 
-**Etapa 4: Callback de Sucesso**
-- Após validação e registro, dispara callback `onAuthenticated(user)`
-- Aplicação transita para estado 'home'
-- Dados do usuário são armazenados em estado local
+**Step 4: Success Callback**
+- After validation and registration, fires callback `onAuthenticated(user)`
+- Application transitions to 'home' state
+- User data is stored in local state
 
-### 3.3 Tratamento de Erros
+### 3.3 Error Handling
 
-O sistema implementa mensagens de erro específicas para cada tipo de falha:
+The system implements specific error messages for each type of failure:
 - **Network timeout**: "Connection timeout. Please check your internet and try again."
-- **Invalid data**: Mostra o erro de validação específico do Zod
+- **Invalid data**: Shows specific Zod validation error
 - **Database error**: "Database connection failed. Please try again in a moment."
 - **No data**: "No Telegram data found. Please open from Telegram app."
 
-Cada erro mostra um botão "Retry" que recarrega a aplicação.
+Each error shows a "Retry" button that reloads the application.
 
-### 3.4 Considerações de Segurança
+### 3.4 Security Considerations
 
-- **Nunca confiar cegamente em dados do cliente**: Todas as validações são duplicadas no backend
-- **IDs de usuário não devem colidir**: Sistema de ranges reservados previne conflitos entre usuários reais e mock
-- **Não armazenar tokens sensíveis no frontend**: Se houver tokens de sessão, devem ser em httpOnly cookies
-- **Rate limiting**: Implementar no backend para prevenir abuse de endpoints de registro
+- **Never blindly trust client data**: All validations are duplicated in backend
+- **User IDs must not collide**: Reserved ranges system prevents conflicts between real and mock users
+- **Don't store sensitive tokens in frontend**: If there are session tokens, must be in httpOnly cookies
+- **Rate limiting**: Implement in backend to prevent abuse of registration endpoints
 
 ---
 
-## 4. SISTEMA DE TEMPLATES E ASSETS
+## 4. TEMPLATE AND ASSET SYSTEM
 
-### 4.1 Estrutura de Assets
+### 4.1 Asset Structure
 
-Os assets são organizados em categorias hierárquicas:
+Assets are organized in hierarchical categories:
 
-**Categorias Base:**
-- **backgrounds**: Imagens de fundo para o meme (cenários, texturas)
-- **bodies**: Sprites de corpos/posturas
-- **heads**: Sprites de cabeças/rostos
-- **props**: Elementos decorativos (acessórios, objetos, emojis)
+**Base Categories:**
+- **backgrounds**: Background images for meme (scenarios, textures)
+- **bodies**: Body/posture sprites
+- **heads**: Head/face sprites
+- **props**: Decorative elements (accessories, objects, emojis)
 
-**Formato de Arquivo Recomendado:**
-- PNG com transparência (alpha channel) para sprites
-- JPG ou WebP para backgrounds
-- Dimensões ideais: 512x512 ou 1024x1024 pixels
-- Otimização agressiva de tamanho (target: <100KB por asset)
+**Recommended File Format:**
+- PNG with transparency (alpha channel) for sprites
+- JPG or WebP for backgrounds
+- Ideal dimensions: 512x512 or 1024x1024 pixels
+- Aggressive size optimization (target: <100KB per asset)
 
-### 4.2 Sistema de Templates
+### 4.2 Template System
 
-Um **template** é uma composição pré-definida de layers que cria um meme completo.
+A **template** is a pre-defined composition of layers that creates a complete meme.
 
-**Estrutura de um Template:**
+**Template Structure:**
 ```
 Template = {
-  key: string            // Identificador único (ex: 'classic_chad')
-  name: string          // Nome amigável ('Classic Chad')
-  thumb_url: string     // URL da thumbnail para preview
+  key: string            // Unique identifier (e.g. 'classic_chad')
+  name: string          // Friendly name ('Classic Chad')
+  thumb_url: string     // Thumbnail URL for preview
   manifest_json: {
-    layers: Layer[]     // Array de layers pré-configuradas
+    layers: Layer[]     // Array of pre-configured layers
   }
 }
 ```
 
-**Layers dentro de um Template:**
-Cada template define um conjunto de layers com posições, escalas e rotações pré-definidas. Quando o usuário seleciona um template, essas layers são carregadas no editor e podem ser customizadas.
+**Layers within a Template:**
+Each template defines a set of layers with pre-defined positions, scales and rotations. When user selects a template, these layers are loaded into editor and can be customized.
 
-**Exemplo Conceitual de Manifest:**
+**Conceptual Manifest Example:**
 ```
 {
   layers: [
@@ -215,65 +215,65 @@ Cada template define um conjunto de layers com posições, escalas e rotações 
 }
 ```
 
-### 4.3 Sistema de Carregamento de Assets
+### 4.3 Asset Loading System
 
-**Lazy Loading e Cache:**
-- Assets só são carregados quando necessários (template selecionado ou layer adicionada)
-- Sistema de cache LRU (Least Recently Used) para otimizar memória
-- Limite de cache: 20 imagens ou 50MB (o que ocorrer primeiro)
-- Quando limite é atingido, remove os assets menos usados
+**Lazy Loading and Cache:**
+- Assets are only loaded when needed (template selected or layer added)
+- LRU (Least Recently Used) cache system to optimize memory
+- Cache limit: 20 images or 50MB (whichever comes first)
+- When limit is reached, removes least used assets
 
-**Detecção de Bounds Transparentes:**
-O sistema implementa uma função que detecta automaticamente os pixels visíveis de uma imagem PNG, ignorando margens transparentes:
-- Analisa o canal alpha de cada pixel
-- Calcula minX, minY, maxX, maxY dos pixels visíveis
-- Usa threshold configurável (padrão: 24/255 para bordas gerais, 180/255 para borda inferior)
-- Resultado: bounding box real do sprite, permitindo posicionamento preciso
+**Transparent Bounds Detection:**
+The system implements a function that automatically detects visible pixels of a PNG image, ignoring transparent margins:
+- Analyzes alpha channel of each pixel
+- Calculates minX, minY, maxX, maxY of visible pixels
+- Uses configurable threshold (default: 24/255 for general edges, 180/255 for bottom edge)
+- Result: real sprite bounding box, allowing precise positioning
 
-**Cross-Origin e CORS:**
-Todas as imagens devem ser carregadas com `crossOrigin='anonymous'` para permitir:
-- Manipulação via Canvas API
-- Exportação de imagens compostas
-- Upload para storage
+**Cross-Origin and CORS:**
+All images must be loaded with `crossOrigin='anonymous'` to allow:
+- Manipulation via Canvas API
+- Export of composed images
+- Upload to storage
 
 ---
 
-## 5. EDITOR DE MEMES (CANVAS)
+## 5. MEME EDITOR (CANVAS)
 
-### 5.1 Arquitetura do Canvas
+### 5.1 Canvas Architecture
 
-O editor utiliza **Fabric.js v6** como engine de manipulação visual.
+The editor uses **Fabric.js v6** as visual manipulation engine.
 
-**Inicialização do Canvas:**
-- Canvas HTML5 nativo como base
-- Fabric.js instanciado sobre o canvas
-- Dimensões: 400x400px para edição (responsivo)
-- Background branco sólido
-- `preserveObjectStacking: true` para manter ordem das layers
+**Canvas Initialization:**
+- Native HTML5 canvas as base
+- Fabric.js instantiated over canvas
+- Dimensions: 400x400px for editing (responsive)
+- Solid white background
+- `preserveObjectStacking: true` to maintain layer order
 
-**Sistema de Coordenadas:**
-- Coordenadas internas do Fabric: pixels absolutos (0-400)
-- Coordenadas de persistência: percentuais (0-100)
-- Conversão automática em ambas direções
-- Permite canvas responsivo sem quebrar posicionamento
+**Coordinate System:**
+- Fabric internal coordinates: absolute pixels (0-400)
+- Persistence coordinates: percentages (0-100)
+- Automatic conversion in both directions
+- Allows responsive canvas without breaking positioning
 
 ### 5.2 Layer System
 
-Cada elemento no canvas é representado como uma **Layer**:
+Each element on canvas is represented as a **Layer**:
 
-**Estrutura de Layer:**
+**Layer Structure:**
 ```
 Layer = {
-  id: string              // UUID único
+  id: string              // Unique UUID
   type: 'background' | 'body' | 'head' | 'prop' | 'text'
-  content: string         // Chave do asset ou texto literal
-  x: number              // Posição X (percentual 0-100)
-  y: number              // Posição Y (percentual 0-100)
-  scale: number          // Escala (1 = 100%)
-  rotation: number       // Rotação em graus (-360 a 360)
-  zIndex: number         // Ordem de renderização (0 = fundo)
+  content: string         // Asset key or literal text
+  x: number              // X position (percentage 0-100)
+  y: number              // Y position (percentage 0-100)
+  scale: number          // Scale (1 = 100%)
+  rotation: number       // Rotation in degrees (-360 to 360)
+  zIndex: number         // Rendering order (0 = background)
   
-  // Propriedades específicas de texto (opcionais):
+  // Text-specific properties (optional):
   fontSize?: number
   fontFamily?: string
   fontWeight?: string
@@ -282,279 +282,279 @@ Layer = {
   strokeColor?: string
   strokeWidth?: number
   textAlign?: string
-  textShadow?: string   // JSON stringificado de configurações de sombra
+  textShadow?: string   // JSON stringified shadow settings
 }
 ```
 
-**Tipos de Layers:**
-1. **Image Layers** (background, body, head, prop): Renderizam FabricImage
-2. **Text Layers**: Renderizam FabricText com estilização completa
+**Layer Types:**
+1. **Image Layers** (background, body, head, prop): Render FabricImage
+2. **Text Layers**: Render FabricText with complete styling
 
-### 5.3 Sincronização Bidirecional
+### 5.3 Bidirectional Synchronization
 
-O sistema mantém sincronização constante entre:
-- **Estado React** (array de layers)
-- **Estado Fabric.js** (objetos no canvas)
+The system maintains constant synchronization between:
+- **React State** (layers array)
+- **Fabric.js State** (objects on canvas)
 
 **React → Fabric (renderCanvas):**
-- Dispara quando array de layers muda
-- Limpa canvas e recria todos os objetos
-- Preserva transformações do usuário (posição, escala, rotação) usando cache de transforms
-- Usa render lock para evitar race conditions
+- Fires when layers array changes
+- Clears canvas and recreates all objects
+- Preserves user transformations (position, scale, rotation) using transforms cache
+- Uses render lock to avoid race conditions
 
 **Fabric → React (syncFabricToLayers):**
-- Dispara quando usuário modifica objeto no canvas (drag, scale, rotate)
-- Debounced em 150ms para evitar updates excessivos
-- Converte coordenadas Fabric para percentuais
-- Calcula scale relativa ao baseScale (scale que normalizou a imagem originalmente)
-- Atualiza array de layers via callback
+- Fires when user modifies object on canvas (drag, scale, rotate)
+- Debounced at 150ms to avoid excessive updates
+- Converts Fabric coordinates to percentages
+- Calculates scale relative to baseScale (scale that originally normalized image)
+- Updates layers array via callback
 
-### 5.4 Manipulação de Imagens
+### 5.4 Image Manipulation
 
-**Carregamento:**
-- Todas as imagens são carregadas via helper `loadImage`
-- Verifica cache primeiro (O(1) lookup)
-- Se não estiver em cache, cria novo HTMLImageElement
-- Após carregar, adiciona ao cache LRU
+**Loading:**
+- All images are loaded via `loadImage` helper
+- Checks cache first (O(1) lookup)
+- If not in cache, creates new HTMLImageElement
+- After loading, adds to LRU cache
 
-**Normalização de Escala:**
-Cada imagem tem dimensões naturais diferentes. O sistema normaliza todas para uma escala base consistente:
-- Calcula `baseScale` para que a imagem caiba em um tamanho padrão no canvas
-- Armazena `baseScale` em mapa `baseScales.current`
-- Quando usuário escala a imagem, calcula `userScale = fabricScale / baseScale`
-- Persiste apenas `userScale`, permitindo recarga com dimensões corretas
+**Scale Normalization:**
+Each image has different natural dimensions. System normalizes all to consistent base scale:
+- Calculates `baseScale` so image fits standard size on canvas
+- Stores `baseScale` in `baseScales.current` map
+- When user scales image, calculates `userScale = fabricScale / baseScale`
+- Persists only `userScale`, allowing reload with correct dimensions
 
-**Trimming de Transparência:**
-Para sprites com muita transparência nas bordas:
-- Calcula bounding box real usando `computeAlphaBounds`
-- Aplica offset e escala ajustada para mostrar apenas parte visível
-- Melhora visual: sprites parecem mais "recortados" e profissionais
+**Transparency Trimming:**
+For sprites with lots of transparency on edges:
+- Calculates real bounding box using `computeAlphaBounds`
+- Applies offset and adjusted scale to show only visible part
+- Visual improvement: sprites appear more "cut out" and professional
 
-### 5.5 Manipulação de Texto
+### 5.5 Text Manipulation
 
-**Criação de Texto:**
-- Usa FabricText com configurações ricas
-- OriginX='center', OriginY='bottom' para comportamento intuitivo
-- Suporte completo a fonte, peso, estilo, cor, stroke, sombra
+**Text Creation:**
+- Uses FabricText with rich settings
+- OriginX='center', OriginY='bottom' for intuitive behavior
+- Full support for font, weight, style, color, stroke, shadow
 
 **Shadow System:**
-Sombras são persistidas como JSON stringificado:
+Shadows are persisted as JSON stringified:
 ```
 {
   enabled: boolean,
   color: string,        // rgba(0,0,0,0.5)
   blur: number,         // 0-20
-  offsetX: number,      // -10 a 10
-  offsetY: number       // -10 a 10
+  offsetX: number,      // -10 to 10
+  offsetY: number       // -10 to 10
 }
 ```
-- Quando enabled=true, cria instância `new Shadow()` do Fabric.js
-- Quando enabled=false, shadow=null
+- When enabled=true, creates `new Shadow()` instance from Fabric.js
+- When enabled=false, shadow=null
 
-**Edição de Texto:**
-- Double-click no texto ativa modo de edição inline do Fabric.js
-- Todas as mudanças triggeram syncFabricToLayers
-- Validação de comprimento no frontend (280 caracteres)
+**Text Editing:**
+- Double-click on text activates Fabric.js inline edit mode
+- All changes trigger syncFabricToLayers
+- Length validation on frontend (280 characters)
 
-### 5.6 Interações do Usuário
+### 5.6 User Interactions
 
-**Seleção:**
-- Click em objeto seleciona
-- Mostra bounding box com handles de resize e rotation
-- Dispara evento `selection:created` → atualiza selected layer no editor
-- Selection:cleared quando clica fora → deseleciona
+**Selection:**
+- Click on object selects it
+- Shows bounding box with resize and rotation handles
+- Fires `selection:created` event → updates selected layer in editor
+- Selection:cleared when clicking outside → deselects
 
-**Transformações:**
-- **Drag**: Move objeto livremente
-- **Resize**: Arrasta handles dos cantos (mantém proporção se lockUniScaling=false)
-- **Rotate**: Arrasta handle superior central
-- Todas as transformações disparam `object:modified`
+**Transformations:**
+- **Drag**: Moves object freely
+- **Resize**: Drags corner handles (maintains proportion if lockUniScaling=false)
+- **Rotate**: Drags top center handle
+- All transformations fire `object:modified`
 
 **Delete:**
-- Tecla Delete/Backspace quando objeto selecionado
-- Remove do canvas e do array de layers
+- Delete/Backspace key when object selected
+- Removes from canvas and layers array
 
 **Add Layer:**
-- Botões no editor adicionam nova layer ao array
-- Nova layer aparece centralizada com valores default
-- Usuario pode então posicionar/escalar/rotar
+- Editor buttons add new layer to array
+- New layer appears centered with default values
+- User can then position/scale/rotate
 
-### 5.7 Performance e Otimizações
+### 5.7 Performance and Optimizations
 
 **Render Lock:**
-- Promise-based lock para evitar renders simultâneos
-- Se render em andamento, aguarda completar antes de iniciar nova
-- Previne race conditions e estado inconsistente
+- Promise-based lock to avoid simultaneous renders
+- If render in progress, waits to complete before starting new one
+- Prevents race conditions and inconsistent state
 
 **Debouncing:**
-- Sync Fabric → React é debounced em 150ms
-- Evita centenas de updates durante drag contínuo
+- Sync Fabric → React is debounced at 150ms
+- Avoids hundreds of updates during continuous drag
 
 **Image Cache:**
-- LRU cache com limites de tamanho e memória
-- Evita recarregar mesmas imagens repetidamente
-- Remove items antigos quando atinge limites
+- LRU cache with size and memory limits
+- Avoids reloading same images repeatedly
+- Removes old items when reaching limits
 
 **Lazy Rendering:**
-- Layers só são renderizadas quando visíveis no canvas
-- Background é sempre renderizado primeiro (zIndex 0)
+- Layers only rendered when visible on canvas
+- Background always rendered first (zIndex 0)
 
 **Memory Management:**
-- Cleanup completo no unmount:
-  - Dispose de canvas Fabric.js
-  - Clear de todos os timeouts
-  - Clear de event listeners
-  - Clear de image cache
+- Complete cleanup on unmount:
+  - Dispose of Fabric.js canvas
+  - Clear all timeouts
+  - Clear event listeners
+  - Clear image cache
 
 ---
 
-## 6. SALVAMENTO E EXPORTAÇÃO DE MEMES
+## 6. SAVING AND EXPORTING MEMES
 
-### 6.1 Fluxo de Salvamento
+### 6.1 Save Flow
 
-**Etapa 1: Preparação dos Dados**
-- Usuário clica em "Save Meme"
-- Sistema valida se há pelo menos uma layer
-- Valida comprimento de textos (max 10.000 caracteres por content)
-- Gera chave de idempotência única (UUID ou timestamp-based)
+**Step 1: Data Preparation**
+- User clicks "Save Meme"
+- System validates at least one layer exists
+- Validates text lengths (max 10,000 characters per content)
+- Generates unique idempotency key (UUID or timestamp-based)
 
-**Etapa 2: Exportação da Imagem**
-- Canvas Fabric.js exporta para data URL (base64)
-- Compressão agressiva aplicada em múltiplos passes:
+**Step 2: Image Export**
+- Fabric.js canvas exports to data URL (base64)
+- Aggressive compression applied in multiple passes:
   - Pass 1: quality 0.75, scale 1.5x, max 600x600px
   - Pass 2: quality 0.65, scale 1.25x, max 500x500px  
   - Pass 3: quality 0.55, scale 1.0x, max 400x400px
-- Alvo: <800KB para otimizar compartilhamento
-- Formato final: PNG ou JPEG dependendo da transparência
+- Target: <800KB to optimize sharing
+- Final format: PNG or JPEG depending on transparency
 
-**Etapa 3: Envio para Backend**
-Chama edge function `save-meme` com payload:
+**Step 3: Backend Submission**
+Calls edge function `save-meme` with payload:
 ```
 {
   telegramUserId: number,
   templateKey: string,
   layersPayload: Layer[],
   image: string,              // data URL base64
-  idempotencyKey: string      // para prevenir duplicatas
+  idempotencyKey: string      // to prevent duplicates
 }
 ```
 
-**Etapa 4: Processamento no Backend**
-(Ver seção Backend para detalhes)
+**Step 4: Backend Processing**
+(See Backend section for details)
 
-**Etapa 5: Feedback ao Usuário**
-- Loading spinner durante upload
-- Toast de sucesso ou erro
-- Navegação automática para galeria em caso de sucesso
-- Pontos adicionados ao score do usuário
+**Step 5: User Feedback**
+- Loading spinner during upload
+- Success or error toast
+- Automatic navigation to gallery on success
+- Points added to user score
 
-### 6.2 Sistema de Idempotência
+### 6.2 Idempotency System
 
-Para evitar salvamentos duplicados (double-click, retry, etc):
+To avoid duplicate saves (double-click, retry, etc):
 
 **Frontend:**
-- Gera `idempotencyKey` única antes do envio
-- Se request falhar e usuário tentar novamente, usa mesma key
+- Generates unique `idempotencyKey` before sending
+- If request fails and user tries again, uses same key
 
 **Backend:**
-- Verifica se já existe meme com mesma `idempotency_key`
-- Se existir, retorna o meme existente (não cria duplicata)
-- Constraint UNIQUE em `memes.idempotency_key` garante atomicidade
+- Checks if meme with same `idempotency_key` already exists
+- If exists, returns existing meme (doesn't create duplicate)
+- UNIQUE constraint on `memes.idempotency_key` guarantees atomicity
 
-### 6.3 Validação de Layers
+### 6.3 Layer Validation
 
-**Frontend (pré-envio):**
-- Mínimo 1 layer, máximo 50 layers
-- Content de cada layer: max 10.000 caracteres
-- Coordenadas dentro de ranges válidos (-1000 a 1000)
-- Scale entre 0.1 e 10
-- Rotation entre -360 e 360
+**Frontend (pre-submission):**
+- Minimum 1 layer, maximum 50 layers
+- Content of each layer: max 10,000 characters
+- Coordinates within valid ranges (-1000 to 1000)
+- Scale between 0.1 and 10
+- Rotation between -360 and 360
 
-**Backend (na recepção):**
-- Validação Zod duplica todas as regras do frontend
-- Se validação falhar, retorna 400 com detalhes dos erros
-- Previne injection attacks e dados malformados
+**Backend (on reception):**
+- Zod validation duplicates all frontend rules
+- If validation fails, returns 400 with error details
+- Prevents injection attacks and malformed data
 
-### 6.4 Compressão de Imagem
+### 6.4 Image Compression
 
-**Estratégia Multi-Pass:**
-O sistema tenta comprimir a imagem em passes sucessivos até atingir o target de tamanho:
+**Multi-Pass Strategy:**
+System tries to compress image in successive passes until reaching target size:
 
-1. Renderiza canvas em escala maior (1.5x-2x) para qualidade inicial alta
-2. Converte para data URL com quality específica
-3. Checa tamanho em bytes do base64
-4. Se > target, reduz escala e quality e tenta novamente
-5. Máximo 3 tentativas com presets progressivamente mais agressivos
+1. Renders canvas at larger scale (1.5x-2x) for initial high quality
+2. Converts to data URL with specific quality
+3. Checks base64 byte size
+4. If > target, reduces scale and quality and tries again
+5. Maximum 3 attempts with progressively more aggressive presets
 
 **Fallback:**
-Se mesmo após 3 passes a imagem ainda estiver grande:
-- Usa a última tentativa (mais comprimida)
-- Log de aviso (não bloqueia salvamento)
-- Considera aumentar limites de storage
+If after 3 passes image is still large:
+- Uses last attempt (most compressed)
+- Warning log (doesn't block save)
+- Consider increasing storage limits
 
 ---
 
-## 7. GALERIA DE MEMES
+## 7. MEME GALLERY
 
-### 7.1 Listagem de Memes
+### 7.1 Meme Listing
 
-**Busca de Dados:**
-- Chama edge function `get-user-memes` com `telegramUserId`
-- Backend retorna até 50 memes mais recentes do usuário
-- Ordenação: `created_at DESC`
-- Filtra apenas memes não deletados (`deleted_at IS NULL`)
+**Data Fetching:**
+- Calls edge function `get-user-memes` with `telegramUserId`
+- Backend returns up to 50 most recent user memes
+- Ordering: `created_at DESC`
+- Filters only non-deleted memes (`deleted_at IS NULL`)
 
 **Rendering:**
-- Grid responsivo de thumbnails
-- Cada item mostra:
-  - Thumbnail da imagem
-  - Short ID (4-6 dígitos)
-  - Data de criação
-  - Botões de ação (deletar, compartilhar)
+- Responsive thumbnail grid
+- Each item shows:
+  - Image thumbnail
+  - Short ID (4-6 digits)
+  - Creation date
+  - Action buttons (delete, share)
 
 **Loading States:**
-- Skeleton loaders enquanto carrega
-- Empty state se usuário não tem memes ainda
-- Error state se falha ao carregar (com retry button)
+- Skeleton loaders while loading
+- Empty state if user has no memes yet
+- Error state if loading fails (with retry button)
 
-### 7.2 Preview e Visualização
+### 7.2 Preview and Visualization
 
-**Click em Meme:**
-- Abre modal/fullscreen view
-- Mostra imagem em tamanho completo
-- Informações: ID, data, template usado
-- Ações: Share, Delete, Edit (opcional)
+**Click on Meme:**
+- Opens modal/fullscreen view
+- Shows full-size image
+- Information: ID, date, template used
+- Actions: Share, Delete, Edit (optional)
 
-**Zoom e Pan:**
-- Pinch-to-zoom em mobile
-- Scroll/drag para pan
+**Zoom and Pan:**
+- Pinch-to-zoom on mobile
+- Scroll/drag for pan
 - Reset zoom button
 
-### 7.3 Deleção de Memes
+### 7.3 Meme Deletion
 
-**Fluxo de Delete:**
-1. Usuário clica em delete button
-2. Confirma ação em alert dialog
-3. Chama edge function `delete-meme` com `memeId`
-4. Backend faz soft-delete (seta `deleted_at = now()`)
-5. Frontend remove meme da lista localmente (optimistic update)
-6. Toast de confirmação
+**Delete Flow:**
+1. User clicks delete button
+2. Confirms action in alert dialog
+3. Calls edge function `delete-meme` with `memeId`
+4. Backend does soft-delete (sets `deleted_at = now()`)
+5. Frontend removes meme from list locally (optimistic update)
+6. Confirmation toast
 
 **Soft Delete vs Hard Delete:**
-- **Soft Delete** (recomendado): seta timestamp em `deleted_at`
-  - Permite recuperação posterior
-  - Mantém integridade referencial
-  - Não remove imagem do storage imediatamente
-- **Hard Delete**: remove row do banco
-  - Irreversível
-  - Requer cascade deletes ou cleanup manual
-  - Remove imagem do storage imediatamente
+- **Soft Delete** (recommended): sets timestamp in `deleted_at`
+  - Allows later recovery
+  - Maintains referential integrity
+  - Doesn't remove image from storage immediately
+- **Hard Delete**: removes row from database
+  - Irreversible
+  - Requires cascade deletes or manual cleanup
+  - Removes image from storage immediately
 
-### 7.4 Compartilhamento
+### 7.4 Sharing
 
 **Share Button:**
-- Gera deep link para o meme: `https://app.url/?memeId={short_id}`
-- Usa Web Share API se disponível:
+- Generates deep link for meme: `https://app.url/?memeId={short_id}`
+- Uses Web Share API if available:
   ```
   navigator.share({
     title: 'Check out my meme!',
@@ -565,26 +565,26 @@ Se mesmo após 3 passes a imagem ainda estiver grande:
 - Fallback: copy to clipboard
 
 **Deep Link Handling:**
-- Quando usuário abre app via deep link com `?memeId=1234`
-- App detecta query param
-- Busca meme por `id_short`
-- Mostra preview direto (sem precisar autenticar se meme for público)
+- When user opens app via deep link with `?memeId=1234`
+- App detects query param
+- Fetches meme by `id_short`
+- Shows preview directly (without needing to authenticate if meme is public)
 
 ---
 
-## 8. SISTEMA DE GAMIFICAÇÃO E PONTUAÇÃO
+## 8. GAMIFICATION AND SCORING SYSTEM
 
-### 8.1 Conceito de Pontos
+### 8.1 Points Concept
 
-A aplicação implementa um sistema de pontuação para engajar usuários:
+The application implements a scoring system to engage users:
 
-**Eventos que Geram Pontos:**
-- **Salvar meme**: +3 pontos (evento `save_meme`)
-- **Receber reação**: +1 ponto (evento `reaction_received`)
-- **Compartilhar meme**: +1 ponto (evento `share_meme`)
-- **Weekly ranking bonus**: +10/+6/+3 pontos para top 3 da semana
+**Events that Generate Points:**
+- **Save meme**: +3 points (event `save_meme`)
+- **Receive reaction**: +1 point (event `reaction_received`)
+- **Share meme**: +1 point (event `share_meme`)
+- **Weekly ranking bonus**: +10/+6/+3 points for top 3 of week
 
-**Tabela `popcat_events`:**
+**Table `popcat_events`:**
 ```
 {
   id: UUID,
@@ -596,18 +596,18 @@ A aplicação implementa um sistema de pontuação para engajar usuários:
 }
 ```
 
-### 8.2 Cálculo de Rankings
+### 8.2 Ranking Calculation
 
-**Rankings Duplos:**
-1. **Global Ranking**: Soma total de pontos desde sempre
-2. **Weekly Ranking**: Soma de pontos na semana atual (Monday-Sunday)
+**Dual Rankings:**
+1. **Global Ranking**: Total point sum since forever
+2. **Weekly Ranking**: Point sum in current week (Monday-Sunday)
 
-**Funções de Ranking:**
-- `get_user_ranking(telegram_user_id)`: Retorna scores e ranks de um usuário específico
-- `get_user_rankings()`: Retorna ranking global completo (top 100)
-- `get_current_week_rankings()`: Retorna ranking da semana atual (top 50)
+**Ranking Functions:**
+- `get_user_ranking(telegram_user_id)`: Returns scores and ranks of specific user
+- `get_user_rankings()`: Returns complete global ranking (top 100)
+- `get_current_week_rankings()`: Returns current week ranking (top 50)
 
-**Cálculo:**
+**Calculation:**
 ```sql
 SELECT 
   u.id, 
@@ -620,62 +620,62 @@ GROUP BY u.id
 ORDER BY total_score DESC
 ```
 
-### 8.3 Sistema de Badges
+### 8.3 Badge System
 
-Baseado no total de pontos, usuário recebe badges:
-- **0-9 pontos**: Rookie 🌱
-- **10-49 pontos**: Creator 🎨
-- **50-99 pontos**: Expert 💎
-- **100-499 pontos**: Master 🔥
-- **500+ pontos**: Legend 👑
+Based on total points, user receives badges:
+- **0-9 points**: Rookie 🌱
+- **10-49 points**: Creator 🎨
+- **50-99 points**: Expert 💎
+- **100-499 points**: Master 🔥
+- **500+ points**: Legend 👑
 
 **Rendering:**
-Componente `StatsDisplay` busca dados e mostra:
-- Badge icon e nome
-- Pontos totais e semanais
-- Rank global e semanal
-- Progress bar até próximo badge
+`StatsDisplay` component fetches data and shows:
+- Badge icon and name
+- Total and weekly points
+- Global and weekly rank
+- Progress bar to next badge
 
-### 8.4 Reset Semanal
+### 8.4 Weekly Reset
 
-**Objetivo:**
-Manter competição ativa resetando leaderboard semanal toda segunda-feira.
+**Objective:**
+Keep competition active by resetting weekly leaderboard every Monday.
 
-**Implementação:**
-- Edge function `weekly-reset` executada via cron (Monday 00:00 UTC)
-- Salva snapshot do ranking da semana anterior em `leaderboard_snapshots`
-- Atribui bonus points aos top 3 da semana
-- Ranking semanal automaticamente reseta porque query filtra por `created_at >= current_week`
+**Implementation:**
+- Edge function `weekly-reset` executed via cron (Monday 00:00 UTC)
+- Saves snapshot of previous week ranking in `leaderboard_snapshots`
+- Assigns bonus points to top 3 of week
+- Weekly ranking automatically resets because query filters by `created_at >= current_week`
 
 **Cron Configuration:**
 ```toml
 [functions.weekly-reset]
-schedule = "0 0 * * 1"  # Toda segunda às 00:00 UTC
+schedule = "0 0 * * 1"  # Every Monday at 00:00 UTC
 ```
 
 ---
 
 ## 9. BACKEND (EDGE FUNCTIONS)
 
-### 9.1 Arquitetura de Edge Functions
+### 9.1 Edge Functions Architecture
 
-As edge functions são **serverless Deno functions** rodando no Supabase Edge Runtime.
+Edge functions are **serverless Deno functions** running on Supabase Edge Runtime.
 
-**Características:**
-- Deploy automático com o código
-- Escalamento horizontal automático
-- Latência baixa (edge computing)
-- Acesso direto ao banco via `@supabase/supabase-js`
-- Isolamento: cada function tem seu próprio runtime
+**Characteristics:**
+- Automatic deploy with code
+- Automatic horizontal scaling
+- Low latency (edge computing)
+- Direct database access via `@supabase/supabase-js`
+- Isolation: each function has its own runtime
 
-**Estrutura de uma Function:**
+**Function Structure:**
 ```
 /supabase/functions/<function-name>/
-  index.ts              ← Handler principal
+  index.ts              ← Main handler
 ```
 
-**CORS obrigatório:**
-Todas as functions devem implementar CORS headers:
+**Mandatory CORS:**
+All functions must implement CORS headers:
 ```typescript
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -687,10 +687,10 @@ if (req.method === 'OPTIONS') {
 }
 ```
 
-### 9.2 Função: save-meme
+### 9.2 Function: save-meme
 
-**Responsabilidade:**
-Salvar um novo meme no banco de dados e fazer upload da imagem para storage.
+**Responsibility:**
+Save new meme to database and upload image to storage.
 
 **Input:**
 ```
@@ -703,26 +703,26 @@ Salvar um novo meme no banco de dados e fazer upload da imagem para storage.
 }
 ```
 
-**Processo:**
-1. Validação do payload com Zod schema
-2. Verificação de idempotência (se key fornecida)
-3. Resolução de user_id via `get_user_id_by_telegram_id` RPC
-   - Se não existir, cria via `create_user_if_not_exists`
-4. Geração de short_id via `generate_meme_short_id` RPC
-5. Upload de imagem para storage bucket `memes/` (se fornecida)
-6. Insert na tabela `memes`
-7. Retorno de `{ memeId, id_short, url }`
+**Process:**
+1. Payload validation with Zod schema
+2. Idempotency check (if key provided)
+3. Resolve user_id via `get_user_id_by_telegram_id` RPC
+   - If doesn't exist, creates via `create_user_if_not_exists`
+4. Generate short_id via `generate_meme_short_id` RPC
+5. Upload image to storage bucket `memes/` (if provided)
+6. Insert into `memes` table
+7. Return `{ memeId, id_short, url }`
 
-**Idempotência:**
-- Se `idempotencyKey` já existe no banco, retorna meme existente
-- Constraint UNIQUE garante não criar duplicatas
-- Em caso de conflict, faz SELECT do existente e retorna
+**Idempotency:**
+- If `idempotencyKey` already exists in database, returns existing meme
+- UNIQUE constraint guarantees no duplicates
+- On conflict, does SELECT of existing and returns
 
 **Error Handling:**
-- Validação falha: 400 com detalhes dos erros Zod
-- Erro de banco: 500 com mensagem genérica (não expor detalhes)
-- Erro de storage: 400 com "Image upload failed"
-- Timeout: Cliente pode retry com mesma idempotencyKey
+- Validation fails: 400 with Zod error details
+- Database error: 500 with generic message (don't expose details)
+- Storage error: 400 with "Image upload failed"
+- Timeout: Client can retry with same idempotencyKey
 
 **Output:**
 ```
@@ -733,21 +733,21 @@ Salvar um novo meme no banco de dados e fazer upload da imagem para storage.
 }
 ```
 
-### 9.3 Função: get-user-memes
+### 9.3 Function: get-user-memes
 
-**Responsabilidade:**
-Buscar lista de memes de um usuário específico.
+**Responsibility:**
+Fetch list of memes from specific user.
 
 **Input:**
 ```
 { telegramUserId: number }
 ```
 
-**Processo:**
-1. Validação do telegramUserId
+**Process:**
+1. telegramUserId validation
 2. Resolve user_id via RPC
-3. Chama função RPC `get_user_memes(user_uuid)`
-4. Retorna array de memes
+3. Call RPC function `get_user_memes(user_uuid)`
+4. Return memes array
 
 **RPC Backend:**
 ```sql
@@ -779,10 +779,10 @@ $$;
 }
 ```
 
-### 9.4 Função: delete-meme
+### 9.4 Function: delete-meme
 
-**Responsabilidade:**
-Soft-delete de um meme específico.
+**Responsibility:**
+Soft-delete of specific meme.
 
 **Input:**
 ```
@@ -792,12 +792,12 @@ Soft-delete de um meme específico.
 }
 ```
 
-**Processo:**
-1. Validação dos inputs
+**Process:**
+1. Input validation
 2. Resolve user_id
-3. Verifica ownership (meme pertence ao user?)
+3. Check ownership (meme belongs to user?)
 4. Soft-delete: `UPDATE memes SET deleted_at = NOW() WHERE id = memeId`
-5. Opcional: agendar cleanup de imagem do storage (async job)
+5. Optional: schedule storage image cleanup (async job)
 
 **Output:**
 ```
@@ -805,21 +805,21 @@ Soft-delete de um meme específico.
 ```
 
 **Error Cases:**
-- Meme não existe: 404 "Meme not found"
-- Usuário não é owner: 403 "Not authorized"
-- Já deletado: 200 "Already deleted" (idempotente)
+- Meme doesn't exist: 404 "Meme not found"
+- User is not owner: 403 "Not authorized"
+- Already deleted: 200 "Already deleted" (idempotent)
 
-### 9.5 Função: system-status
+### 9.5 Function: system-status
 
-**Responsabilidade:**
-Health check do sistema para monitoramento.
+**Responsibility:**
+System health check for monitoring.
 
-**Input:** Nenhum (GET request)
+**Input:** None (GET request)
 
-**Processo:**
-1. Testa conexão com banco (SELECT 1)
-2. Testa storage (list files)
-3. Retorna status de cada serviço
+**Process:**
+1. Test database connection (SELECT 1)
+2. Test storage (list files)
+3. Return status of each service
 
 **Output:**
 ```
@@ -831,59 +831,59 @@ Health check do sistema para monitoramento.
 }
 ```
 
-### 9.6 Segurança em Edge Functions
+### 9.6 Security in Edge Functions
 
 **Authentication:**
-- Functions podem ser públicas (`verify_jwt = false`) ou privadas
-- Para privadas, extrair JWT do header Authorization
-- Validar JWT usando `supabase.auth.getUser(token)`
-- Para app atual: functions são públicas mas validam `telegramUserId`
+- Functions can be public (`verify_jwt = false`) or private
+- For private, extract JWT from Authorization header
+- Validate JWT using `supabase.auth.getUser(token)`
+- For current app: functions are public but validate `telegramUserId`
 
 **Input Validation:**
-- **SEMPRE** validar com Zod antes de processar
-- Nunca confiar em dados do cliente
-- Sanitizar strings antes de inserir no banco
+- **ALWAYS** validate with Zod before processing
+- Never trust client data
+- Sanitize strings before database insert
 
 **SQL Injection:**
-- **NUNCA** usar SQL raw com concatenação de strings
-- Sempre usar:
+- **NEVER** use raw SQL with string concatenation
+- Always use:
   - Supabase client query builder (`.from().select()`)
-  - RPC functions com parâmetros tipados
-  - Prepared statements se usar SQL direto
+  - RPC functions with typed parameters
+  - Prepared statements if using direct SQL
 
 **Rate Limiting:**
-Implementar rate limiting por userId:
-- Redis cache com contador de requests por minuto
-- Limites: 60 requests/min por usuário
-- 429 Too Many Requests se exceder
+Implement rate limiting per userId:
+- Redis cache with requests per minute counter
+- Limits: 60 requests/min per user
+- 429 Too Many Requests if exceeded
 
 **Secrets:**
-- Usar `Deno.env.get('SECRET_NAME')` para acessar
-- Nunca commitar secrets no código
-- Configurar via Supabase Dashboard → Functions → Secrets
+- Use `Deno.env.get('SECRET_NAME')` to access
+- Never commit secrets in code
+- Configure via Supabase Dashboard → Functions → Secrets
 
 ---
 
-## 10. BANCO DE DADOS
+## 10. DATABASE
 
 ### 10.1 Schema Overview
 
-O banco possui 7 tabelas principais:
+Database has 7 main tables:
 
-1. **users**: Registro de usuários
-2. **memes**: Memes criados
-3. **templates**: Templates pré-definidos
-4. **assets**: Assets disponíveis (backgrounds, bodies, etc)
-5. **popcat_events**: Eventos de pontuação
-6. **leaderboard_snapshots**: Snapshots de rankings semanais
-7. **reactions**: Reações em memes (opcional, para integração com chat apps)
+1. **users**: User registration
+2. **memes**: Created memes
+3. **templates**: Pre-defined templates
+4. **assets**: Available assets (backgrounds, bodies, etc)
+5. **popcat_events**: Scoring events
+6. **leaderboard_snapshots**: Weekly ranking snapshots
+7. **reactions**: Meme reactions (optional, for chat app integration)
 
-### 10.2 Tabela: users
+### 10.2 Table: users
 
-**Propósito:**
-Armazenar informações de usuários que usam a aplicação.
+**Purpose:**
+Store information of users using the application.
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -895,23 +895,23 @@ CREATE TABLE users (
 ```
 
 **Indices:**
-- Primary key em `id`
-- Unique index em `telegram_id` (busca rápida por ID externo)
+- Primary key on `id`
+- Unique index on `telegram_id` (fast lookup by external ID)
 
 **RLS (Row Level Security):**
-- `permissive_all_users`: Permite todas as operações (função pública de visualização de rankings)
+- `permissive_all_users`: Allows all operations (public ranking view function)
 
-**Observações:**
-- `telegram_id` é o identificador externo (do Telegram ou outro provider)
-- `id` é UUID interno usado como foreign key
-- Não armazena dados sensíveis (email, phone)
+**Notes:**
+- `telegram_id` is external identifier (from Telegram or other provider)
+- `id` is internal UUID used as foreign key
+- Doesn't store sensitive data (email, phone)
 
-### 10.3 Tabela: memes
+### 10.3 Table: memes
 
-**Propósito:**
-Armazenar memes criados pelos usuários.
+**Purpose:**
+Store memes created by users.
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE memes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -927,32 +927,32 @@ CREATE TABLE memes (
 ```
 
 **Indices:**
-- Primary key em `id`
-- Index em `owner_id` (buscar memes de um usuário)
-- Unique index em `id_short` + `owner_id` (short IDs únicos por usuário)
-- Unique index em `idempotency_key` (prevenir duplicatas)
-- Index em `deleted_at` (filtrar não deletados rapidamente)
+- Primary key on `id`
+- Index on `owner_id` (fetch user memes)
+- Unique index on `id_short` + `owner_id` (unique short IDs per user)
+- Unique index on `idempotency_key` (prevent duplicates)
+- Index on `deleted_at` (filter non-deleted quickly)
 
-**Campos:**
-- **id_short**: ID curto de 4-6 dígitos para compartilhamento (gerado por RPC)
-- **owner_id**: UUID do usuário criador
-- **template_key**: Qual template foi usado como base
-- **layers_payload**: JSON array de layers (estrutura completa do meme)
-- **image_urls**: JSON object com URLs da imagem renderizada
+**Fields:**
+- **id_short**: Short 4-6 digit ID for sharing (generated by RPC)
+- **owner_id**: UUID of creator user
+- **template_key**: Which template was used as base
+- **layers_payload**: JSON array of layers (complete meme structure)
+- **image_urls**: JSON object with rendered image URLs
   - `{ original: 'https://storage.url/meme.png' }`
-- **deleted_at**: NULL se ativo, timestamp se deletado (soft delete)
-- **idempotency_key**: String única para prevenir salvamentos duplicados
+- **deleted_at**: NULL if active, timestamp if deleted (soft delete)
+- **idempotency_key**: Unique string to prevent duplicate saves
 
 **RLS:**
-- `permissive_read_memes`: Qualquer um pode ler (memes são públicos)
-- `permissive_all_memes`: Permite todas as operações (gerenciamento via functions)
+- `permissive_read_memes`: Anyone can read (memes are public)
+- `permissive_all_memes`: Allows all operations (management via functions)
 
-### 10.4 Tabela: templates
+### 10.4 Table: templates
 
-**Propósito:**
-Armazenar templates pré-definidos disponíveis para usuários.
+**Purpose:**
+Store pre-defined templates available to users.
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE templates (
   key TEXT PRIMARY KEY,
@@ -963,26 +963,26 @@ CREATE TABLE templates (
 );
 ```
 
-**Campos:**
-- **key**: Identificador único (ex: 'classic_chad', 'virgin_vs_chad')
-- **name**: Nome amigável exibido na UI
-- **thumb_url**: URL da thumbnail para preview
-- **manifest_json**: JSON com definição das layers do template
+**Fields:**
+- **key**: Unique identifier (e.g. 'classic_chad', 'virgin_vs_chad')
+- **name**: Friendly name displayed in UI
+- **thumb_url**: Thumbnail URL for preview
+- **manifest_json**: JSON with template layers definition
 
-**População:**
-Templates são inseridos via migrations ou script de seed:
+**Population:**
+Templates are inserted via migrations or seed script:
 ```sql
 INSERT INTO templates (key, name, thumb_url, manifest_json) VALUES
 ('classic', 'Classic', 'https://...', '{"layers": [...]}'),
 ('warrior', 'Warrior Mode', 'https://...', '{"layers": [...]}');
 ```
 
-### 10.5 Tabela: assets
+### 10.5 Table: assets
 
-**Propósito:**
-Catálogo de assets disponíveis (backgrounds, bodies, heads, props).
+**Purpose:**
+Catalog of available assets (backgrounds, bodies, heads, props).
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE assets (
   key TEXT PRIMARY KEY,
@@ -992,13 +992,13 @@ CREATE TABLE assets (
 );
 ```
 
-**Uso:**
-Quando app carrega, busca lista de assets por tipo:
+**Usage:**
+When app loads, fetches asset list by type:
 ```sql
 SELECT key, url FROM assets WHERE type = 'background';
 ```
 
-Frontend monta objeto de assets:
+Frontend builds assets object:
 ```typescript
 const assets = {
   backgrounds: { gym: 'url1', beach: 'url2' },
@@ -1007,12 +1007,12 @@ const assets = {
 };
 ```
 
-### 10.6 Tabela: popcat_events
+### 10.6 Table: popcat_events
 
-**Propósito:**
-Registrar eventos de pontuação para gamificação.
+**Purpose:**
+Record scoring events for gamification.
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE popcat_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1025,23 +1025,23 @@ CREATE TABLE popcat_events (
 ```
 
 **Indices:**
-- Primary key em `id`
-- Index em `user_id` + `created_at` (cálculo rápido de scores)
-- Index em `created_at` (queries de ranking semanal)
+- Primary key on `id`
+- Index on `user_id` + `created_at` (fast score calculation)
+- Index on `created_at` (weekly ranking queries)
 
-**Inserção:**
-Quando ocorre evento de pontuação:
+**Insertion:**
+When scoring event occurs:
 ```sql
 INSERT INTO popcat_events (user_id, source, amount, meme_id)
 VALUES (user_uuid, 'save_meme', 3, meme_uuid);
 ```
 
-### 10.7 Tabela: leaderboard_snapshots
+### 10.7 Table: leaderboard_snapshots
 
-**Propósito:**
-Armazenar snapshots de rankings semanais para histórico.
+**Purpose:**
+Store weekly ranking snapshots for history.
 
-**Colunas:**
+**Columns:**
 ```sql
 CREATE TABLE leaderboard_snapshots (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1053,17 +1053,17 @@ CREATE TABLE leaderboard_snapshots (
 );
 ```
 
-**Uso:**
-Edge function `weekly-reset` insere snapshot antes do reset:
+**Usage:**
+Edge function `weekly-reset` inserts snapshot before reset:
 ```sql
 INSERT INTO leaderboard_snapshots (week_id, user_id, rank, score)
 SELECT '2025-W01', user_id, rank, score FROM get_current_week_rankings();
 ```
 
-### 10.8 Funções RPC
+### 10.8 RPC Functions
 
 **generate_meme_short_id(owner_uuid UUID):**
-Gera ID curto único de 4-6 dígitos para um usuário:
+Generates unique 4-6 digit short ID for a user:
 ```sql
 CREATE FUNCTION generate_meme_short_id(owner_uuid UUID) RETURNS TEXT AS $$
 DECLARE
@@ -1090,7 +1090,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **get_user_id_by_telegram_id(telegram_user_id BIGINT):**
-Busca UUID interno dado telegram_id:
+Fetches internal UUID given telegram_id:
 ```sql
 CREATE FUNCTION get_user_id_by_telegram_id(telegram_user_id BIGINT) 
 RETURNS UUID AS $$
@@ -1103,7 +1103,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **create_user_if_not_exists(telegram_user_id BIGINT, user_first_name TEXT):**
-Cria usuário se não existir, retorna UUID:
+Creates user if doesn't exist, returns UUID:
 ```sql
 CREATE FUNCTION create_user_if_not_exists(
   telegram_user_id BIGINT, 
@@ -1123,7 +1123,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **get_user_ranking(user_telegram_id BIGINT):**
-Retorna scores e ranks de um usuário:
+Returns scores and ranks of a user:
 ```sql
 CREATE FUNCTION get_user_ranking(user_telegram_id BIGINT)
 RETURNS TABLE(
@@ -1133,18 +1133,18 @@ RETURNS TABLE(
   global_rank BIGINT,
   weekly_rank BIGINT
 ) AS $$
--- Calcula total e weekly scores
--- Calcula ROW_NUMBER para ranks
--- Retorna linha do usuário específico
+-- Calculates total and weekly scores
+-- Calculates ROW_NUMBER for ranks
+-- Returns specific user row
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 ### 10.9 Triggers
 
-**Objetivo:**
-Não há triggers críticos na aplicação atual. Se necessário, implementar:
+**Objective:**
+No critical triggers in current application. If needed, implement:
 
-**Auto-update de updated_at:**
+**Auto-update updated_at:**
 ```sql
 CREATE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
@@ -1159,28 +1159,28 @@ BEFORE UPDATE ON memes
 FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 ```
 
-**Auto-insert em popcat_events após save meme:**
-Poderia ser implementado como trigger, mas melhor fazer explicitamente na edge function para controle fino.
+**Auto-insert into popcat_events after save meme:**
+Could be implemented as trigger, but better to do explicitly in edge function for fine control.
 
-### 10.10 Backups e Manutenção
+### 10.10 Backups and Maintenance
 
 **Backups:**
-- Supabase faz backups automáticos diários
-- Configurar retenção: 7 dias rolling backup
-- Para backups adicionais: export via pg_dump
+- Supabase does automatic daily backups
+- Configure retention: 7 days rolling backup
+- For additional backups: export via pg_dump
 
-**Cleanup de Memes Deletados:**
-Agendar edge function para hard-delete de memes com `deleted_at > 90 days`:
+**Deleted Memes Cleanup:**
+Schedule edge function for hard-delete of memes with `deleted_at > 90 days`:
 ```sql
 DELETE FROM memes 
 WHERE deleted_at IS NOT NULL 
   AND deleted_at < NOW() - INTERVAL '90 days';
 ```
 
-**Cleanup de Images Órfãs:**
-Listar arquivos no storage que não têm row correspondente em `memes.image_urls`:
+**Orphaned Images Cleanup:**
+List storage files that don't have corresponding row in `memes.image_urls`:
 ```typescript
-// Pseudo-código
+// Pseudo-code
 const storageFiles = await storage.list('memes/');
 const dbImageUrls = await db.from('memes').select('image_urls');
 const orphans = storageFiles.filter(file => !dbImageUrls.includes(file.url));
@@ -1194,8 +1194,8 @@ await Promise.all(orphans.map(file => storage.delete(file.path)));
 ### 11.1 Bucket Configuration
 
 **Bucket: `memes`**
-- **Public**: Sim (imagens podem ser acessadas via URL pública)
-- **File size limit**: 10MB por arquivo
+- **Public**: Yes (images can be accessed via public URL)
+- **File size limit**: 10MB per file
 - **Allowed MIME types**: image/png, image/jpeg, image/webp, image/gif
 
 **Path structure:**
@@ -1206,11 +1206,11 @@ memes/
   ...
 ```
 
-Naming: usa `id_short` do meme como nome do arquivo, garantindo unicidade por usuário.
+Naming: uses meme's `id_short` as filename, guaranteeing uniqueness per user.
 
 ### 11.2 Upload Flow
 
-**No save-meme edge function:**
+**In save-meme edge function:**
 ```typescript
 // 1. Parse data URL
 const match = image.match(/^data:(image\/\w+);base64,(.*)$/);
@@ -1230,7 +1230,7 @@ const { error } = await supabase.storage
   .from('memes')
   .upload(filePath, bytes, {
     contentType: contentType,
-    upsert: true  // Substituir se já existir
+    upsert: true  // Replace if already exists
   });
 
 // 4. Get public URL
@@ -1241,18 +1241,18 @@ const { data } = supabase.storage
 const publicUrl = data.publicUrl;
 ```
 
-### 11.3 Download e Serving
+### 11.3 Download and Serving
 
 **Public URLs:**
-Formato: `https://project-ref.supabase.co/storage/v1/object/public/memes/{short_id}.png`
+Format: `https://project-ref.supabase.co/storage/v1/object/public/memes/{short_id}.png`
 
-**Características:**
-- URLs são permanentes (enquanto arquivo existir)
-- CDN edge caching automático
-- Suporte a range requests (para streaming)
-- CORS habilitado para cross-origin loading
+**Characteristics:**
+- URLs are permanent (while file exists)
+- Automatic CDN edge caching
+- Range requests support (for streaming)
+- CORS enabled for cross-origin loading
 
-**No frontend:**
+**On frontend:**
 ```typescript
 <img 
   src={meme.image_urls.original} 
@@ -1281,13 +1281,13 @@ WITH CHECK (
 );
 ```
 
-**Observação:**
-Como app não usa Supabase auth diretamente, uploads são feitos via SERVICE_ROLE_KEY nas edge functions (bypass RLS).
+**Note:**
+Since app doesn't use Supabase auth directly, uploads are done via SERVICE_ROLE_KEY in edge functions (RLS bypass).
 
-### 11.5 Cleanup e Garbage Collection
+### 11.5 Cleanup and Garbage Collection
 
 **Manual Cleanup:**
-Script para deletar imagens de memes deletados:
+Script to delete images of deleted memes:
 ```typescript
 const { data: deletedMemes } = await supabase
   .from('memes')
@@ -1302,29 +1302,29 @@ for (const meme of deletedMemes) {
 ```
 
 **Automated Cleanup:**
-Edge function `cleanup-storage` rodando semanalmente via cron.
+Edge function `cleanup-storage` running weekly via cron.
 
-### 11.6 Limites e Quotas
+### 11.6 Limits and Quotas
 
 **Free Tier:**
 - 1GB storage
-- 2GB bandwidth/mês
-- Suficiente para ~1000 memes de 800KB
+- 2GB bandwidth/month
+- Sufficient for ~1000 memes of 800KB
 
 **Paid Tiers:**
-- $0.021/GB storage/mês
+- $0.021/GB storage/month
 - $0.09/GB bandwidth
-- Calcular custos baseado em crescimento esperado
+- Calculate costs based on expected growth
 
 ---
 
-## 12. VALIDAÇÕES E SCHEMAS
+## 12. VALIDATIONS AND SCHEMAS
 
-### 12.1 Validação com Zod
+### 12.1 Validation with Zod
 
-Toda entrada de dados deve ser validada usando Zod schemas:
+All data input must be validated using Zod schemas:
 
-**Schema de Layer:**
+**Layer Schema:**
 ```typescript
 const layerSchema = z.object({
   id: z.string().min(1),
@@ -1335,14 +1335,14 @@ const layerSchema = z.object({
   scale: z.number().min(0.1).max(10),
   rotation: z.number().min(-360).max(360),
   zIndex: z.number().int().min(0).max(100),
-  // Text props opcionais
+  // Optional text props
   fontSize: z.number().min(8).max(200).optional(),
   fontFamily: z.string().max(100).optional(),
   // ...
 });
 ```
 
-**Schema de Telegram User:**
+**Telegram User Schema:**
 ```typescript
 const telegramUserSchema = z.object({
   id: z.number().int().positive().min(1).max(10_000_000_000),
@@ -1351,7 +1351,7 @@ const telegramUserSchema = z.object({
 });
 ```
 
-**Schema de Save Meme Request:**
+**Save Meme Request Schema:**
 ```typescript
 const saveMemeRequestSchema = z.object({
   telegramUserId: telegramIdSchema,
@@ -1375,30 +1375,30 @@ const saveMemeRequestSchema = z.object({
 });
 ```
 
-### 12.2 Validação Frontend vs Backend
+### 12.2 Frontend vs Backend Validation
 
-**Regra de Ouro:**
-Toda validação do frontend DEVE ser duplicada no backend.
+**Golden Rule:**
+All frontend validation MUST be duplicated in backend.
 
 **Frontend:**
-- Validação imediata para UX (feedback instantâneo)
-- Previne requests inválidos (economia de banda)
-- Usa mesmos schemas Zod que backend
+- Immediate validation for UX (instant feedback)
+- Prevents invalid requests (bandwidth saving)
+- Uses same Zod schemas as backend
 
 **Backend:**
-- Validação obrigatória (nunca confiar no cliente)
-- Previne injection attacks
-- Garante integridade dos dados
+- Mandatory validation (never trust client)
+- Prevents injection attacks
+- Guarantees data integrity
 
-**Sincronização:**
-- Definir schemas em arquivo compartilhado `/lib/validations.ts`
-- Edge functions importam mesmo schema (Deno permite imports HTTP)
-- Alterações em um lugar refletem em ambos os lados
+**Synchronization:**
+- Define schemas in shared file `/lib/validations.ts`
+- Edge functions import same schema (Deno allows HTTP imports)
+- Changes in one place reflect on both sides
 
-### 12.3 Sanitização de Strings
+### 12.3 String Sanitization
 
 **XSS Prevention:**
-Antes de renderizar strings do usuário:
+Before rendering user strings:
 ```typescript
 function sanitizeText(text: string): string {
   return text
@@ -1411,12 +1411,12 @@ function sanitizeText(text: string): string {
 ```
 
 **SQL Injection Prevention:**
-- Nunca concatenar strings em queries
-- Sempre usar parameterized queries ou query builders
-- Validar tipos antes de query
+- Never concatenate strings in queries
+- Always use parameterized queries or query builders
+- Validate types before query
 
 **Path Traversal Prevention:**
-Quando usuário fornece filename:
+When user provides filename:
 ```typescript
 function sanitizeFilename(name: string): string {
   return name
@@ -1427,7 +1427,7 @@ function sanitizeFilename(name: string): string {
 
 ### 12.4 Rate Limiting
 
-**Implementação:**
+**Implementation:**
 ```typescript
 const rateLimiter = new Map<string, { count: number; reset: number }>();
 
@@ -1450,7 +1450,7 @@ function checkRateLimit(userId: string): boolean {
 }
 ```
 
-**Aplicação:**
+**Application:**
 ```typescript
 if (!checkRateLimit(telegramUserId)) {
   return jsonResponse(429, { 
@@ -1461,28 +1461,28 @@ if (!checkRateLimit(telegramUserId)) {
 
 ---
 
-## 13. TRATAMENTO DE ERROS
+## 13. ERROR HANDLING
 
-### 13.1 Categorias de Erros
+### 13.1 Error Categories
 
 **Client Errors (4xx):**
-- 400 Bad Request: Validação falhou
-- 401 Unauthorized: Não autenticado
-- 403 Forbidden: Sem permissão
-- 404 Not Found: Recurso não existe
-- 429 Too Many Requests: Rate limit excedido
+- 400 Bad Request: Validation failed
+- 401 Unauthorized: Not authenticated
+- 403 Forbidden: No permission
+- 404 Not Found: Resource doesn't exist
+- 429 Too Many Requests: Rate limit exceeded
 
 **Server Errors (5xx):**
-- 500 Internal Server Error: Erro genérico no servidor
-- 502 Bad Gateway: Serviço downstream falhou
-- 503 Service Unavailable: Sistema temporariamente indisponível
+- 500 Internal Server Error: Generic server error
+- 502 Bad Gateway: Downstream service failed
+- 503 Service Unavailable: System temporarily unavailable
 
-### 13.2 Error Handling no Frontend
+### 13.2 Error Handling on Frontend
 
-**Princípios:**
-- Sempre mostrar mensagem amigável ao usuário
-- Logar erro técnico no console para debug
-- Oferecer ação de recovery quando possível (retry, refresh)
+**Principles:**
+- Always show friendly message to user
+- Log technical error in console for debugging
+- Offer recovery action when possible (retry, refresh)
 
 **Error Boundaries:**
 ```typescript
@@ -1507,7 +1507,7 @@ class AppErrorBoundary extends React.Component {
 ```
 
 **Toast Notifications:**
-Para erros não críticos:
+For non-critical errors:
 ```typescript
 try {
   await saveMeme(...);
@@ -1539,12 +1539,12 @@ async function withRetry<T>(
 }
 ```
 
-### 13.3 Error Handling no Backend
+### 13.3 Error Handling on Backend
 
-**Estrutura:**
+**Structure:**
 ```typescript
 try {
-  // Validação
+  // Validation
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
     return jsonResponse(400, {
@@ -1553,14 +1553,14 @@ try {
     });
   }
   
-  // Lógica de negócio
+  // Business logic
   const result = await processRequest(parsed.data);
   
   return jsonResponse(200, { data: result });
 } catch (error) {
   logger.error('Function error', error);
   
-  // Não expor detalhes internos
+  // Don't expose internal details
   return jsonResponse(500, {
     error: 'Internal server error. Please try again later.'
   });
@@ -1568,19 +1568,19 @@ try {
 ```
 
 **Error Messages:**
-- **Usuário**: Mensagens claras e acionáveis
-- **Logs**: Detalhes técnicos completos para debug
-- **Nunca expor**: Stack traces, queries SQL, paths internos
+- **User**: Clear and actionable messages
+- **Logs**: Complete technical details for debugging
+- **Never expose**: Stack traces, SQL queries, internal paths
 
 ### 13.4 Logging
 
-**Níveis:**
-- **DEBUG**: Informações detalhadas para desenvolvimento
-- **INFO**: Eventos importantes (user login, meme saved)
-- **WARN**: Situações anormais mas recuperáveis
-- **ERROR**: Falhas que requerem atenção
+**Levels:**
+- **DEBUG**: Detailed information for development
+- **INFO**: Important events (user login, meme saved)
+- **WARN**: Abnormal but recoverable situations
+- **ERROR**: Failures requiring attention
 
-**Implementação:**
+**Implementation:**
 ```typescript
 const logger = {
   debug: (message: string, ...args: any[]) => {
@@ -1596,25 +1596,25 @@ const logger = {
   },
   error: (message: string, ...args: any[]) => {
     console.error(`[ERROR] ${message}`, ...args);
-    // Opcional: enviar para serviço de monitoring (Sentry, etc)
+    // Optional: send to monitoring service (Sentry, etc)
   }
 };
 ```
 
-**O que logar:**
-- Início e fim de operações críticas
-- Erros com contexto (userId, memeId, timestamp)
-- Performance metrics (tempo de operações lentas)
+**What to log:**
+- Start and end of critical operations
+- Errors with context (userId, memeId, timestamp)
+- Performance metrics (time of slow operations)
 - Rate limit hits
 
-**O que NÃO logar:**
-- Dados sensíveis (tokens, passwords)
-- PII sem necessidade (IPs, emails)
-- Payloads completos de requests grandes
+**What NOT to log:**
+- Sensitive data (tokens, passwords)
+- PII without need (IPs, emails)
+- Complete payloads of large requests
 
 ---
 
-## 14. PERFORMANCE E OTIMIZAÇÕES
+## 14. PERFORMANCE AND OPTIMIZATIONS
 
 ### 14.1 Frontend Performance
 
@@ -1631,47 +1631,47 @@ const MemeGallery = lazy(() => import('./components/MemeGallery'));
 **Image Optimization:**
 - Lazy loading: `<img loading="lazy" />`
 - Responsive images: `<img srcset="..." sizes="..." />`
-- WebP format quando suportado
-- Compressão agressiva (target <100KB por asset)
+- WebP format when supported
+- Aggressive compression (target <100KB per asset)
 
 **Canvas Performance:**
-- LRU cache para imagens (evita reloads)
-- Render lock (evita renders simultâneos)
-- Debounce de sync Fabric → React (150ms)
-- Dispose correto de recursos no unmount
+- LRU cache for images (avoids reloads)
+- Render lock (avoids simultaneous renders)
+- Debounce sync Fabric → React (150ms)
+- Proper resource disposal on unmount
 
 **React Query:**
 ```typescript
 const { data: memes, isLoading } = useQuery({
   queryKey: ['user-memes', userId],
   queryFn: () => fetchUserMemes(userId),
-  staleTime: 5 * 60 * 1000,  // 5 minutos
-  cacheTime: 10 * 60 * 1000, // 10 minutos
+  staleTime: 5 * 60 * 1000,  // 5 minutes
+  cacheTime: 10 * 60 * 1000, // 10 minutes
   refetchOnWindowFocus: false
 });
 ```
 
 **Bundle Size:**
 - Tree shaking (Vite built-in)
-- Remover dependências não usadas
-- Usar imports específicos: `import { Button } from 'ui/button'`
+- Remove unused dependencies
+- Use specific imports: `import { Button } from 'ui/button'`
 
 ### 14.2 Backend Performance
 
 **Database Indices:**
-Garantir indices em:
+Guarantee indices on:
 - `users.telegram_id` (unique)
 - `memes.owner_id`
 - `memes.id_short`
 - `popcat_events (user_id, created_at)`
 
 **Query Optimization:**
-- Usar `.select('col1, col2')` ao invés de `select('*')`
-- Limit em queries de listagem (50-100 items max)
-- Usar `maybeSingle()` ao invés de `single()` quando registro pode não existir
+- Use `.select('col1, col2')` instead of `select('*')`
+- Limit on listing queries (50-100 items max)
+- Use `maybeSingle()` instead of `single()` when record may not exist
 
 **Caching:**
-Implementar cache de rankings:
+Implement ranking cache:
 ```typescript
 const rankingCache = new Map<string, { data: any; expires: number }>();
 
@@ -1689,22 +1689,22 @@ function setCachedRanking(key: string, data: any, ttl: number = 60_000) {
 ```
 
 **Connection Pooling:**
-Supabase client já usa pooling interno, mas em caso de alto tráfego:
-- Aumentar `poolSize` nas configurações
-- Implementar circuit breaker pattern
+Supabase client already uses internal pooling, but in case of high traffic:
+- Increase `poolSize` in settings
+- Implement circuit breaker pattern
 
 ### 14.3 Storage Performance
 
 **CDN:**
-Supabase Storage usa CDN automaticamente (edge caching).
+Supabase Storage uses CDN automatically (edge caching).
 
 **Compression:**
-- Imagens já são comprimidas no upload
-- Considerar WebP para melhor compressão
-- Gzip/Brotli para assets estáticos (Vite built-in)
+- Images are already compressed on upload
+- Consider WebP for better compression
+- Gzip/Brotli for static assets (Vite built-in)
 
 **Parallel Uploads:**
-Se múltiplas imagens:
+If multiple images:
 ```typescript
 await Promise.all(
   images.map(img => storage.upload(img.path, img.data))
@@ -1713,44 +1713,44 @@ await Promise.all(
 
 ### 14.4 Monitoring
 
-**Métricas a monitorar:**
-- Response time de edge functions (p50, p95, p99)
-- Taxa de erro por função
+**Metrics to monitor:**
+- Edge functions response time (p50, p95, p99)
+- Error rate per function
 - Database query time
 - Storage bandwidth usage
 - Active users (DAU, MAU)
 
 **Tools:**
 - Supabase Dashboard (built-in metrics)
-- Sentry para error tracking
-- Google Analytics para user behavior
-- Custom logging para métricas de negócio
+- Sentry for error tracking
+- Google Analytics for user behavior
+- Custom logging for business metrics
 
 ---
 
-## 15. DEPLOYMENT E DEVOPS
+## 15. DEPLOYMENT AND DEVOPS
 
-### 15.1 Ambientes
+### 15.1 Environments
 
 **Development:**
-- Local com mock data
-- Supabase local (docker)
-- Variáveis em `.env.local`
+- Local with mock data
+- Local Supabase (docker)
+- Variables in `.env.local`
 
 **Staging:**
-- Deploy em Vercel/Netlify/Cloudflare Pages
+- Deploy on Vercel/Netlify/Cloudflare Pages
 - Supabase staging project
-- Testes de integração automatizados
+- Automated integration tests
 
 **Production:**
-- Deploy em Vercel/Netlify/Cloudflare Pages
+- Deploy on Vercel/Netlify/Cloudflare Pages
 - Supabase production project
-- Monitoring 24/7
-- Backups automáticos
+- 24/7 monitoring
+- Automatic backups
 
 ### 15.2 CI/CD Pipeline
 
-**GitHub Actions exemplo:**
+**GitHub Actions example:**
 ```yaml
 name: Deploy
 on:
@@ -1768,289 +1768,289 @@ jobs:
       - run: npm run deploy
 ```
 
-**Deploy de Edge Functions:**
+**Edge Functions Deploy:**
 ```bash
 supabase functions deploy save-meme
 supabase functions deploy get-user-memes
 supabase functions deploy delete-meme
-# ... outras funções
+# ... other functions
 ```
 
 **Migrations:**
 ```bash
-supabase db push  # Aplica migrations pendentes
+supabase db push  # Apply pending migrations
 ```
 
-### 15.3 Configuração de Secrets
+### 15.3 Secrets Configuration
 
-**No Supabase Dashboard:**
-- Acessar Functions → Secrets
-- Adicionar cada secret necessário (TELEGRAM_BOT_TOKEN, etc)
+**On Supabase Dashboard:**
+- Access Functions → Secrets
+- Add each necessary secret (TELEGRAM_BOT_TOKEN, etc)
 
-**No Frontend (Vite):**
+**On Frontend (Vite):**
 ```
 VITE_SUPABASE_URL=https://xxx.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...
 ```
 
-**Nunca commitar:**
+**Never commit:**
 - `.env`
 - `.env.local`
-- Tokens/passwords em código
+- Tokens/passwords in code
 
 ### 15.4 Rollback Strategy
 
-**Se deploy quebrar:**
-1. Reverter commit no git
-2. Redeploy automático via CI/CD
-3. Ou: rollback manual via plataforma de hosting
+**If deploy breaks:**
+1. Revert commit on git
+2. Automatic redeploy via CI/CD
+3. Or: manual rollback via hosting platform
 
 **Database migrations:**
-- Sempre criar migration de rollback junto com a migration
-- Testar rollback em staging antes de produção
+- Always create rollback migration along with migration
+- Test rollback in staging before production
 
-### 15.5 Escalabilidade
+### 15.5 Scalability
 
-**Bottlenecks prováveis:**
-- Database connections (aumentar pool size)
-- Storage bandwidth (upgrade plan ou implementar CDN adicional)
-- Edge function cold starts (considerar provisioned concurrency)
+**Probable Bottlenecks:**
+- Database connections (increase pool size)
+- Storage bandwidth (upgrade plan or implement additional CDN)
+- Edge function cold starts (consider provisioned concurrency)
 
 **Horizontal Scaling:**
-- Edge functions escalma automaticamente
-- Frontend é static (CDN cuida disso)
-- Database: upgrade para plano maior ou read replicas
+- Edge functions scale automatically
+- Frontend is static (CDN handles it)
+- Database: upgrade to larger plan or read replicas
 
 ---
 
-## 16. MELHORIAS E FEATURES FUTURAS
+## 16. IMPROVEMENTS AND FUTURE FEATURES
 
-### 16.1 Features Sugeridas
+### 16.1 Suggested Features
 
-**Editor Avançado:**
-- Camadas editáveis (editar textos/imagens após adicionar)
+**Advanced Editor:**
+- Editable layers (edit texts/images after adding)
 - Undo/Redo
-- Filtros e efeitos (blur, saturação, etc)
-- Formas geométricas (círculos, retângulos)
-- Stickers animados (GIFs)
+- Filters and effects (blur, saturation, etc)
+- Geometric shapes (circles, rectangles)
+- Animated stickers (GIFs)
 
 **Social Features:**
-- Comentários em memes
-- Sistema de likes/dislikes
-- Seguir outros usuários
-- Feed público de memes populares
-- Hashtags e busca
+- Comments on memes
+- Like/dislike system
+- Follow other users
+- Public feed of popular memes
+- Hashtags and search
 
-**Monetização:**
-- Templates premium
-- Assets exclusivos para assinantes
-- Remoção de watermark
-- Export em alta resolução
+**Monetization:**
+- Premium templates
+- Exclusive assets for subscribers
+- Watermark removal
+- High resolution export
 
-**Integrações:**
-- Compartilhamento direto para Twitter, Instagram, Facebook
-- Bot de Discord
-- Plugin para WhatsApp
-- API pública para desenvolvedores
+**Integrations:**
+- Direct sharing to Twitter, Instagram, Facebook
+- Discord bot
+- WhatsApp plugin
+- Public API for developers
 
-### 16.2 Tech Debt a Resolver
+### 16.2 Tech Debt to Resolve
 
-**Código:**
-- Refatorar MemeEditor (muito grande, quebrar em subcomponentes)
-- Extrair lógica de canvas para custom hook separado
-- Adicionar testes unitários (Jest + Testing Library)
-- Adicionar testes E2E (Playwright)
+**Code:**
+- Refactor MemeEditor (too large, break into subcomponents)
+- Extract canvas logic to separate custom hook
+- Add unit tests (Jest + Testing Library)
+- Add E2E tests (Playwright)
 
-**Infraestrutura:**
-- Implementar monitoring proativo
-- Setup de alertas (erros, latência alta)
-- Documentação de runbooks (como resolver problemas comuns)
+**Infrastructure:**
+- Implement proactive monitoring
+- Setup alerts (errors, high latency)
+- Runbooks documentation (how to solve common problems)
 
-**Segurança:**
-- Audit de dependências (npm audit)
+**Security:**
+- Dependency audit (npm audit)
 - Penetration testing
-- GDPR compliance (se aplicável)
+- GDPR compliance (if applicable)
 
-### 16.3 Otimizações Futuras
+### 16.3 Future Optimizations
 
 **Performance:**
-- Implementar Service Worker para offline support
-- Precache de assets populares
-- Lazy load de componentes não críticos
+- Implement Service Worker for offline support
+- Precache popular assets
+- Lazy load non-critical components
 
 **UX:**
-- Onboarding tutorial para novos usuários
-- Tooltips explicativos
+- Onboarding tutorial for new users
+- Explanatory tooltips
 - Keyboard shortcuts
 - Dark mode
 
 ---
 
-## 17. CONSIDERAÇÕES FINAIS PARA RECONSTRUÇÃO
+## 17. FINAL CONSIDERATIONS FOR REBUILDING
 
-### 17.1 Ordem de Implementação Recomendada
+### 17.1 Recommended Implementation Order
 
-**Fase 1: Fundação (1-2 semanas)**
-1. Setup do projeto (Vite + React + TypeScript)
-2. Configurar Tailwind CSS e componentes base
-3. Criar estrutura de pastas e arquitetura
-4. Setup do Supabase (projeto, database, storage)
+**Phase 1: Foundation (1-2 weeks)**
+1. Project setup (Vite + React + TypeScript)
+2. Configure Tailwind CSS and base components
+3. Create folder structure and architecture
+4. Supabase setup (project, database, storage)
 
-**Fase 2: Autenticação (1 semana)**
-1. Implementar sistema de autenticação multi-contexto
-2. Criar edge functions de user management
-3. Testar fluxos de auth em diferentes contextos
+**Phase 2: Authentication (1 week)**
+1. Implement multi-context authentication system
+2. Create user management edge functions
+3. Test auth flows in different contexts
 
-**Fase 3: Editor Básico (2-3 semanas)**
-1. Implementar canvas com Fabric.js
-2. Sistema de layers e templates
-3. Manipulação de imagens e textos
-4. Exportação de imagem
+**Phase 3: Basic Editor (2-3 weeks)**
+1. Implement canvas with Fabric.js
+2. Layer system and templates
+3. Image and text manipulation
+4. Image export
 
-**Fase 4: Persistência (1-2 semanas)**
+**Phase 4: Persistence (1-2 weeks)**
 1. Edge function save-meme
-2. Upload para storage
+2. Upload to storage
 3. Edge function get-user-memes
-4. Galeria básica
+4. Basic gallery
 
-**Fase 5: Gamificação (1 semana)**
-1. Sistema de pontos
+**Phase 5: Gamification (1 week)**
+1. Points system
 2. Rankings
 3. Badges
 4. Stats display
 
-**Fase 6: Polimento (1-2 semanas)**
-1. Error handling robusto
+**Phase 6: Polish (1-2 weeks)**
+1. Robust error handling
 2. Loading states
-3. Validações completas
-4. Otimizações de performance
+3. Complete validations
+4. Performance optimizations
 
-**Fase 7: Deploy e Testes (1 semana)**
-1. Setup de CI/CD
-2. Deploy em produção
-3. Testes de carga
-4. Correções de bugs
+**Phase 7: Deploy and Tests (1 week)**
+1. CI/CD setup
+2. Production deploy
+3. Load tests
+4. Bug fixes
 
-### 17.2 Decisões Arquiteturais Importantes
+### 17.2 Important Architectural Decisions
 
 **Monorepo vs Separate Repos:**
-- Recomendado: **Monorepo** (frontend + backend no mesmo repo)
-- Facilita compartilhamento de tipos e schemas
-- Simplifica CI/CD
+- Recommended: **Monorepo** (frontend + backend in same repo)
+- Facilitates type and schema sharing
+- Simplifies CI/CD
 
 **State Management:**
-- Para app pequeno: **useState + React Query** (suficiente)
-- Para app grande: considerar **Zustand** ou **Redux Toolkit**
+- For small app: **useState + React Query** (sufficient)
+- For large app: consider **Zustand** or **Redux Toolkit**
 
 **Testing Strategy:**
-- **Unit tests**: Funções utilitárias, validações
-- **Integration tests**: Componentes complexos (Editor)
-- **E2E tests**: Fluxos críticos (auth, save meme)
+- **Unit tests**: Utility functions, validations
+- **Integration tests**: Complex components (Editor)
+- **E2E tests**: Critical flows (auth, save meme)
 - Coverage target: 70%+
 
 **Mobile Support:**
-- **Responsive design** obrigatório (80%+ dos usuários em mobile)
-- Considerar **PWA** para install prompt
-- Touch gestures otimizados
+- **Responsive design** mandatory (80%+ users on mobile)
+- Consider **PWA** for install prompt
+- Optimized touch gestures
 
-### 17.3 Armadilhas Comuns a Evitar
+### 17.3 Common Pitfalls to Avoid
 
-❌ **Não otimizar prematuramente**
-- Foque em funcionalidade primeiro
-- Otimize depois de medir bottlenecks reais
+❌ **Don't optimize prematurely**
+- Focus on functionality first
+- Optimize after measuring real bottlenecks
 
-❌ **Não ignorar edge cases**
-- Usuário sem internet
-- Imagem muito grande
-- Textos com caracteres especiais
+❌ **Don't ignore edge cases**
+- User without internet
+- Very large image
+- Texts with special characters
 
-❌ **Não confiar cegamente no cliente**
-- Sempre validar no backend
-- Nunca expor tokens/secrets
+❌ **Don't blindly trust client**
+- Always validate on backend
+- Never expose tokens/secrets
 
-❌ **Não negligenciar UX de erro**
-- Sempre dar feedback claro ao usuário
-- Oferecer recovery options
+❌ **Don't neglect error UX**
+- Always give clear feedback to user
+- Offer recovery options
 
-❌ **Não deixar código morto**
-- Remover features não usadas
-- Manter codebase limpo
+❌ **Don't leave dead code**
+- Remove unused features
+- Keep codebase clean
 
-### 17.4 Checklist Final Antes do Launch
+### 17.4 Final Checklist Before Launch
 
-**Funcionalidade:**
-- [ ] Todos os fluxos principais funcionam
-- [ ] Tratamento de erros implementado
-- [ ] Loading states implementados
-- [ ] Mobile responsivo
+**Functionality:**
+- [ ] All main flows work
+- [ ] Error handling implemented
+- [ ] Loading states implemented
+- [ ] Mobile responsive
 
 **Performance:**
-- [ ] Lighthouse score 90+ (mobile e desktop)
+- [ ] Lighthouse score 90+ (mobile and desktop)
 - [ ] Bundle size <500KB gzipped
-- [ ] TTI <3s em 3G
-- [ ] Database queries otimizadas
+- [ ] TTI <3s on 3G
+- [ ] Database queries optimized
 
-**Segurança:**
-- [ ] Validação frontend e backend
-- [ ] Rate limiting implementado
-- [ ] Secrets não expostos
-- [ ] CORS configurado corretamente
+**Security:**
+- [ ] Frontend and backend validation
+- [ ] Rate limiting implemented
+- [ ] Secrets not exposed
+- [ ] CORS configured correctly
 
 **Monitoring:**
 - [ ] Error tracking (Sentry)
 - [ ] Analytics (GA4)
 - [ ] Performance monitoring
-- [ ] Alertas configurados
+- [ ] Alerts configured
 
-**Documentação:**
-- [ ] README atualizado
-- [ ] API docs (se pública)
-- [ ] Runbooks para ops
+**Documentation:**
+- [ ] README updated
+- [ ] API docs (if public)
+- [ ] Runbooks for ops
 - [ ] Changelog
 
 ---
 
-## 18. GLOSSÁRIO
+## 18. GLOSSARY
 
-**Layer:** Elemento visual individual no canvas (imagem, texto, prop)
+**Layer:** Individual visual element on canvas (image, text, prop)
 
-**Template:** Composição pré-definida de layers que forma um meme completo
+**Template:** Pre-defined composition of layers that forms complete meme
 
-**Short ID:** Identificador curto de 4-6 dígitos usado para compartilhamento de memes
+**Short ID:** Short 4-6 digit identifier used for meme sharing
 
-**Idempotency Key:** String única usada para prevenir operações duplicadas
+**Idempotency Key:** Unique string used to prevent duplicate operations
 
-**Soft Delete:** Marcar registro como deletado sem removê-lo fisicamente do banco
+**Soft Delete:** Mark record as deleted without physically removing from database
 
-**RLS (Row Level Security):** Sistema de permissões do PostgreSQL que filtra rows por usuário
+**RLS (Row Level Security):** PostgreSQL permissions system that filters rows per user
 
-**Edge Function:** Função serverless rodando em Deno no edge (próximo ao usuário)
+**Edge Function:** Serverless function running on Deno at the edge (close to user)
 
-**LRU Cache:** Cache que remove itens menos recentemente usados quando atinge limite
+**LRU Cache:** Cache that removes least recently used items when reaching limit
 
-**Fabric.js:** Biblioteca JavaScript para manipulação de canvas HTML5
+**Fabric.js:** JavaScript library for HTML5 canvas manipulation
 
-**WebApp:** Aplicação web integrada dentro de um app mobile (ex: Telegram MiniApp)
+**WebApp:** Web application integrated inside mobile app (e.g. Telegram MiniApp)
 
-**CORS:** Mecanismo de segurança do navegador para controlar requests cross-origin
+**CORS:** Browser security mechanism to control cross-origin requests
 
-**Zod:** Biblioteca TypeScript de validação de schemas
-
----
-
-## CONCLUSÃO
-
-Este documento fornece uma visão completa e detalhada de todos os aspectos da aplicação Meme Maker, desde a arquitetura de alto nível até detalhes de implementação específicos. Ele foi projetado para servir como guia definitivo para um tech lead reconstruir a aplicação do zero, com foco em:
-
-- **Clareza**: Cada seção explica O QUE fazer, não COMO fazer
-- **Completude**: Todos os sistemas e fluxos estão documentados
-- **Contexto**: Decisões arquiteturais são justificadas
-- **Praticidade**: Exemplos conceituais e estruturas de dados fornecidos
-
-A aplicação resultante será um Meme Maker robusto, escalável e de fácil manutenção, pronto para servir milhares de usuários criando e compartilhando memes diariamente.
+**Zod:** TypeScript schema validation library
 
 ---
 
-**Documento gerado em:** 2025-10-01
-**Versão:** 1.0
-**Status:** Pronto para implementação
+## CONCLUSION
+
+This document provides a complete and detailed view of all aspects of the Meme Maker application, from high-level architecture to specific implementation details. It was designed to serve as the definitive guide for a tech lead to rebuild the application from scratch, focusing on:
+
+- **Clarity**: Each section explains WHAT to do, not HOW to do it
+- **Completeness**: All systems and flows are documented
+- **Context**: Architectural decisions are justified
+- **Practicality**: Conceptual examples and data structures provided
+
+The resulting application will be a robust, scalable and easily maintainable Meme Maker, ready to serve thousands of users creating and sharing memes daily.
+
+---
+
+**Document generated on:** 2025-10-01
+**Version:** 1.0
+**Status:** Ready for implementation
